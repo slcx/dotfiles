@@ -60,12 +60,19 @@ Plug 'leafo/moonscript-vim'             " moonscript syntax
 Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
 
 " misc
+set runtimepath+=~/.vim/snippets        " snippets
 Plug 'jszakmeister/vim-togglecursor'    " nice looking cursor in insert mode
 Plug 'justinmk/vim-dirvish'             " nice file browser
 Plug 'junegunn/vim-easy-align'          " easy aligning
 Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'tpope/vim-endwise'                " autoinsert end keywords
+Plug 'SirVer/ultisnips'                 " snippets
+Plug 'honza/vim-snippets'               " snippets
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " colors
 Plug 'AlessandroYorba/Despacio'
@@ -117,3 +124,4 @@ color despacio
 
 hi! Comment gui=NONE
 hi! Todo gui=NONE
+hi! link SpecialKey NonText
