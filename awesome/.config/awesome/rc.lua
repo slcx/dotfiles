@@ -3,6 +3,7 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
+local sh = awful.util.spawn_with_shell
 
 -- Widget and layout library
 local wibox = require("wibox")
@@ -120,8 +121,8 @@ awful.button({ }, 1, awful.tag.viewonly),
 awful.button({ modkey }, 1, awful.client.movetotag),
 awful.button({ }, 3, awful.tag.viewtoggle),
 awful.button({ modkey }, 3, awful.client.toggletag),
-awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+awful.button({ }, 5, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+awful.button({ }, 4, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
 )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
@@ -141,16 +142,16 @@ awful.button({ }, 1, function (c)
 		c:raise()
 	end
 end),
-awful.button({ }, 3, function ()
-	if instance then
-		instance:hide()
-		instance = nil
-	else
-		instance = awful.menu.clients({
-			theme = { width = 250 }
-		})
-	end
-end),
+-- awful.button({ }, 3, function ()
+-- 	if instance then
+-- 		instance:hide()
+-- 		instance = nil
+-- 	else
+-- 		instance = awful.menu.clients({
+-- 			theme = { width = 250 }
+-- 		})
+-- 	end
+-- end),
 awful.button({ }, 4, function ()
 	awful.client.focus.byidx(1)
 	if client.focus then client.focus:raise() end
@@ -218,6 +219,19 @@ awful.button({ }, 5, awful.tag.viewprev)
 globalkeys = awful.util.table.join(
 	-- Go to the last visited tag. (Switch back and forth.)
 	awful.key({ modkey }, "Escape", awful.tag.history.restore),
+
+	awful.key({ }, "XF86AudioRaiseVolume", function()
+		sh("amixer set Master 3%+")
+	end),
+	awful.key({ }, "XF86AudioLowerVolume", function()
+		sh("amixer set Master 3%-")
+	end),
+	awful.key({ }, "XF86AudioMute", function()
+		sh("amixer set Master toggle")
+	end),
+	awful.key({ }, "Print", function()
+		sh("maim -s --nokeyboard ~/Screenshots/$(date +%F-%T.png)")
+	end),
 
 	-- Change focus of clients.
 	awful.key({ modkey }, "j",
@@ -492,8 +506,6 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 -- {{{ Shell autostart
-local sh = awful.util.spawn_with_shell
-
 -- No touchpad, please.
 sh("xinput disable 13")
 -- }}}
