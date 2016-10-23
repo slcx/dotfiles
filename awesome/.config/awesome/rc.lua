@@ -2,6 +2,9 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 local sh = awful.util.spawn_with_shell
+package.path = package.path .. ";/home/cheesy/.config/awesome/?.lua"
+local transform
+transform = require("transformer.keymapper").transform
 require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
@@ -23,8 +26,10 @@ if awesome.startup_errors then
 end
 do
   local in_error = false
-  awesome.connect_signal("debug::error", function(err) end)
-  if in_error then
+  awesome.connect_signal("debug::error", function(err)
+    if in_error then
+      return 
+    end
     in_error = true
     naughty.notify({
       preset = naughty.config.presets.critical,
@@ -32,7 +37,7 @@ do
       text = err
     })
     in_error = false
-  end
+  end)
 end
 beautiful.init("/home/cheesy/.config/awesome/theme.lua")
 local terminal = "/usr/local/bin/st"
@@ -186,180 +191,117 @@ fbd = function(d)
     return client.focus:raise()
   end
 end
-local gk = {
-  awful.key({
-    modkey
-  }, "Escape", awful.tag.history.restore),
-  awful.key({ }, "XF86AudioRaiseVolume", function()
+local gk = transform({
+  [modkey] = {
+    Escape = awful.tag.history.restore,
+    r = function()
+      return prompt_boxes[mouse.screen]:run()
+    end,
+    p = function()
+      return menubar.show()
+    end,
+    x = function()
+      return awful.prompt.run({
+        prompt = "Run Lua code: "
+      }, prompt_boxes[mouse.screen].widget, awful.util.eval, nil, awful.util.getdir("cache") .. "/history_eval")
+    end,
+    u = awful.client.urgent.jumpto,
+    h = function()
+      return fbd("left")
+    end,
+    j = function()
+      return fbd("down")
+    end,
+    k = function()
+      return fbd("up")
+    end,
+    l = function()
+      return fbd("right")
+    end,
+    space = function()
+      return awful.layout.inc(layouts, 1)
+    end,
+    Tab = function()
+      awful.client.focus.history.previous()
+      if client.focus then
+        return client.focus:raise()
+      end
+    end,
+    Return = function()
+      return awful.util.spawn(terminal)
+    end,
+    Shift = {
+      m = function()
+        return menu_root:show()
+      end,
+      h = function()
+        return awful.client.swap.byidx(1)
+      end,
+      l = function()
+        return awful.client.swap.byidx(-1)
+      end,
+      ["["] = function()
+        return awful.tag.incnmaster(-1)
+      end,
+      ["]"] = function()
+        return awful.tag.incnmaster(1)
+      end,
+      space = function()
+        return awful.layout.inc(layouts, -1)
+      end
+    },
+    Control = {
+      r = awesome.restart,
+      q = awesome.quit,
+      n = awful.client.restore,
+      ["["] = function()
+        return awful.tag.incncol(-1)
+      end,
+      ["]"] = function()
+        return awful.tag.incncol(1)
+      end
+    }
+  },
+  XF86AudioRaiseVolume = function()
     return sh("amixer set Master 3%+")
-  end),
-  awful.key({ }, "XF86AudioLowerVolume", function()
+  end,
+  XF86AudioLowerVolume = function()
     return sh("amixer set Master 3%-")
-  end),
-  awful.key({ }, "XF86AudioMute", function()
+  end,
+  XF86AudioMute = function()
     return sh("amixer set Master toggle")
-  end),
-  awful.key({ }, "Print", function()
+  end,
+  Print = function()
     return sh("maim -s --nokeyboard ~/Screenshots/$(date +%F-%T.png)")
-  end),
-  awful.key({
-    modkey
-  }, "j", function()
-    return fbd("down")
-  end),
-  awful.key({
-    modkey
-  }, "k", function()
-    return fbd("up")
-  end),
-  awful.key({
-    modkey
-  }, "h", function()
-    return fbd("left")
-  end),
-  awful.key({
-    modkey
-  }, "l", function()
-    return fbd("right")
-  end),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "m", function()
-    return menu_root:show()
-  end),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "h", function()
-    return awful.client.swap.byidx(1)
-  end),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "l", function()
-    return awful.client.swap.byidx(-1)
-  end),
-  awful.key({
-    modkey
-  }, "u", awful.client.urgent.jumpto),
-  awful.key({
-    modkey
-  }, "Tab", function()
-    awful.client.focus.history.previous()
-    if client.focus then
-      return client.focus:raise()
-    end
-  end),
-  awful.key({
-    modkey
-  }, "Return", function()
-    return awful.util.spawn(terminal)
-  end),
-  awful.key({
-    modkey,
-    "Control"
-  }, "r", awesome.restart),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "q", awesome.quit),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "[", function()
-    return awful.tag.incnmaster(-1)
-  end),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "]", function()
-    return awful.tag.incnmaster(1)
-  end),
-  awful.key({
-    modkey,
-    "Control"
-  }, "[", function()
-    return awful.tag.incncol(-1)
-  end),
-  awful.key({
-    modkey,
-    "Control"
-  }, "]", function()
-    return awful.tag.incncol(1)
-  end),
-  awful.key({
-    modkey
-  }, "space", function()
-    return awful.layout.inc(layouts, 1)
-  end),
-  awful.key({
-    modkey,
-    "Shift"
-  }, "space", function()
-    return awful.layout.inc(layouts, -1)
-  end),
-  awful.key({
-    modkey,
-    "Control"
-  }, "n", awful.client.restore),
-  awful.key({
-    modkey
-  }, "r", function()
-    return prompt_boxes[mouse.screen]:run()
-  end),
-  awful.key({
-    modkey
-  }, "p", function()
-    return menubar.show()
-  end),
-  awful.key({
-    modkey
-  }, "x", function()
-    return awful.prompt.run({
-      prompt = "Run Lua code: "
-    }, prompt_boxes[mouse.screen].widget, awful.util.eval, nil, awful.util.getdir("cache") .. "/history_eval")
-  end)
-}
+  end
+})
 local globalkeys = awful.util.table.join(unpack(gk))
-local ck = {
-  awful.key({
-    modkey
-  }, "f", function(c)
-    c.fullscreen = not c.fullscreen
-  end),
-  awful.key({
-    modkey
-  }, "w", function(c)
-    return c:kill()
-  end),
-  awful.key({
-    modkey,
-    "Control"
-  }, "space", awful.client.floating.toggle),
-  awful.key({
-    modkey,
-    "Control"
-  }, "Return", function(c)
-    return c:swap(awful.client.getmaster())
-  end),
-  awful.key({
-    modkey
-  }, "t", function(c)
-    c.ontop = not c.ontop
-  end),
-  awful.key({
-    modkey
-  }, "n", function(c)
-    return c.minimized["true"]
-  end),
-  awful.key({
-    modkey
-  }, "m", function(c)
-    c.maximized_horizontal = not c.maximized_horizontal
-    c.maximized_vertical = not c.maximized_vertical
-  end)
-}
+local ck = transform({
+  [modkey] = {
+    f = function(c)
+      c.fullscreen = not c.fullscreen
+    end,
+    w = function(c)
+      return c:kill()
+    end,
+    t = function(c)
+      c.ontop = not c.ontop
+    end,
+    n = function(c)
+      c.minimized = true
+    end,
+    m = function(c)
+      c.maximized_horizontal = not c.maximized_horizontal
+      c.maximized_vertical = not c.maximized_vertical
+    end,
+    Control = {
+      space = awful.client.floating.toggle,
+      Return = function(c)
+        return c:swap(awful.client.getmaster())
+      end
+    }
+  }
+})
 local clientkeys = awful.util.table.join(unpack(ck))
 for i = 1, 9 do
   local tk = {
