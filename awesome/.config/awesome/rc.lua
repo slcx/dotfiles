@@ -109,7 +109,19 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("%I:%M:%S %p %m/%d/%y %p")
+mytextclock = awful.widget.textclock("%I:%M:%S %p %m/%d/%Y")
+
+batterywidget = wibox.widget.textbox()
+batterywidget:set_text("Battery")
+batterywidgettimer = timer({ timeout = 5 })
+batterywidgettimer:connect_signal("timeout",
+  function()
+    fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+    batterywidget:set_text(" |" .. fh:read("*l") .. " | ")
+    fh:close()
+  end
+)
+batterywidgettimer:start()
 
 -- Create a wibox for each screen and add it
 container_box = {} -- Entire wibox.
@@ -197,6 +209,7 @@ for s = 1, screen.count() do
 	local right_layout = wibox.layout.fixed.horizontal()
 	if s == 1 then right_layout:add(wibox.widget.systray()) end
 	right_layout:add(mytextclock)
+	right_layout:add(batterywidget)
 	right_layout:add(layout_boxes[s])
 
 	-- Now bring it all together (with the tasklist in the middle)
@@ -424,6 +437,8 @@ awful.rules.rules = {
 	{ rule = { class = "pinentry" },
 	properties = { floating = true } },
 	{ rule = { class = "gimp" },
+	properties = { floating = true } },
+	{ rule = { class = "kilo2" },
 	properties = { floating = true } },
 
 	-- Keep Google Chrome on tag 2.

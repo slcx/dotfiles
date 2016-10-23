@@ -1,8 +1,8 @@
 " this is my minimal vimrc.
 
 " general
-set list                    " display invisibles
-set listchars=tab:▸\ ,eol:¬ " invisible chars
+"set list                   " display invisibles
+"set listchars=tab:▸\ ,eol:¬" invisible chars
 set number                  " line numbers
 set colorcolumn=80          " color 80 column
 set mouse=a                 " mouse support
@@ -17,9 +17,13 @@ set writebackup             " enable write backups
 set noswapfile              " disable swap files
 set history=500             " command history
 set modeline                " modeline
-                            " set smartindent
-set smarttab
+set autowrite               " save the file under certain circumstances
+set smarttab                " smart TAB button
 set fileencodings=utf-8     " utf-8 please
+set undofile                " persistent undo
+set undodir=$HOME/.vim/undo " undo dir
+set undolevels=1000         " undo levels
+set undoreload=10000        " number of lines to save for undo
 
 if v:version >= 800
 	set belloff=all           " disable bells
@@ -28,15 +32,29 @@ if v:version >= 800
 	set fixeol                " restore eol at newline
 endif
 
+" Strip the newline from the end of a string
+function! Chomp(str)
+  return substitute(a:str, '\n$', '', '')
+endfunction
+
+" Find a file and pass it to cmd
+function! DmenuOpen(cmd)
+  let fname = Chomp(system("git ls-files | dmenu -i -l 20 -fn PragmataPro -p " . a:cmd))
+  if empty(fname)
+    return
+  endif
+  execute a:cmd . " " . fname
+endfunction
+
 " indentation
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set noexpandtab " tabs please
+set expandtab " spaces please
 
 if has('gui_running')
 	" in gvim
-	set guifont=PragmataPro\ 13.5
+	set guifont=PragmataPro\ Mono\ 13.5
 	set guiheadroom=0
 	set guioptions=
 endif
@@ -48,6 +66,7 @@ let g:togglecursor_force = 'xterm'
 call plug#begin('~/.vim/plugged')
 
 " syntaxes
+Plug 'rf-/vaxe'
 Plug 'othree/html5.vim'                 " enhanced html5 syntax
 Plug 'hail2u/vim-css3-syntax'           " enhanced css3 syntax
 Plug 'lepture/vim-jinja'                " jinja syntax
@@ -58,6 +77,7 @@ let g:jsx_ext_required = 0
 Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
 Plug 'leafo/moonscript-vim'             " moonscript syntax
 Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
+Plug 'evanmiller/nginx-vim-syntax'      " nginx
 
 " misc
 set runtimepath+=~/.vim/snippets        " snippets
@@ -69,6 +89,9 @@ Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'tpope/vim-endwise'                " autoinsert end keywords
 Plug 'SirVer/ultisnips'                 " snippets
 Plug 'honza/vim-snippets'               " snippets
+Plug 'ervandew/supertab'                " tab for completion
+Plug 'scrooloose/nerdtree'              " nerdtree
+Plug 'mhinz/vim-startify'               " nice start screen
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -84,10 +107,10 @@ if has('nvim')
 
 	" deoplete
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	let g:deoplete#omni_patterns = {}
+	let g:deoplete#omni_patterns.haxe = '[^. *\t]\.\w*'
+	let g:deoplete#auto_complete_delay = 10
 	let g:deoplete#enable_at_startup = 1
-
-	" supertab
-	Plug 'ervandew/supertab'
 else
 	" syntastic
 	Plug 'maralla/validator.vim'
@@ -103,6 +126,7 @@ let mapleader="\<Space>"
 
 xmap ga <Plug>(LiveEasyAlign)
 nmap ga <Plug>(LiveEasyAlign)
+map <c-t> :call DmenuOpen("tabe")<cr>
 
 " colors
 set background=dark
