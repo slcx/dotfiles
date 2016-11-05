@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+# if tewi is in our ~/fonts/, make sure that x
+# recognizes it
+[[ -f ~/fonts/tewi/out ]] && xset +fp /home/cheesy/fonts/tewi/out
