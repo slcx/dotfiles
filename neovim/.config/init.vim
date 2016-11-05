@@ -59,11 +59,8 @@ if has('gui_running')
 	set guioptions=
 endif
 
-" variables
-let g:togglecursor_force = 'xterm'
-
 " plug
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " syntaxes
 Plug 'rf-/vaxe'
@@ -81,7 +78,6 @@ Plug 'evanmiller/nginx-vim-syntax'      " nginx
 
 " misc
 set runtimepath+=~/.vim/snippets        " snippets
-Plug 'jszakmeister/vim-togglecursor'    " nice looking cursor in insert mode
 Plug 'justinmk/vim-dirvish'             " nice file browser
 Plug 'junegunn/vim-easy-align'          " easy aligning
 Plug 'tpope/vim-sensible'               " sensible defaults
@@ -98,7 +94,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " colors
-Plug 'AlessandroYorba/Despacio'
+Plug 'chriskempson/base16-vim'
 
 if has('nvim')
 	" neomake
@@ -144,7 +140,7 @@ if ($TERM =~ "st") && (v:version >= 800 || has('nvim'))
 	endif
 endif
 
-color despacio
+color base16-railscasts
 
 hi! Comment gui=NONE
 hi! Todo gui=NONE
