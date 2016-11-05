@@ -40,8 +40,8 @@ do
   end)
 end
 beautiful.init("/home/cheesy/.config/awesome/theme.lua")
-local terminal = "/usr/local/bin/st"
-local editor = "/usr/bin/vim"
+local terminal = "/usr/bin/st"
+local editor = "/usr/bin/nvim"
 local editor_cmd = tostring(terminal) .. " -e " .. tostring(editor)
 local modkey = "Mod4"
 local layouts = {
@@ -59,8 +59,8 @@ for s = 1, screen.count() do
     "",
     "",
     "",
-    "",
-    "",
+    "",
+    "",
     "",
     "",
     "",
@@ -380,43 +380,72 @@ awful.rules.rules = {
     }
   },
   {
-    rule = {
-      class = "pinentry"
-    },
-    properties = {
-      floating = true
+    rule_any = {
+      class = {
+        "pinentry",
+        "gimp"
+      },
+      properties = {
+        floating = true
+      }
     }
   },
   {
-    rule = {
-      class = "gimp"
-    },
-    properties = {
-      floating = true
-    }
-  },
-  {
-    rule = {
-      class = "kilo2"
-    },
-    properties = {
-      floating = true
-    }
-  },
-  {
-    rule = {
-      class = "google-chrome"
+    rule_any = {
+      class = {
+        "chromium",
+        "Chromium"
+      }
     },
     properties = {
       tag = tags[1][2]
     }
   },
   {
-    rule = {
-      class = "discord"
+    rule_any = {
+      class = {
+        "discord",
+        "slack",
+        "Slack"
+      },
+      name = {
+        "Slack - Toolbox Secret Group",
+        "Discord"
+      }
     },
     properties = {
       tag = tags[1][3]
+    }
+  },
+  {
+    rule = {
+      class = "Thunderbird",
+      properties = {
+        tag = tags[1][4]
+      }
+    }
+  },
+  {
+    rule = {
+      class = "gimp",
+      properties = {
+        tag = tags[1][5]
+      }
+    }
+  },
+  {
+    rule_any = {
+      class = {
+        "Steam",
+        "steam"
+      },
+      name = {
+        "Steam Login",
+        "Steam"
+      }
+    },
+    properties = {
+      tag = tags[1][9]
     }
   }
 }
@@ -439,4 +468,9 @@ end)
 client.connect_signal("unfocus", function(c)
   c.border_color = beautiful.border_normal
 end)
-return sh("xinput disable 13")
+sh("xinput disable 13")
+sh("chromium")
+sh("slack")
+sh("discord-canary")
+sh("thunderbird")
+return sh("STEAM_RUNTIME=0 steam")

@@ -57,8 +57,8 @@ do
 beautiful.init "/home/cheesy/.config/awesome/theme.lua"
 
 -- This is used later as the default terminal and editor to run.
-terminal = "/usr/local/bin/st"
-editor = "/usr/bin/vim"
+terminal = "/usr/bin/st"
+editor = "/usr/bin/nvim"
 editor_cmd = "#{terminal} -e #{editor}"
 
 -- Default modkey.
@@ -84,7 +84,7 @@ if beautiful.wallpaper
 tags = {}
 for s = 1, screen.count! do
   -- Each screen has its own tag table.
-  tags[s] = awful.tag { "", "", "", "", "", "", "", "", "" }, s, layouts[1]
+  tags[s] = awful.tag { "", "", "", "", "", "", "", "", "" }, s, layouts[1]
 
 -- }}}
 -- {{{ Menu
@@ -363,19 +363,35 @@ awful.rules.rules = {
       buttons: clientbuttons } }
 
   -- Make certain applications float.
-  -- I usually keep Gimp in single window mode.
-  { rule: class: "pinentry"
-    properties: floating: true }
-  { rule: class: "gimp"
-    properties: floating: true }
-  { rule: class: "kilo2"
-    properties: floating: true }
+  { rule_any: {
+    class: { "pinentry", "gimp" },
+    properties: floating: true } }
 
-  -- Keep Google Chrome on tag 2.
-  { rule: { class: "google-chrome" }, properties: tag: tags[1][2] }
+  -- Keep browser on tag 2.
+  { rule_any: class: { "chromium", "Chromium" }
+    properties: tag: tags[1][2] }
 
-  -- Keep Discord on tag 3.
-  { rule: { class: "discord" }, properties: tag: tags[1][3] }
+  -- Keep chats on tag 3.
+  {
+    rule_any: {
+      class: { "discord", "slack", "Slack" }
+      name: { "Slack - Toolbox Secret Group", "Discord" } }
+    properties: tag: tags[1][3] }
+
+  -- Keep Discord on tag 4.
+  { rule: class: "Thunderbird", properties: tag: tags[1][4] }
+
+  -- Keep the GIMP on tag 5.
+  { rule: class: "gimp", properties: tag: tags[1][5] }
+
+  -- Keep Steam on tag 9.
+  {
+    rule_any: {
+      class: { "Steam", "steam" },
+      name: { "Steam Login", "Steam" }
+    }
+    properties: tag: tags[1][9]
+  }
 }
 -- }}}
 -- {{{ Signals
@@ -402,4 +418,11 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- {{{ Shell autostart
 -- No touchpad, please.
 sh "xinput disable 13"
+
+-- Autostart apps.
+sh "chromium"
+sh "slack"
+sh "discord-canary"
+sh "thunderbird"
+sh "STEAM_RUNTIME=0 steam"
 -- }}}
