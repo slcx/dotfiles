@@ -1,13 +1,7 @@
-# tmuxify {{{
+#tmuxify {{{
 if [[ ! -n $TMUX ]]; then
-  echo " +----------------------------------------------------+"
-  echo " | Uh oh! It looks like you exited TMUX.              |"
-  if [[ $TERM == *st* ]]; then
-  echo " | Because of this, things like scrolling won't work. |"
-  fi
-  echo " | To relaunch TMUX, type \"tmux\".                     |"
-  echo " +----------------------------------------------------+"
   tmux
+  exit
 fi
 # }}}
 # options {{{
