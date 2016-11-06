@@ -30,3 +30,9 @@ Here's some things I use on a daily basis:
 [slack]:      https://slack.com/
 [discord]:    https://discordapp.com
 [tmux]:       https://tmux.github.io/
+
+
+# using
+```
+$ stow [folder]
+```

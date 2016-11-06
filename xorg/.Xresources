@@ -8,7 +8,7 @@ Xft.hintstyle: hintslight
 #define FONT Fantasque Sans Mono
 #define FONT_SIZE 16
 
-st.font: FONT:pixelsize=FONT_SIZE:autohint=false:rgba=rgb
+st.font: FONT:pixelsize=FONT_SIZE:rgba=rgb
 st.borderpx: 3
 st.cursorshape: 2
 st.cursorthickness: 2
