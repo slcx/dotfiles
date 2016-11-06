@@ -42,6 +42,7 @@ alias ls="ls --color=auto -h"
 alias mv="mv -v"
 alias cp="cp -rv"
 alias reload="source ~/.zshrc"
+alias mi="TERM=xterm-256color micro"
 # }}}
 # functions {{{
 # start thing detached, in background
