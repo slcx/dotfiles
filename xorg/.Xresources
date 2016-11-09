@@ -5,7 +5,7 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-#define FONT Fantasque Sans Mono
+#define FONT PragmataPro Mono
 #define FONT_SIZE 16
 
 st.font: FONT:pixelsize=FONT_SIZE:rgba=rgb
