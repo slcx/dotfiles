@@ -1,0 +1,52 @@
+#!/bin/bash
+
+root=$(dirname $0)
+
+# check if panel is already running
+if xdo id -a "$PANEL_WM_NAME" > /dev/null; then
+	echo "[panel] panel is already running" >&2
+	exit 1
+fi
+
+# trap signals
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+if [ -z "$PANEL_FIFO" ]; then
+  echo "[panel] cannot find fifo" >&2
+  exit 1
+fi
+
+# create fifo
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+# subscribe
+bspc config top_padding $PANEL_HEIGHT
+bspc subscribe report > "$PANEL_FIFO" &
+xtitle -sf 'T%s' > "$PANEL_FIFO" &
+clock -sf 'S%a %I:%M %p' > "$PANEL_FIFO" &
+battery -sf 'B%s %i' > "$PANEL_FIFO" &
+
+# source panel colors
+. $root/panel_colors
+
+# start the actual panel_bar
+$root/panel_bar < "$PANEL_FIFO" | \
+  lemonbar -a 32 \
+  -n "$PANEL_WM_NAME" \
+  -g x$PANEL_HEIGHT \
+  -f "$PANEL_FONT" \
+  -F "$COLOR_DEFAULT_FG" \
+  -B "$COLOR_DEFAULT_BG" | sh &
+
+# important: make sure that fullscreen apps do not appear below the bar
+wid=$(xdo id -a "$PANEL_WM_NAME")
+tries_left=20
+while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
+	sleep 0.05
+	wid=$(xdo id -a "$PANEL_WM_NAME")
+	tries_left=$((tries_left - 1))
+done
+[ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+
+wait

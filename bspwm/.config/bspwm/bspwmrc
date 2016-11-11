@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # start daemon key mapper
 sxhkd &
+
+# start panel
+$HOME/.config/bspwm/panel &
 
 # bspc config
 bspc config border_width 2
@@ -14,13 +17,28 @@ bspc config focus_follows_pointer true
 # bspc rules
 bspc rule -a Chromium desktop='^2'
 bspc rule -a discord desktop='^3'
+bspc rule -a Steam desktop='^10'
 
 # bspc monitors
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d dev www chat art misc 6 7 8 9 game
 
 # xfonts
 TEWI_FONT=$HOME/fonts/tewi/out
-[[ -d $TEWI_FONT ]] && xset +fp $TEWI_FONT
+if [ -d $TEWI_FONT ]; then
+  xset +fp $TEWI_FONT
+fi
 
 # touchpad
 xinput disable 13
+
+# autostart
+autostart() {
+  if [ ! $(pidof -x $1 >/dev/null) ]; then
+    $1
+  fi
+}
+autostart chromium &
+autostart discord-canary &
+if [ ! $(pidof -x steam >/dev/null) ]; then
+  STEAM_RUNTIME=0 steam &
+fi

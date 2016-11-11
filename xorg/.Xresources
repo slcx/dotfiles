@@ -1,3 +1,6 @@
+! cursor
+Xcursor.theme: Vanilla-DMZ
+
 ! xft
 Xft.dpi: 96
 Xft.antialias: true
@@ -5,8 +8,8 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-#define FONT PragmataPro Mono
-#define FONT_SIZE 17
+#define FONT tewi
+#define FONT_SIZE 13
 
 st.font: FONT:pixelsize=FONT_SIZE:rgba=rgb
 st.borderpx: 3

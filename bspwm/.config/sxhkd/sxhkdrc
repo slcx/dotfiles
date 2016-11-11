@@ -6,17 +6,21 @@ super + Return
 super + Escape
   pkill -USR1 -x sxhkd
 
+# scrn
+Print
+  sh -c "maim --nokeyboard -s ~/Screenshots/$(date +%F-%T).png"
+
 # quit
 super + alt + Escape
-  bspc quit
+  pkill -x panel; bspc quit
 
 # kill
 super + {_,shift + }w
 	bspc node -{c,k}
 
-# dmenu
+# dmenu (requires dmenux)
 super + d
-  dmenu_run
+  ~/.config/sxhkd/dmenu
 
 # type
 super + {t,s,f}
@@ -33,10 +37,13 @@ super + bracket{left,right}
 # volume
 XF86Audio{Raise,Lower}Volume
   amixer set Master 3%{+,-} unmute
-
 XF86AudioMute
   amixer set Master 0
 
 # brightness
 XF86MonBrightness{Up,Down}
   xbacklight {-inc,-dec} 5%
+
+# focus screen/move window to given desktop
+super + {_,shift + }{1-9,0}
+  bspc {desktop -f,node -d} '^{1-9,10}'
