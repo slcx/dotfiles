@@ -6,7 +6,7 @@ Xft.hinting: true
 Xft.hintstyle: hintslight
 
 #define FONT PragmataPro Mono
-#define FONT_SIZE 16
+#define FONT_SIZE 17
 
 st.font: FONT:pixelsize=FONT_SIZE:rgba=rgb
 st.borderpx: 3

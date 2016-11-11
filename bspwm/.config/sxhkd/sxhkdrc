@@ -1,0 +1,42 @@
+# term
+super + Return
+  st
+
+# reload
+super + Escape
+  pkill -USR1 -x sxhkd
+
+# quit
+super + alt + Escape
+  bspc quit
+
+# kill
+super + {_,shift + }w
+	bspc node -{c,k}
+
+# dmenu
+super + d
+  dmenu_run
+
+# type
+super + {t,s,f}
+	bspc node -t {tiled,floating,fullscreen}
+
+# focus nodes
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# switch desktops
+super + bracket{left,right}
+  bspc desktop -f {prev,next}
+
+# volume
+XF86Audio{Raise,Lower}Volume
+  amixer set Master 3%{+,-} unmute
+
+XF86AudioMute
+  amixer set Master 0
+
+# brightness
+XF86MonBrightness{Up,Down}
+  xbacklight {-inc,-dec} 5%
