@@ -1,4 +1,4 @@
-#tmuxify {{{
+# tmuxify {{{
 if [[ ! -n $TMUX ]]; then
   tmux
   exit
@@ -32,7 +32,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # }}}
 # }}}
 # base variables {{{
-PS1="%{$fg[magenta]%}[%1~]%{$reset_color%} "
+PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 # }}}
 # path {{{
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
@@ -53,6 +53,15 @@ bk() { nohup $* >/dev/null 2>&1 & }
 svr() {
   [[ ! $(pgrep xscreensaver) ]] && bk xscreensaver -no-splash
   xscreensaver-command -lock
+}
+
+# restart panel
+repanel() {
+  pkill -x panel
+  bk ~/.config/bspwm/panel
+  if [ ! $(pidof -x sxhkd) ]; then
+    bk sxhkd
+  fi
 }
 # }}}
 # exports {{{

@@ -1,5 +1,14 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 # if tewi is in our ~/fonts/, make sure that x
 # recognizes it
-[[ -f ~/fonts/tewi/out ]] && xset +fp /home/cheesy/fonts/tewi/out
+if [ -d ~/fonts/tewi/out ]; then
+  xset +fp ~/fonts/tewi/out
+fi
+
+# properly export panel configuration variables
+. ~/.config/bspwm/panel_config
+export PANEL_FIFO PANEL_HEIGHT PANEL_FONT PANEL_WM_NAME
+
+# set cursor properly
+xsetroot -cursor_name left_ptr
