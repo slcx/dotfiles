@@ -44,9 +44,9 @@ Here's some things I use on a daily basis:
 [lemonbar]:   https://github.com/LemonBoy/bar
 [dmenux]:     https://github.com/lvitals/dmenux
 [dmenu]:      http://tools.suckless.org/dmenu/
+[bspwm]:      https://github.com/baskerville/bspwm
 
 # using
-Before using (for some reason), make sure that 
 ```
 $ stow [folder]
 ```
