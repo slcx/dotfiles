@@ -1,5 +1,7 @@
 " this is my minimal vimrc.
 
+let g:lite = 1
+
 " general
 "set list                   " display invisibles
 "set listchars=tab:▸\ ,eol:¬" invisible chars
@@ -48,8 +50,17 @@ endif
 " plug
 call plug#begin('~/.config/nvim/plugged')
 
+" plugin config
+let g:lightline = {
+  \ 'colorscheme': 'seoul256',
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' } }
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:seoul256_background = 236
+
 " syntaxes
-Plug 'rf-/vaxe'
 Plug 'othree/html5.vim'                 " enhanced html5 syntax
 Plug 'hail2u/vim-css3-syntax'           " enhanced css3 syntax
 Plug 'lepture/vim-jinja'                " jinja syntax
@@ -69,21 +80,23 @@ Plug 'junegunn/vim-easy-align'          " easy aligning
 Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'tpope/vim-endwise'                " autoinsert end keywords
-Plug 'SirVer/ultisnips'                 " snippets
-Plug 'honza/vim-snippets'               " snippets
 Plug 'ervandew/supertab'                " tab for completion
 Plug 'scrooloose/nerdtree'              " nerdtree
 Plug 'mhinz/vim-startify'               " nice start screen
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+if g:lite == 0
+  Plug 'itchyny/lightline.vim'            " powerline :O
+  Plug 'SirVer/ultisnips'                 " snippets
+  Plug 'honza/vim-snippets'               " snippets
+endif
 
 " colors
 Plug 'AlessandroYorba/Despacio'
 Plug '0ax1/lxvc'
 Plug 'robertmeta/nofrils'
 Plug 'chriskempson/base16-vim'
+Plug 'dracula/vim'
+Plug 'junegunn/seoul256.vim'
 
 " autocmd
 au BufRead,BufNewFile *.cson set ft=coffee
@@ -92,13 +105,6 @@ if has('nvim')
 	" neomake
 	Plug 'neomake/neomake'
 	autocmd! BufWritePost * Neomake
-
-	" deoplete
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	let g:deoplete#omni_patterns = {}
-	let g:deoplete#omni_patterns.haxe = '[^. *\t]\.\w*'
-	let g:deoplete#auto_complete_delay = 10
-	let g:deoplete#enable_at_startup = 1
 
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 else
@@ -125,10 +131,14 @@ nmap ga <Plug>(LiveEasyAlign)
 set background=dark
 set t_Co=256
 
+colorscheme seoul256
+
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)
 if ($TERM =~ "st" || $TERM =~ "rxvt") && (v:version >= 800 || has('nvim'))
-	set termguicolors
+  if g:colors_name != "seoul256"
+	  set termguicolors
+  endif
 
 	" if we are on regular vim, fix broken colors because neovim
   " did it right
@@ -138,10 +148,12 @@ if ($TERM =~ "st" || $TERM =~ "rxvt") && (v:version >= 800 || has('nvim'))
 	endif
 endif
 
-colorscheme base16-railscasts
-
 
 " opinionated syntax highlighting fixes
 hi! Comment gui=NONE
 hi! Todo gui=NONE
 hi! link SpecialKey NonText
+
+if exists("&inccommand") && has("nvim")
+  set inccommand=nosplit
+endif
