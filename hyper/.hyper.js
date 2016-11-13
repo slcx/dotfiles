@@ -1,11 +1,11 @@
 // i <3 hyper.is
 
 // custom css
-customCSS = [
-  'x-screen x-row {',
-    'font-variant-ligatures: contextual;',
-  '}'
-].join('\n')
+customCSS = `
+  x-screen x-row {
+    font-variant-ligatures: contextual;
+  }
+`
 
 module.exports = {
   config: {
