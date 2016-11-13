@@ -97,6 +97,7 @@ Plug 'robertmeta/nofrils'
 Plug 'chriskempson/base16-vim'
 Plug 'dracula/vim'
 Plug 'junegunn/seoul256.vim'
+Plug 'baskerville/bubblegum'
 
 " autocmd
 au BufRead,BufNewFile *.cson set ft=coffee
@@ -131,7 +132,7 @@ nmap ga <Plug>(LiveEasyAlign)
 set background=dark
 set t_Co=256
 
-colorscheme seoul256
+colorscheme bubblegum-256-dark
 
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)

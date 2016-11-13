@@ -35,7 +35,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 # }}}
 # path {{{
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin"
 # }}}
 # aliases {{{
 alias ls="ls --color=auto -h"
@@ -43,6 +43,10 @@ alias mv="mv -v"
 alias cp="cp -rv"
 alias reload="source ~/.zshrc"
 alias mi="TERM=xterm-256color micro"
+
+if [ -x /usr/bin/hub ]; then
+  alias git="hub"
+fi
 # }}}
 # functions {{{
 # start thing detached, in background
