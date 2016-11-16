@@ -72,6 +72,7 @@ Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
 Plug 'leafo/moonscript-vim'             " moonscript syntax
 Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
 Plug 'evanmiller/nginx-vim-syntax'      " nginx
+Plug 'rhysd/vim-crystal'                " vim
 
 " misc
 set runtimepath+=~/.config/nvim/snippets

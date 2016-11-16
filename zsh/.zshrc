@@ -7,8 +7,12 @@ fi
 # options {{{
 setopt correct
 setopt interactivecomments
-setopt histignorealldups
 setopt nohup
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt inc_append_history
+setopt no_hist_allow_clobber
 # }}}
 # autoload {{{
 autoload -Uz compinit && compinit
@@ -30,6 +34,10 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # }}}
+# }}}
+# history {{{
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
 # }}}
 # base variables {{{
 PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "

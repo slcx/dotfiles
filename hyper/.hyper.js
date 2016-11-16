@@ -45,10 +45,10 @@ module.exports = {
     // set to `false` if you want to hide the minimize, maximize and close buttons
     // additionally, set to `'left'` if you want them on the left, like in Ubuntu
     // default: `true` on windows and Linux (ignored on macOS)
-    showWindowControls: true,
+    showWindowControls: false,
 
     // custom padding (css format, i.e.: `top right bottom left`)
-    padding: '0 0',
+    padding: '',
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
