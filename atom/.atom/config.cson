@@ -1,0 +1,57 @@
+"*":
+  core:
+    audioBeep: false
+    autoHideMenuBar: true
+    automaticallyUpdate: false
+    disabledPackages: [
+      "autocomplete-html"
+      "autocomplete-snippets"
+      "background-tips"
+      "bookmarks"
+      "encoding-selector"
+      "git-diff"
+      "go-to-line"
+      "language-clojure"
+      "link"
+      "styleguide"
+      "spell-check"
+      "welcome"
+      "vim-mode"
+      "ex-mode"
+    ]
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "Thumbs.db"
+      "node_modules"
+    ]
+    projectHome: "/home/cheesy/dev/prj"
+    reopenProjectMenuCount: 30
+    telemetryConsent: "limited"
+    themes: [
+      "one-dark-ui"
+      "duotone-dark-sea-syntax"
+    ]
+    warnOnLargeFileLimit: 10
+  editor:
+    fontFamily: "PragmataPro"
+    fontSize: 18
+    lineHeight: 1.2
+    scrollPastEnd: true
+    showIndentGuide: true
+    softWrap: true
+    softWrapAtPreferredLineLength: true
+    zoomFontWhenCtrlScrolling: false
+  "exception-reporting":
+    userId: "2b0a651f-3b87-c135-312a-bae015b05497"
+  "one-dark-ui":
+    layoutMode: "Compact"
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
+  welcome:
+    showOnStartup: false

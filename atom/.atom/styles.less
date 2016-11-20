@@ -1,0 +1,15 @@
+// Ban italics in the text editor.
+// I have this in place because I don't have PragmataPro Italic yet.
+atom-text-editor .line * {
+  font-style: normal !important;
+}
+
+// Custom styles for ex-mode.
+.command-mode-input {
+  font-size: 2em;
+
+  atom-text-editor[mini] {
+    line-height: 1.5;
+    border-radius: 0;
+  }
+}
