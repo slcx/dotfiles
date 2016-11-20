@@ -393,8 +393,10 @@ awful.rules.rules = {
   {
     rule_any = {
       class = {
-        "chromium",
-        "Chromium"
+        "Google-chrome",
+        "google-chrome",
+        "Chromium",
+        "chromium"
       }
     },
     properties = {
@@ -469,7 +471,7 @@ client.connect_signal("unfocus", function(c)
   c.border_color = beautiful.border_normal
 end)
 sh("xinput disable 13")
-sh("chromium")
+sh("google-chrome-stable")
 sh("slack")
 sh("discord-canary")
 sh("thunderbird")

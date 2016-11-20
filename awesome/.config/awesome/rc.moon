@@ -368,7 +368,7 @@ awful.rules.rules = {
     properties: floating: true } }
 
   -- Keep browser on tag 2.
-  { rule_any: class: { "chromium", "Chromium" }
+  { rule_any: class: { "Google-chrome", "google-chrome", "Chromium", "chromium" }
     properties: tag: tags[1][2] }
 
   -- Keep chats on tag 3.
@@ -420,7 +420,7 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 sh "xinput disable 13"
 
 -- Autostart apps.
-sh "chromium"
+sh "google-chrome-stable"
 sh "slack"
 sh "discord-canary"
 sh "thunderbird"

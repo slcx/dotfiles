@@ -5,7 +5,6 @@ if [[ ! -n $TMUX ]]; then
 fi
 # }}}
 # options {{{
-setopt correct
 setopt interactivecomments
 setopt nohup
 setopt hist_ignore_all_dups
@@ -43,7 +42,7 @@ HISTFILE=~/.zsh_history
 PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 # }}}
 # path {{{
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:./node_modules/.bin"
 # }}}
 # aliases {{{
 alias ls="ls --color=auto -h"
