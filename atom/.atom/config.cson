@@ -47,6 +47,9 @@
     zoomFontWhenCtrlScrolling: false
   "exception-reporting":
     userId: "2b0a651f-3b87-c135-312a-bae015b05497"
+  "file-icons":
+    coloured: false
+  "language-babel": {}
   "one-dark-ui":
     layoutMode: "Compact"
   "tree-view":
