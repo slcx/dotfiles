@@ -408,7 +408,9 @@ awful.rules.rules = {
       class = {
         "discord",
         "slack",
-        "Slack"
+        "Slack",
+        "TelegramDesktop",
+        "telegram-desktop"
       },
       name = {
         "Slack - Toolbox Secret Group",
@@ -474,5 +476,6 @@ sh("xinput disable 13")
 sh("google-chrome-stable")
 sh("slack")
 sh("discord-canary")
+sh("telegram-desktop")
 sh("thunderbird")
 return sh("STEAM_RUNTIME=0 steam")

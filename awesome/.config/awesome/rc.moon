@@ -374,7 +374,8 @@ awful.rules.rules = {
   -- Keep chats on tag 3.
   {
     rule_any: {
-      class: { "discord", "slack", "Slack" }
+      class: { "discord", "slack", "Slack", "TelegramDesktop",
+        "telegram-desktop" }
       name: { "Slack - Toolbox Secret Group", "Discord" } }
     properties: tag: tags[1][3] }
 
@@ -423,6 +424,7 @@ sh "xinput disable 13"
 sh "google-chrome-stable"
 sh "slack"
 sh "discord-canary"
+sh "telegram-desktop"
 sh "thunderbird"
 sh "STEAM_RUNTIME=0 steam"
 -- }}}

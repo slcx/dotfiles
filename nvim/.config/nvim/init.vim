@@ -1,6 +1,5 @@
-" this is my minimal vimrc.
-
 let g:lite = 1
+let g:fzf = 1
 
 " general
 "set list                   " display invisibles
@@ -26,6 +25,7 @@ set undofile                " persistent undo
 set undodir=$HOME/.config/nvim/undo " undo dir
 set undolevels=1000         " undo levels
 set undoreload=10000        " number of lines to save for undo
+set relativenumber          " relative numbers
 
 if v:version >= 800
 	set belloff=all           " disable bells
@@ -83,12 +83,31 @@ Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'tpope/vim-endwise'                " autoinsert end keywords
 Plug 'ervandew/supertab'                " tab for completion
 Plug 'scrooloose/nerdtree'              " nerdtree
-Plug 'mhinz/vim-startify'               " nice start screen
+Plug 'tpope/vim-fugitive'               " git stuff 
 
 if g:lite == 0
   Plug 'itchyny/lightline.vim'            " powerline :O
   Plug 'SirVer/ultisnips'                 " snippets
   Plug 'honza/vim-snippets'               " snippets
+endif
+
+if g:fzf == 1
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
+  let g:fzf_layout = { 'down': '~60%' }
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
 endif
 
 " colors
@@ -126,8 +145,9 @@ call plug#end()
 " maps
 let mapleader="\<Space>"
 
-xmap ga <Plug>(LiveEasyAlign)
-nmap ga <Plug>(LiveEasyAlign)
+xmap ga <plug>(LiveEasyAlign)
+nmap ga <plug>(LiveEasyAlign)
+nmap <silent> <c-p> :Files<cr>
 
 " colors
 set background=dark
