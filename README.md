@@ -20,12 +20,14 @@ Here's some things I use on a daily basis:
 - Autostarting apps (beware, proprietary software!)
   - [Google Chrome][chrome]: www
   - [Slack][slack]: chatting
+  - [Telegram][tg]: chatting
   - [Discord][discord]: chatting
   - Thunderbird: email
 - [tmux][tmux] (launched automatically in `~/.zshrc` for scrolling)
 - [Neovim][nvim] instead of [Vim][vim] (both are great)
 - [Vertex-Light][vertex] GTK2/3 themes
 
+[tg]:         https://telegram.org 
 [arch]:       https://www.archlinux.org
 [nvim]:       https://neovim.io
 [vim]:        http://www.vim.org
