@@ -16,7 +16,8 @@ Plug 'othree/html5.vim'                 " enhanced html5 syntax
 Plug 'hail2u/vim-css3-syntax'           " enhanced css3 syntax
 Plug 'lepture/vim-jinja'                " jinja syntax
 Plug 'fasterthanlime/ooc.vim'           " ooc syntax
-Plug 'pangloss/vim-javascript'          " enhanced javascript syntax
+Plug 'othree/yajs.vim'                  " enhanced javascript syntax
+Plug 'othree/es.next.syntax.vim'        " new javascript
 Plug 'mxw/vim-jsx'                      " jsx syntax
 let g:jsx_ext_required = 0
 Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
@@ -24,6 +25,7 @@ Plug 'leafo/moonscript-vim'             " moonscript syntax
 Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
 Plug 'evanmiller/nginx-vim-syntax'      " nginx
 Plug 'rhysd/vim-crystal'                " vim
+Plug 'leafgarland/typescript-vim'       " typescript
 
 " misc
 set runtimepath+=~/.config/nvim/snippets
@@ -40,6 +42,8 @@ if g:lite == 0
   Plug 'itchyny/lightline.vim'            " powerline :O
   Plug 'SirVer/ultisnips'                 " snippets
   Plug 'honza/vim-snippets'               " snippets
+else
+  set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ %{ALEGetStatusLine()}\ 
 endif
 
 if g:fzf == 1
@@ -47,7 +51,7 @@ if g:fzf == 1
   Plug 'junegunn/fzf.vim'
   let g:fzf_layout = { 'down': '~60%' }
   let g:fzf_colors =
-        \ { 'fg':      ['fg', 'Normal'],
+        \ { 'fg':    ['fg', 'Normal'],
         \ 'bg':      ['bg', 'Normal'],
         \ 'hl':      ['fg', 'Comment'],
         \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -65,15 +69,14 @@ endif
 Plug 'AlessandroYorba/Despacio'
 Plug '0ax1/lxvc'
 Plug 'robertmeta/nofrils'
-Plug 'chriskempson/base16-vim'
 Plug 'dracula/vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'baskerville/bubblegum'
+Plug 'Soares/base16.nvim'
 
 if has('nvim')
-  " neomake
-  Plug 'neomake/neomake'
-  autocmd! BufWritePost * Neomake
+  " ale
+  Plug 'w0rp/ale'
 
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 else
