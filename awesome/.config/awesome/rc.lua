@@ -56,15 +56,15 @@ end
 local tags = { }
 for s = 1, screen.count() do
   tags[s] = awful.tag({
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
+    "code",
+    "www",
+    "chat",
+    "mus",
+    "art",
+    "term",
+    "term",
+    "term",
+    "game"
   }, s, layouts[1])
 end
 local menu_awesome = {
@@ -99,15 +99,15 @@ local menu_root = awful.menu({
   }
 })
 menubar.utils.terminal = terminal
-local mytextclock = awful.widget.textclock("%I:%M:%S %p %m/%d/%Y")
+local mytextclock = awful.widget.textclock("%I:%M:%S %p %m/%d/%Y %a", 1)
 local batterywidget = wibox.widget.textbox()
-batterywidget:set_text("Battery")
+batterywidget:set_text("")
 local batterywidgettimer = timer({
   timeout = 5
 })
 batterywidgettimer:connect_signal("timeout", function()
   local fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-  batterywidget:set_text(" |" .. tostring(fh:read("*l")) .. " | ")
+  batterywidget:set_text(tostring(fh:read("*l")))
   return fh:close()
 end)
 batterywidgettimer:start()
@@ -150,30 +150,35 @@ end))
 for s = 1, screen.count() do
   prompt_boxes[s] = awful.widget.prompt()
   layout_boxes[s] = awful.widget.layoutbox(s)
-  layout_boxes[s]:buttons(awful.util.table.join(awful.button({ }, 1, function()
-    return awful.layout.inc(layouts, 1)
-  end), awful.button({ }, 3, function()
-    return awful.layout.inc(layouts, -1)
-  end), awful.button({ }, 4, function()
-    return awful.layout.inc(layouts, 1)
-  end), awful.button({ }, 5, function()
-    return awful.layout.inc(layouts, -1)
-  end)))
   mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
   container_box[s] = awful.wibox({
     position = "top",
     screen = s
   })
+  local horiz_margin_wrap
+  horiz_margin_wrap = function(widget, left, right)
+    if left == nil then
+      left = 5
+    end
+    if right == nil then
+      right = 5
+    end
+    local margin = wibox.layout.margin()
+    do
+      margin:set_widget(widget)
+      margin:set_left(left)
+      margin:set_right(right)
+    end
+    return margin
+  end
   local left_layout = wibox.layout.fixed.horizontal()
   left_layout:add(mytaglist[s])
   left_layout:add(prompt_boxes[s])
   local right_layout = wibox.layout.fixed.horizontal()
-  if s == 1 then
-    right_layout:add(wibox.widget.systray())
-  end
+  right_layout:add(horiz_margin_wrap(wibox.widget.systray(), 0, 5))
   right_layout:add(mytextclock)
-  right_layout:add(batterywidget)
+  right_layout:add(horiz_margin_wrap(batterywidget, 0, 5))
   right_layout:add(layout_boxes[s])
   local layout = wibox.layout.align.horizontal()
   layout:set_left(left_layout)
@@ -473,9 +478,22 @@ client.connect_signal("unfocus", function(c)
   c.border_color = beautiful.border_normal
 end)
 sh("xinput disable 13")
-sh("google-chrome-stable")
-sh("slack")
-sh("discord-canary")
-sh("telegram-desktop")
-sh("thunderbird")
-return sh("STEAM_RUNTIME=0 steam")
+local autostart
+autostart = function(process, process_name)
+  local is_running
+  is_running = function(name)
+    local result = io.popen("[[ $(pgrep " .. tostring(name) .. "$) ]] && echo 1"):read()
+    if result == "1" then
+      return true
+    end
+  end
+  if is_running(process_name) then
+    return 
+  end
+  return sh(process)
+end
+autostart("google-chrome-stable", "chrome")
+autostart("slack", "slack")
+autostart("discord-canary", "discord-canary")
+autostart("telegram-desktop", "telegram-dekto")
+return autostart("STEAM_RUNTIME=0 steam", "steam")

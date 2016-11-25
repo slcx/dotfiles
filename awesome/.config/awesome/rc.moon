@@ -84,8 +84,9 @@ if beautiful.wallpaper
 tags = {}
 for s = 1, screen.count! do
   -- Each screen has its own tag table.
-  tags[s] = awful.tag { "", "", "", "", "", "", "", "", "" }, s, layouts[1]
-
+  tags[s] = awful.tag {
+    "code", "www", "chat", "mus", "art", "term", "term", "term", "game"
+  }, s, layouts[1]
 -- }}}
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -108,14 +109,14 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock "%I:%M:%S %p %m/%d/%Y"
+mytextclock = awful.widget.textclock "%I:%M:%S %p %m/%d/%Y %a", 1
 
 batterywidget = wibox.widget.textbox!
-batterywidget\set_text "Battery"
+batterywidget\set_text ""
 batterywidgettimer = timer timeout: 5
 batterywidgettimer\connect_signal "timeout", ->
     fh = assert io.popen "acpi | cut -d, -f 2,3 -", "r"
-    batterywidget\set_text " |#{fh\read("*l")} | "
+    batterywidget\set_text "#{fh\read("*l")}"
     fh\close!
 batterywidgettimer\start!
 
@@ -159,18 +160,8 @@ for s = 1, screen.count!
   -- Create a promptbox for each screen
   prompt_boxes[s] = awful.widget.prompt!
 
-  -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-  -- By default, it's in the top right corner.
-  -- We need one layoutbox per screen.
+  -- shows the current layout
   layout_boxes[s] = awful.widget.layoutbox(s)
-  layout_boxes[s]\buttons(
-    awful.util.table.join(
-      awful.button({ }, 1, -> awful.layout.inc(layouts, 1)),
-      awful.button({ }, 3, -> awful.layout.inc(layouts, -1)),
-      awful.button({ }, 4, -> awful.layout.inc(layouts, 1)),
-      awful.button({ }, 5, -> awful.layout.inc(layouts, -1))
-    )
-  )
 
   -- Create a taglist widget. It contains the list of tags.
   mytaglist[s] = awful.widget.taglist(
@@ -187,25 +178,31 @@ for s = 1, screen.count!
   -- Create the wibox
   container_box[s] = awful.wibox position: "top", screen: s
 
-  -- Widgets that are aligned to the left
+  -- wraps a widget in a horizontal margin
+  horiz_margin_wrap = (widget, left = 5, right = 5) ->
+    margin = wibox.layout.margin!
+    with margin
+      \set_widget widget
+      \set_left left
+      \set_right right
+    margin
+
   left_layout = wibox.layout.fixed.horizontal!
   left_layout\add mytaglist[s]
   left_layout\add prompt_boxes[s]
 
-  -- Widgets that are aligned to the right
   right_layout = wibox.layout.fixed.horizontal!
-  right_layout\add wibox.widget.systray! if s == 1
+  right_layout\add horiz_margin_wrap(wibox.widget.systray!, 0, 5)
   right_layout\add mytextclock
-  right_layout\add batterywidget
+  right_layout\add horiz_margin_wrap(batterywidget, 0, 5)
   right_layout\add layout_boxes[s]
 
-  -- Now bring it all together (with the tasklist in the middle)
   layout = wibox.layout.align.horizontal!
   layout\set_left left_layout
   layout\set_middle mytasklist[s]
   layout\set_right right_layout
 
-  container_box[s]\set_widget(layout)
+  container_box[s]\set_widget layout
 -- }}}
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -420,11 +417,17 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- No touchpad, please.
 sh "xinput disable 13"
 
+autostart = (process, process_name) ->
+  is_running = (name) ->
+    result = io.popen("[[ $(pgrep #{name}$) ]] && echo 1")\read!
+    return true if result == "1"
+  return if is_running process_name
+  sh process
+
 -- Autostart apps.
-sh "google-chrome-stable"
-sh "slack"
-sh "discord-canary"
-sh "telegram-desktop"
-sh "thunderbird"
-sh "STEAM_RUNTIME=0 steam"
+autostart "google-chrome-stable", "chrome"
+autostart "slack", "slack"
+autostart "discord-canary", "discord-canary"
+autostart "telegram-desktop", "telegram-dekto" -- [sic]
+autostart "STEAM_RUNTIME=0 steam", "steam"
 -- }}}

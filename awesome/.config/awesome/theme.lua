@@ -2,10 +2,14 @@
 
 theme = {}
 
-theme.font          = "PragmataPro 10.5"
+color_gray = "#222222"
+color_accent_muted = "#17211c"
+color_accent = "#283930"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
+theme.font          = "tewi 8"
+
+theme.bg_normal     = color_gray
+theme.bg_focus      = color_accent
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal
@@ -15,9 +19,9 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.border_width  = 2
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
+theme.border_width  = 3
+theme.border_normal = color_accent_muted
+theme.border_focus  = color_accent
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
