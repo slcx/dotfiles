@@ -1,4 +1,4 @@
--- Standard awesome library
+-- standard awesome library
 gears = require "gears"
 awful = require "awful"
 awful.rules = require "awful.rules"
@@ -9,16 +9,22 @@ import transform from require "transformer.keymapper"
 
 require "awful.autofocus"
 
--- Widget and layout library
+-- widget and layout library
 wibox = require "wibox"
 
--- Theme handling library
+-- theme handling library
 beautiful = require "beautiful"
 
--- Notification library
+-- notification library
 naughty = require "naughty"
 menubar = require "menubar"
 
+-- open the log file
+home = os.getenv "HOME"
+log_file = io.open "#{home}/.awesome_startup.log", "a"
+log = (text) -> log_file\write text, "\n"
+
+log "*** Awesome startup. [#{os.date!}] ***"
 -- {{{ Naughty config
 with naughty.config.defaults
   .timeout = 7
@@ -76,13 +82,13 @@ layouts = {
 -- }}}
 -- {{{ Wallpaper
 if beautiful.wallpaper
-  for s = 1, screen.count! do
+  for s = 1, screen.count!
     gears.wallpaper.maximized beautiful.wallpaper, s, true
 -- }}}
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-for s = 1, screen.count! do
+for s = 1, screen.count!
   -- Each screen has its own tag table.
   tags[s] = awful.tag {
     "code", "www", "chat", "mus", "art", "term", "term", "term", "game"
@@ -109,6 +115,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 -- {{{ Wibox
 -- Create a textclock widget
+log ">>> Phase: wibox"
 mytextclock = awful.widget.textclock "%I:%M:%S %p %m/%d/%Y %a", 1
 
 batterywidget = wibox.widget.textbox!
@@ -365,7 +372,10 @@ awful.rules.rules = {
     properties: floating: true } }
 
   -- Keep browser on tag 2.
-  { rule_any: class: { "Google-chrome", "google-chrome", "Chromium", "chromium" }
+  { rule_any: class: {
+      "Google-chrome", "google-chrome", "Chromium", "chromium",
+      "google-chrome-beta", "Google-chrome-beta"
+    }
     properties: tag: tags[1][2] }
 
   -- Keep chats on tag 3.
@@ -415,19 +425,34 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- }}}
 -- {{{ Shell autostart
 -- No touchpad, please.
+log ">>> Phase: autostart"
+
 sh "xinput disable 13"
 
+create_bash_macro = (process_name) ->
+  log "> Checking if #{process_name} is running."
+  "bash -c \"if pgrep #{process_name} >/dev/null; then echo 1; fi\""
+
 autostart = (process, process_name) ->
+  log "> Autostarting #{process} (#{process_name})"
   is_running = (name) ->
-    result = io.popen("[[ $(pgrep #{name}$) ]] && echo 1")\read!
+    -- open a bash instance to check if the process is running
+    result = io.popen(create_bash_macro process_name)\read!
     return true if result == "1"
-  return if is_running process_name
+  if is_running process_name
+    log "> #{process} (#{process_name}) is already running, not starting."
+    return
+  -- start the process
   sh process
 
 -- Autostart apps.
-autostart "google-chrome-stable", "chrome"
+log ">>> Autostarting all apps."
+autostart "google-chrome-beta", "chrome"
 autostart "slack", "slack"
 autostart "discord-canary", "discord-canary"
 autostart "telegram-desktop", "telegram-dekto" -- [sic]
 autostart "STEAM_RUNTIME=0 steam", "steam"
 -- }}}
+
+log "*** Finished Awesome autostart. ***"
+log_file\flush!

@@ -10,6 +10,13 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
+local home = os.getenv("HOME")
+local log_file = io.open(tostring(home) .. "/.awesome_startup.log", "a")
+local log
+log = function(text)
+  return log_file:write(text, "\n")
+end
+log("*** Awesome startup. [" .. tostring(os.date()) .. "] ***")
 do
   local _with_0 = naughty.config.defaults
   _with_0.timeout = 7
@@ -99,6 +106,7 @@ local menu_root = awful.menu({
   }
 })
 menubar.utils.terminal = terminal
+log(">>> Phase: wibox")
 local mytextclock = awful.widget.textclock("%I:%M:%S %p %m/%d/%Y %a", 1)
 local batterywidget = wibox.widget.textbox()
 batterywidget:set_text("")
@@ -401,7 +409,9 @@ awful.rules.rules = {
         "Google-chrome",
         "google-chrome",
         "Chromium",
-        "chromium"
+        "chromium",
+        "google-chrome-beta",
+        "Google-chrome-beta"
       }
     },
     properties = {
@@ -477,23 +487,34 @@ end)
 client.connect_signal("unfocus", function(c)
   c.border_color = beautiful.border_normal
 end)
+log(">>> Phase: autostart")
 sh("xinput disable 13")
+local create_bash_macro
+create_bash_macro = function(process_name)
+  log("> Checking if " .. tostring(process_name) .. " is running.")
+  return "bash -c \"if pgrep " .. tostring(process_name) .. " >/dev/null; then echo 1; fi\""
+end
 local autostart
 autostart = function(process, process_name)
+  log("> Autostarting " .. tostring(process) .. " (" .. tostring(process_name) .. ")")
   local is_running
   is_running = function(name)
-    local result = io.popen("[[ $(pgrep " .. tostring(name) .. "$) ]] && echo 1"):read()
+    local result = io.popen(create_bash_macro(process_name)):read()
     if result == "1" then
       return true
     end
   end
   if is_running(process_name) then
+    log("> " .. tostring(process) .. " (" .. tostring(process_name) .. ") is already running, not starting.")
     return 
   end
   return sh(process)
 end
-autostart("google-chrome-stable", "chrome")
+log(">>> Autostarting all apps.")
+autostart("google-chrome-beta", "chrome")
 autostart("slack", "slack")
 autostart("discord-canary", "discord-canary")
 autostart("telegram-desktop", "telegram-dekto")
-return autostart("STEAM_RUNTIME=0 steam", "steam")
+autostart("STEAM_RUNTIME=0 steam", "steam")
+log("*** Finished Awesome autostart. ***")
+return log_file:flush()
