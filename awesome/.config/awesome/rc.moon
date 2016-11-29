@@ -220,15 +220,15 @@ root.buttons(awful.util.table.join(
 -- }}}
 -- {{{ Key bindings
 
--- Focus by direction.
+-- focus by direction
 fbd = (d) ->
   awful.client.focus.bydirection d
   client.focus\raise! if client.focus
 
--- Global keys.
+-- global keys
 gk = transform
   [modkey]:
-    -- Go to the last visited tag. (Switch back and forth.)
+    -- go to the last visited tag.
     Escape: awful.tag.history.restore
 
     r: -> prompt_boxes[mouse.screen]\run!
@@ -450,7 +450,7 @@ log ">>> Autostarting all apps."
 autostart "google-chrome-beta", "chrome"
 autostart "slack", "slack"
 autostart "discord-canary", "discord-canary"
-autostart "telegram-desktop", "telegram-dekto" -- [sic]
+autostart "telegram-desktop", "telegram"
 autostart "STEAM_RUNTIME=0 steam", "steam"
 -- }}}
 
