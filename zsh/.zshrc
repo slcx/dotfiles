@@ -60,6 +60,10 @@ fi
 # start thing detached, in background
 bk() { nohup $* >/dev/null 2>&1 & }
 
+wine32() {
+  WINEPREFIX=$HOME/wine32 WINEARCH=win32 wine $*
+}
+
 # start screensaver instantly
 # if xscreensaver is not running, start it
 svr() {
