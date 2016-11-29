@@ -2,7 +2,8 @@
 set background=dark
 set t_Co=256
 
-colorscheme bubblegum-256-dark
+" apply our current colorscheme
+colorscheme Base2Tone-Drawbridge-dark
 
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)

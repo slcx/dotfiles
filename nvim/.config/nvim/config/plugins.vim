@@ -16,10 +16,14 @@ Plug 'othree/html5.vim'                 " enhanced html5 syntax
 Plug 'hail2u/vim-css3-syntax'           " enhanced css3 syntax
 Plug 'lepture/vim-jinja'                " jinja syntax
 Plug 'fasterthanlime/ooc.vim'           " ooc syntax
-Plug 'othree/yajs.vim'                  " enhanced javascript syntax
-Plug 'othree/es.next.syntax.vim'        " new javascript
-Plug 'mxw/vim-jsx'                      " jsx syntax
+" javascript {{{
+Plug 'othree/yajs.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/es.next.syntax.vim'
+Plug 'rschmukler/pangloss-vim-indent'
+Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
+" }}}
 Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
 Plug 'leafo/moonscript-vim'             " moonscript syntax
 Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
@@ -46,25 +50,6 @@ else
   set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ %{ALEGetStatusLine()}\ 
 endif
 
-if g:fzf == 1
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-  let g:fzf_layout = { 'down': '~60%' }
-  let g:fzf_colors =
-        \ { 'fg':    ['fg', 'Normal'],
-        \ 'bg':      ['bg', 'Normal'],
-        \ 'hl':      ['fg', 'Comment'],
-        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-        \ 'hl+':     ['fg', 'Statement'],
-        \ 'info':    ['fg', 'PreProc'],
-        \ 'prompt':  ['fg', 'Conditional'],
-        \ 'pointer': ['fg', 'Exception'],
-        \ 'marker':  ['fg', 'Keyword'],
-        \ 'spinner': ['fg', 'Label'],
-        \ 'header':  ['fg', 'Comment'] }
-endif
-
 " colors
 Plug 'AlessandroYorba/Despacio'
 Plug '0ax1/lxvc'
@@ -73,6 +58,7 @@ Plug 'dracula/vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'baskerville/bubblegum'
 Plug 'Soares/base16.nvim'
+Plug 'atelierbram/Base2Tone-vim'
 
 if has('nvim')
   " ale
