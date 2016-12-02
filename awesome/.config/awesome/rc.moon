@@ -2,7 +2,8 @@
 gears = require "gears"
 awful = require "awful"
 awful.rules = require "awful.rules"
-sh = awful.util.spawn_with_shell
+sh = (cmd) ->
+  awful.util.spawn_with_shell "bash -c \"#{cmd}\""
 
 package.path ..= ";/home/cheesy/.config/awesome/?.lua"
 import transform from require "transformer.keymapper"
@@ -88,7 +89,7 @@ if beautiful.wallpaper
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-for s = 1, screen.count!
+for s = 1, screen.count! do
   -- Each screen has its own tag table.
   tags[s] = awful.tag {
     "code", "www", "chat", "mus", "art", "term", "term", "term", "game"
@@ -386,8 +387,12 @@ awful.rules.rules = {
       name: { "Slack - Toolbox Secret Group", "Discord" } }
     properties: tag: tags[1][3] }
 
-  -- Keep Discord on tag 4.
-  { rule: class: "Thunderbird", properties: tag: tags[1][4] }
+  -- Keep music on tag 4.
+  {
+    rule_any: {
+      class: { "Spotify", "spotify" }
+      name: { "Spotify" } }
+    properties: tag: tags[1][4] }
 
   -- Keep the GIMP on tag 5.
   { rule: class: "gimp", properties: tag: tags[1][5] }
@@ -454,5 +459,5 @@ autostart "telegram-desktop", "telegram"
 autostart "STEAM_RUNTIME=0 steam", "steam"
 -- }}}
 
-log "*** Finished Awesome autostart. ***"
+log "*** Finished Awesome startup. ***"
 log_file\flush!

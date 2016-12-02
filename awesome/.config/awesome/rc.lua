@@ -1,7 +1,10 @@
 local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
-local sh = awful.util.spawn_with_shell
+local sh
+sh = function(cmd)
+  return awful.util.spawn_with_shell("bash -c \"" .. tostring(cmd) .. "\"")
+end
 package.path = package.path .. ";/home/cheesy/.config/awesome/?.lua"
 local transform
 transform = require("transformer.keymapper").transform
@@ -437,11 +440,17 @@ awful.rules.rules = {
     }
   },
   {
-    rule = {
-      class = "Thunderbird",
-      properties = {
-        tag = tags[1][4]
+    rule_any = {
+      class = {
+        "Spotify",
+        "spotify"
+      },
+      name = {
+        "Spotify"
       }
+    },
+    properties = {
+      tag = tags[1][4]
     }
   },
   {
@@ -516,5 +525,5 @@ autostart("slack", "slack")
 autostart("discord-canary", "discord-canary")
 autostart("telegram-desktop", "telegram")
 autostart("STEAM_RUNTIME=0 steam", "steam")
-log("*** Finished Awesome autostart. ***")
+log("*** Finished Awesome startup. ***")
 return log_file:flush()

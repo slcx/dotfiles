@@ -2,16 +2,18 @@
 
 theme = {}
 
-color_gray = "#222222"
-color_accent_muted = "#17211c"
-color_accent = "#283930"
+colors = {}
+colors.darker_gray = "#111111"
+colors.dark_gray = "#222222"
+colors.gray = "#333333"
+colors.blue = "#0071bc"
 
 theme.font          = "tewi 8"
 
-theme.bg_normal     = color_gray
-theme.bg_focus      = color_accent
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
+theme.bg_normal     = colors.dark_gray
+theme.bg_focus      = colors.gray
+theme.bg_urgent     = colors.blue
+theme.bg_minimize   = colors.dark_gray
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#aaaaaa"
@@ -20,8 +22,8 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.border_width  = 3
-theme.border_normal = color_accent_muted
-theme.border_focus  = color_accent
+theme.border_normal = colors.dark_gray
+theme.border_focus  = colors.gray
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
@@ -75,7 +77,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "/usr/share/awesome/themes/default/background.png"
+theme.wallpaper = "/home/cheesy/Pictures/wall.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
