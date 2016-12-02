@@ -30,6 +30,8 @@ Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
 Plug 'evanmiller/nginx-vim-syntax'      " nginx
 Plug 'rhysd/vim-crystal'                " vim
 Plug 'leafgarland/typescript-vim'       " typescript
+Plug 'cespare/vim-toml'                 " toml
+Plug 'posva/vim-vue'                    " vue
 
 " misc
 set runtimepath+=~/.config/nvim/snippets
@@ -59,6 +61,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'baskerville/bubblegum'
 Plug 'Soares/base16.nvim'
 Plug 'atelierbram/Base2Tone-vim'
+Plug 'zaki/zazen'
 
 if has('nvim')
   " ale
