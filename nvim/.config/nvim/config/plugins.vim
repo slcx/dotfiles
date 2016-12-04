@@ -62,6 +62,8 @@ Plug 'baskerville/bubblegum'
 Plug 'Soares/base16.nvim'
 Plug 'atelierbram/Base2Tone-vim'
 Plug 'zaki/zazen'
+Plug 'mhinz/vim-janah'
+Plug 'morhetz/gruvbox'
 
 if has('nvim')
   " ale
@@ -79,6 +81,10 @@ else
   let g:togglecursor_disable_neovim = 1
   Plug 'jszakmeister/vim-togglecursor' " toggle cursor
 endif
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " autocmd
 au BufRead,BufNewFile *.cson set ft=coffee

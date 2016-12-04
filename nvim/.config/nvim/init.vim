@@ -4,7 +4,6 @@ let g:lite = 1
 set list                   " display invisibles
 set listchars=tab:▸\ 
 set number                  " line numbers
-set colorcolumn=80          " color 80 column
 set mouse=a                 " mouse support
 set hlsearch                " highlight search results
 set foldmethod=marker       " fold by marker

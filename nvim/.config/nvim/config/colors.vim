@@ -3,7 +3,7 @@ set background=dark
 set t_Co=256
 
 " apply our current colorscheme
-colorscheme zazen
+colorscheme gruvbox
 
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)
@@ -21,6 +21,4 @@ if ($TERM =~ "st" || $TERM =~ "rxvt") && (v:version >= 800 || has('nvim'))
 endif
 
 " opinionated syntax highlighting fixes
-hi! Comment gui=NONE
-hi! Todo gui=NONE
 hi! link SpecialKey NonText
