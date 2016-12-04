@@ -5,6 +5,7 @@ general {
   colors = true
   color_good = "#75EDFF"
   color_bad = "#CC1616"
+  color_degraded = "#ff913d"
   interval = 1
 }
 
@@ -20,14 +21,17 @@ volume master {
 }
 
 wireless _first_ {
-  format_up = " %essid %ip"
-  format_down = " no internet"
+  format_up = " %essid (%frequency) %ip"
+  format_down = " no internet"
 }
 
 battery 0 {
-  format = "%status %percentage %remaining"
+  format = "%status %percentage %remaining (%consumption)"
   status_chr = " charging"
+  status_bat = "⚡ battery"
   status_full = " full"
+  hide_seconds = true
+  integer_battery_capacity = true
   low_threshold = 30
 }
 
@@ -36,5 +40,5 @@ tztime local {
 }
 
 disk "/" {
-  format = " %avail hdd free"
+  format = " %avail free"
 }

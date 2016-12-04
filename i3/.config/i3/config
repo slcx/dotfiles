@@ -66,16 +66,16 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 ""
-set $ws2 ""
-set $ws3 ""
-set $ws4 ""
-set $ws5 ""
-set $ws6 ""
-set $ws7 ""
-set $ws8 ""
-set $ws9 ""
-set $ws10 ""
+set $ws1 "1 "
+set $ws2 "2 "
+set $ws3 "3 "
+set $ws4 "4 "
+set $ws5 "5 "
+set $ws6 "6 "
+set $ws7 "7 "
+set $ws8 "8 "
+set $ws9 "9 "
+set $ws10 "10 "
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -127,9 +127,11 @@ bar {
 }
 
 # rules
-for_window [class="(?i)client.py"] move container to workspace $ws4
-for_window [class="(?i)google-chrome-beta"] move container to workspace $ws2
-for_window [class="(?i)discord"] move container to workspace $ws3
+for_window [class="(?i)client.py"] move to workspace $ws4
+for_window [class="(?i)google-chrome-beta"] move to workspace $ws2
+for_window [class="(?i)discord"] move to workspace $ws3
+for_window [class="(?i)spotify"] move to workspace $ws5
+for_window [class="(?i)gimp"] move to workspace $ws6
 
 # utility
 bindsym Print exec ~/.bin/scrn
@@ -138,3 +140,8 @@ bindsym Print exec ~/.bin/scrn
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wall2.png
 exec ~/.bin/touchpad disable
 exec --no-startup-id compton --no-fading-openclose -b
+# apps
+exec google-chrome-beta
+exec discord-canary
+exec spotify
+exec hydrus-client
