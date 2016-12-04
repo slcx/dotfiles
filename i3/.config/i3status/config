@@ -26,7 +26,7 @@ wireless _first_ {
 }
 
 battery 0 {
-  format = "%status %percentage %remaining (%consumption)"
+  format = "%status %percentage %remaining"
   status_chr = " charging"
   status_bat = "⚡ battery"
   status_full = " full"
