@@ -8,10 +8,7 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-#define FONT Terminus
-#define FONT_SIZE 14
-
-st.font: FONT:pixelsize=FONT_SIZE:antialias=false
+st.font: tewi
 st.borderpx: 3
 st.cursorshape: 2
 st.cursorthickness: 2
