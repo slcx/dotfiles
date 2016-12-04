@@ -45,6 +45,13 @@ PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin"
 export PATH="./node_modules/.bin:$PATH"
 # }}}
+# exports {{{
+export GOPATH="$HOME/dev/go"
+export EDITOR="nvim-qt"
+export PREFIX="$HOME/.local"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export PAGER="less"
+# }}}
 # aliases {{{
 alias ls="ls --color=auto -h"
 alias mv="mv -v"
@@ -59,6 +66,11 @@ fi
 # functions {{{
 # start thing detached, in background
 bk() { nohup $* >/dev/null 2>&1 & }
+
+e() {
+  # call editor
+  nohup $EDITOR $* >/dev/null 2>&1 &
+}
 
 wine32() {
   WINEPREFIX=$HOME/wine32 WINEARCH=win32 wine $*
@@ -79,11 +91,4 @@ repanel() {
     bk sxhkd
   fi
 }
-# }}}
-# exports {{{
-export GOPATH="$HOME/dev/go"
-export EDITOR="nvim"
-export PREFIX="$HOME/.local"
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-export PAGER="less"
 # }}}
