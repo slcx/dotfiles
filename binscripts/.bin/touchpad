@@ -1,0 +1,3 @@
+#!/bin/sh
+touchpad_id=$(xinput | grep Touchpad | cut -d'=' -f2 | cut -d'[' -f1)
+xinput $1 $touchpad_id
