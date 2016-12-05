@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ $1 == up ]; then
+  pamixer -i 2
+elif [ $1 == down ]; then
+  pamixer -d 2
+elif [ $1 == toggle ]; then
+  pamixer -t
+elif [ $1 == i3block ]; then
+  if [[ "$(amixer | grep off)" ]]; then
+    echo mute
+    echo mute
+    echo '#ff5a52'
+  else
+    perc="$(pamixer --get-volume)%"
+    echo $perc
+    echo $perc
+  fi
+  exit 0
+fi
+
+# update i3blocks volume indicator
+pkill --signal SIGRTMIN+1 i3blocks

@@ -36,9 +36,13 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # volume
-bindsym XF86AudioRaiseVolume exec amixer set Master 3%+
-bindsym XF86AudioLowerVolume exec amixer set Master 3%-
-bindsym XF86AudioMute exec amixer set Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.bin/vol up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.bin/vol down
+bindsym XF86AudioMute exec --no-startup-id ~/.bin/vol toggle
+
+# brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.bin/bright inc
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.bin/bright dec
 
 # split in horizontal orientation
 bindsym $mod+b split h
@@ -116,11 +120,10 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
   position top
-  status_command i3status
-  separator_symbol " ■ "
+  status_command i3blocks
   i3bar_command i3bar
   font pango:Font Awesome 8
-  font pango:Source Code Pro 8
+  font pango:Source Sans Pro 9
   colors {
     background #222222
   }
@@ -145,3 +148,4 @@ exec google-chrome-beta
 exec discord-canary
 exec spotify
 exec hydrus-client
+exec dropbox &

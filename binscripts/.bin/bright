@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ $1 = inc ]; then
+  xbacklight -inc 3
+elif [ $1 = dec ]; then
+  xbacklight -dec 3
+fi
+
+# update i3blocks brightness indicator
+pkill --signal SIGRTMIN+2 i3blocks

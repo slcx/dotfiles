@@ -1,0 +1,12 @@
+#!/bin/sh
+
+device=wlp3s0
+
+if [ "$(nmcli n)" = "enabled" ]; then
+  essid=$(nmcli c show --active | grep $device | cut -d' ' -f1)
+  echo $essid
+  echo $essid
+else
+  echo no internet
+  exit 33
+fi
