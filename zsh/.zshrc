@@ -1,3 +1,19 @@
+# shag {{{
+if ! pgrep -u $USER ssh-agent >/dev/null; then
+  ssh-agent > ~/.shag
+  eval $(<~/.shag) >/dev/null
+
+  # reset $? to 1
+  false
+
+  while [ $? -ne 0 ]; do
+    echo shag: hi there, please add your ssh key
+    ssh-add ~/.ssh/id_rsa
+  done
+else
+  eval $(<~/.shag) >/dev/null
+fi
+# }}}
 # tmuxify {{{
 if [[ ! -n $TMUX ]]; then
   tmux
