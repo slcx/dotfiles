@@ -3,5 +3,4 @@
 "   https://github.com/sliceofcode/neovim-qt
 " Incompatibilities with the regular neovim-qt is outlined in the README.
 
-Guifont PragmataPro\ Mono:h14
-GuiLinespace 5
+Guifont tewi:h8

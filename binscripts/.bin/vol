@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ $1 == up ]; then
+if [ "$1" == "up" ]; then
   pamixer -i 2
-elif [ $1 == down ]; then
+elif [ "$1" == "down" ]; then
   pamixer -d 2
-elif [ $1 == toggle ]; then
+elif [ "$1" = "toggle" ]; then
   pamixer -t
-elif [ $1 == i3block ]; then
-  if [[ "$(amixer | grep off)" ]]; then
+elif [ "$1" == "i3block" ]; then
+  if [ "$(amixer | grep off)" ]; then
     echo mute
     echo mute
     echo '#ff5a52'

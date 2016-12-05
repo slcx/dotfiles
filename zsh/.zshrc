@@ -40,7 +40,7 @@ HISTFILE=~/.zsh_history
 PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 # }}}
 # path {{{
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.bin"
 export PATH="./node_modules/.bin:$PATH"
 # }}}
 # exports {{{
