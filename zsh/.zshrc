@@ -1,6 +1,5 @@
-# envoy {{{
-envoy -t ssh-agent
-source <(envoy -p)
+# keychain {{{
+eval $(keychain --eval --quiet id_rsa)
 # }}}
 # options {{{
 setopt interactivecomments
