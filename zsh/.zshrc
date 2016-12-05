@@ -1,18 +1,6 @@
-# shag {{{
-if ! pgrep -u $USER ssh-agent >/dev/null; then
-  ssh-agent > ~/.shag
-  eval $(<~/.shag) >/dev/null
-
-  # reset $? to 1
-  false
-
-  while [ $? -ne 0 ]; do
-    echo shag: hi there, please add your ssh key
-    ssh-add ~/.ssh/id_rsa
-  done
-else
-  eval $(<~/.shag) >/dev/null
-fi
+# envoy {{{
+envoy -t ssh-agent
+source <(envoy -p)
 # }}}
 # options {{{
 setopt interactivecomments
@@ -59,7 +47,6 @@ export PATH="./node_modules/.bin:$PATH"
 export GOPATH="$HOME/dev/go"
 export EDITOR="nvim-qt"
 export PREFIX="$HOME/.local"
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PAGER="less"
 # }}}
 # aliases {{{
