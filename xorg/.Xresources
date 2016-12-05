@@ -8,19 +8,8 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-st.font: tewi
-st.borderpx: 3
-st.cursorshape: 2
-st.cursorthickness: 2
-st.bold_font: 1
-st.xfps: 120
-st.actionfps: 60
-st.chscale: 1.0
-st.cwscale: 1.0
-st.blinktimeout: 500
-st.bellvolume: 0
-st.prompt_char: %
-st.opacity: 255
+urxvt.font: -lucy-tewi-medium-r-*-*-*-*-*-*-*-*-*-*
+urxvt*scrollBar: false
 
 ! like vga colorscheme, but better
 *.foreground:   #ababab

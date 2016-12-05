@@ -14,12 +14,6 @@ else
   eval $(<~/.shag) >/dev/null
 fi
 # }}}
-# tmuxify {{{
-if [[ ! -n $TMUX ]]; then
-  tmux
-  exit
-fi
-# }}}
 # options {{{
 setopt interactivecomments
 setopt nohup

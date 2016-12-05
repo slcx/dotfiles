@@ -10,7 +10,7 @@ font pango:Source Code Pro 8
 floating_modifier $mod
 
 # terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec i3-sensible-terminal
 
 # colors
 client.focused          #454545 #4A4A4A #DDDDDD
