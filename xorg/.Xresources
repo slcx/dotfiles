@@ -8,7 +8,7 @@ Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
 
-urxvt.font: -lucy-tewi-medium-r-*-*-*-*-*-*-*-*-*-*
+urxvt.font: -xos4-terminus-medium-r-normal-*-14-*-72-72-c-80-iso10646-1
 urxvt*scrollBar: false
 
 ! like vga colorscheme, but better

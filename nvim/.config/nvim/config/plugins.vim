@@ -32,12 +32,12 @@ Plug 'rhysd/vim-crystal'                " vim
 Plug 'leafgarland/typescript-vim'       " typescript
 Plug 'cespare/vim-toml'                 " toml
 Plug 'posva/vim-vue'                    " vue
+Plug 'rust-lang/rust.vim'               " rust
 
 " misc
 set runtimepath+=~/.config/nvim/snippets
 Plug 'justinmk/vim-dirvish'             " nice file browser
 Plug 'junegunn/vim-easy-align'          " easy aligning
-Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'tpope/vim-endwise'                " autoinsert end keywords
 Plug 'ervandew/supertab'                " tab for completion
@@ -45,9 +45,10 @@ Plug 'scrooloose/nerdtree'              " nerdtree
 Plug 'tpope/vim-fugitive'               " git stuff 
 
 if g:lite == 0
-  Plug 'itchyny/lightline.vim'            " powerline :O
   Plug 'SirVer/ultisnips'                 " snippets
   Plug 'honza/vim-snippets'               " snippets
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
+  let g:deoplete#enable_at_startup = 1
 else
   set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ %{ALEGetStatusLine()}\ 
 endif
@@ -59,11 +60,11 @@ Plug 'robertmeta/nofrils'
 Plug 'dracula/vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'baskerville/bubblegum'
-Plug 'Soares/base16.nvim'
 Plug 'atelierbram/Base2Tone-vim'
 Plug 'zaki/zazen'
 Plug 'mhinz/vim-janah'
 Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
 
 if has('nvim')
   " ale
@@ -73,6 +74,9 @@ if has('nvim')
 else
   " syntastic
   Plug 'maralla/validator.vim'
+
+  " sensible defaults
+  Plug 'tpope/vim-sensible'
 
   let g:validator_javascript_checkers = ['eslint']
   let g:validator_error_msg_format = "[ ● %d/%d issues ]"

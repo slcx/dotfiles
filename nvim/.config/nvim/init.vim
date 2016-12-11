@@ -1,4 +1,4 @@
-let g:lite = 1
+let g:lite = 0
 
 " general
 set list                   " display invisibles

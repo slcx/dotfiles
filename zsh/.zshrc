@@ -1,5 +1,6 @@
 # keychain {{{
 eval $(keychain --eval --quiet id_rsa)
+[[ -f ~/.zshtokens ]] && source ~/.zshtokens
 # }}}
 # options {{{
 setopt interactivecomments
@@ -40,7 +41,7 @@ PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 # }}}
 # path {{{
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.bin"
-export PATH="./node_modules/.bin:$PATH"
+export PATH="$HOME/.pyenv/shims:./node_modules/.bin:$PATH:$HOME/.cargo/bin"
 # }}}
 # exports {{{
 export GOPATH="$HOME/dev/go"
@@ -49,7 +50,7 @@ export PREFIX="$HOME/.local"
 export PAGER="less"
 # }}}
 # aliases {{{
-alias ls="ls --color=auto -h"
+alias ls="exa"
 alias mv="mv -v"
 alias cp="cp -rv"
 alias reload="source ~/.zshrc"
@@ -63,14 +64,16 @@ fi
 # start thing detached, in background
 bk() { nohup $* >/dev/null 2>&1 & }
 
+dkm-unset() { eval $(docker-machine env -u) }
+dkm-env() { eval $(docker-machine env $1) }
+
 e() {
   # call editor
   nohup $EDITOR $* >/dev/null 2>&1 &
 }
 
-wine32() {
-  WINEPREFIX=$HOME/wine32 WINEARCH=win32 wine $*
-}
+export WINEPREFIX=$HOME/wine32
+export WINEARCH=win32
 
 # start screensaver instantly
 # if xscreensaver is not running, start it

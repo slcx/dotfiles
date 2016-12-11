@@ -3,7 +3,7 @@ set background=dark
 set t_Co=256
 
 " apply our current colorscheme
-colorscheme gruvbox
+colorscheme base16-atelier-savanna
 
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)
