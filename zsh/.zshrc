@@ -45,8 +45,9 @@ export PATH="$HOME/.pyenv/shims:./node_modules/.bin:$PATH:$HOME/.cargo/bin"
 # }}}
 # exports {{{
 export GOPATH="$HOME/dev/go"
-export EDITOR="nvim-qt"
+export EDITOR="nvim"
 export PREFIX="$HOME/.local"
+export TERM="st"
 export PAGER="less"
 # }}}
 # aliases {{{
@@ -69,7 +70,11 @@ dkm-env() { eval $(docker-machine env $1) }
 
 e() {
   # call editor
-  nohup $EDITOR $* >/dev/null 2>&1 &
+  $EDITOR $*
+}
+
+ed() {
+  nohup $TERM -e $EDITOR $* >/dev/null 2>&1 &
 }
 
 export WINEPREFIX=$HOME/wine32
@@ -91,3 +96,6 @@ repanel() {
   fi
 }
 # }}}
+
+# OPAM configuration
+. /home/cheesy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
