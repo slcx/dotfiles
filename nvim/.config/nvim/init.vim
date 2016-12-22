@@ -28,6 +28,7 @@ set relativenumber          " relative numbers
 if v:version >= 800
   set belloff=all           " disable bells
   set breakindent           " break indentation
+  set emoji
 endif
 
 " indentation
@@ -50,3 +51,12 @@ source $HOME/.config/nvim/config/maps.vim
 if exists("&inccommand") && has("nvim")
   set inccommand=nosplit
 endif
+
+fun! <SID>AutoMakeDirectory()
+  let s:directory = expand("<afile>:p:h")
+  if !isdirectory(s:directory)
+    call mkdir(s:directory, "p")
+  endif
+endfun
+
+autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
