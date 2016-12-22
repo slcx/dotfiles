@@ -4,11 +4,6 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[mediaplayer]
-label=
-interval=1
-instance=spotify
-
 [brightness]
 label=
 interval=once
