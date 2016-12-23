@@ -10,7 +10,7 @@ Xft.hintstyle: hintslight
 
 st.termname:     st-256color
 
-st.font:         PragmataPro Mono:pixelsize=18
+st.font:         Fantasque Sans Mono:pixelsize=17:hintstyle=1:rgb=rgba
 st.borderpx:     2
 st.cursorshape:  2
 st.cursorthickness:  2
