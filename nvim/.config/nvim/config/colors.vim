@@ -3,7 +3,7 @@ set background=dark
 set t_Co=256
 
 " apply our current colorscheme
-colorscheme base16-atelier-savanna
+colorscheme base16-tomorrow-night
 
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)

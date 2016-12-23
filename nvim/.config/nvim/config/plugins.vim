@@ -3,9 +3,9 @@ call plug#begin('~/.config/nvim/plugged')
 
 " plugin config
 let g:lightline = {
-  \ 'colorscheme': 'seoul256',
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' } }
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' } }
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -41,8 +41,7 @@ Plug 'junegunn/vim-easy-align'          " easy aligning
 Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'tpope/vim-endwise'                " autoinsert end keywords
 Plug 'ervandew/supertab'                " tab for completion
-Plug 'scrooloose/nerdtree'              " nerdtree
-Plug 'tpope/vim-fugitive'               " git stuff 
+Plug 'itchyny/lightline.vim'             " lightline
 
 if g:lite == 0
   Plug 'SirVer/ultisnips'                 " snippets
@@ -65,6 +64,7 @@ Plug 'zaki/zazen'
 Plug 'mhinz/vim-janah'
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
+Plug 'romainl/flattened'
 
 if has('nvim')
   " ale
@@ -87,8 +87,8 @@ else
 endif
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " autocmd
 au BufRead,BufNewFile *.cson set ft=coffee

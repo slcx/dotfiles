@@ -4,7 +4,10 @@ let g:lite = 0
 set list                   " display invisibles
 set listchars=tab:▸\ 
 set number                  " line numbers
+set numberwidth=6           " line number width
 set mouse=a                 " mouse support
+set cpoptions+=n
+let &showbreak='    · '     " nicely wrapped lines
 set hlsearch                " highlight search results
 set foldmethod=marker       " fold by marker
 set nrformats-=octal        " don't use octal
@@ -48,6 +51,8 @@ source $HOME/.config/nvim/config/plugins.vim
 source $HOME/.config/nvim/config/colors.vim
 source $HOME/.config/nvim/config/maps.vim
 
+" incommand -- preview your substitution before
+" you even hit enter
 if exists("&inccommand") && has("nvim")
   set inccommand=nosplit
 endif
@@ -59,4 +64,8 @@ fun! <SID>AutoMakeDirectory()
   endif
 endfun
 
+" automatically make directories
 autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+
+" use w!! to force save
+cmap w!! w !sudo tee >/dev/null %
