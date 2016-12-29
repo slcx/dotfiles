@@ -11,7 +11,7 @@ Xft.hintstyle: hintslight
 
 st.termname:     st-256color
 
-st.font:         PragmataPro Mono:pixelsize=16:hintstyle=1:rgb=rgba
+st.font:         Inconsolatazi4:pixelsize=16:hintstyle=1:rgb=rgba
 st.borderpx:     2
 st.cursorshape:  2
 st.cursorthickness:  2
