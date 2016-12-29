@@ -3,21 +3,22 @@ Xcursor.theme: Vanilla-DMZ
 
 ! xft
 Xft.dpi: 96
-Xft.antialias: true
 Xft.rgba: rgb
-Xft.hinting: true
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.lcdfitler: lcddefault
 Xft.hintstyle: hintslight
 
 st.termname:     st-256color
 
-st.font:         Fantasque Sans Mono:pixelsize=17:hintstyle=1:rgb=rgba
+st.font:         PragmataPro Mono:pixelsize=16:hintstyle=1:rgb=rgba
 st.borderpx:     2
 st.cursorshape:  2
 st.cursorthickness:  2
 st.bold_font:    1
 st.xfps:         120
 st.actionfps:    60
-st.chscale:      1.0
+st.chscale:      1.1
 st.cwscale:      1.0
 st.blinktimeout: 800
 st.bellvolume:   0

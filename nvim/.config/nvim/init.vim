@@ -26,7 +26,6 @@ set undofile                " persistent undo
 set undodir=$HOME/.config/nvim/undo " undo dir
 set undolevels=1000         " undo levels
 set undoreload=10000        " number of lines to save for undo
-set relativenumber          " relative numbers
 
 if v:version >= 800
   set belloff=all           " disable bells
