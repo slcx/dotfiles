@@ -1,12 +1,19 @@
 #!/bin/sh
 
-device=wlp3s0
+status=$(nmcli -t --fields state -c no g)
 
-if [ "$(nmcli n)" = "enabled" ]; then
-  essid=$(nmcli c show --active | grep $device | cut -d' ' -f1)
-  echo $essid
-  echo $essid
-else
-  echo no internet
+if [ "$status" = "connecting" ]; then
+  echo connecting
   exit 33
+fi
+
+if [ "$status" = "disconnected"] || [ "$status" = "asleep" ]; then
+  echo not connected
+  exit 33
+fi
+
+if [ "$status" = "connected" ]; then
+  essid=$(nmcli -t --fields name -c no c show --active)
+  echo $essid
+  echo $essid
 fi
