@@ -4,6 +4,11 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[music]
+label=
+interval=1
+command=mpc current
+
 [brightness]
 label=
 interval=once

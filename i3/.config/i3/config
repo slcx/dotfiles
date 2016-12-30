@@ -144,6 +144,7 @@ bindsym Print exec ~/.bin/scrn
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wall3.jpg
 exec ~/.bin/touchpad disable
 exec --no-startup-id compton --no-fading-openclose -b
+exec --no-startup-id ~/.bin/notif-daemon
 # apps
 exec google-chrome-beta
 exec discord-canary
