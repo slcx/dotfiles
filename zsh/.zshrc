@@ -41,7 +41,7 @@ PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
 # }}}
 # path {{{
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.bin"
-export PATH="$HOME/.pyenv/shims:./node_modules/.bin:$PATH:$HOME/.cargo/bin"
+export PATH="$HOME/.luarocks/bin:$HOME/.pyenv/shims:./node_modules/.bin:$PATH:$HOME/.cargo/bin"
 # }}}
 # exports {{{
 export GOPATH="$HOME/dev/go"

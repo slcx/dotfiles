@@ -1,4 +1,16 @@
 .tup
+
+# ignore other nvim stuff
 nvim/.config/nvim/undo
 nvim/.config/nvim/plugged
 nvim/.config/nvim/autoload/plug.vim
+
+# ignore mpd files
+mpd/.config/mpd/database
+mpd/.config/mpd/log
+mpd/.config/mpd/pid
+mpd/.config/mpd/state
+mpd/.config/mpd/sticker.sql
+
+# ignore ncmpcpp files
+ncmpcpp/.ncmpcpp/*.log
