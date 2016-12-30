@@ -33,6 +33,7 @@ Plug 'leafgarland/typescript-vim'       " typescript
 Plug 'cespare/vim-toml'                 " toml
 Plug 'posva/vim-vue'                    " vue
 Plug 'rust-lang/rust.vim'               " rust
+Plug 'fatih/vim-go'
 
 " misc
 set runtimepath+=~/.config/nvim/snippets
