@@ -47,7 +47,6 @@ export PATH="$HOME/.luarocks/bin:$HOME/.pyenv/shims:./node_modules/.bin:$PATH:$H
 export GOPATH="$HOME/dev/go"
 export EDITOR="nvim"
 export PREFIX="$HOME/.local"
-export TERM="st"
 export PAGER="less"
 # }}}
 # aliases {{{
@@ -74,7 +73,13 @@ e() {
 }
 
 ed() {
-  nohup $TERM -e $EDITOR $* >/dev/null 2>&1 &
+  nohup st -e $EDITOR $* >/dev/null 2>&1 &
+}
+
+ev() {
+  pushd ~/.config/nvim
+  ed ~/.config/nvim/init.vim
+  popd
 }
 
 export WINEPREFIX=$HOME/wine32
@@ -96,6 +101,6 @@ repanel() {
   fi
 }
 # }}}
-
-# OPAM configuration
+# opam {{{
 . /home/cheesy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# }}}

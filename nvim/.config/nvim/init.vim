@@ -4,7 +4,7 @@ let g:lite = 0
 set list                   " display invisibles
 set listchars=tab:▸\ 
 set number                  " line numbers
-set numberwidth=6           " line number width
+set numberwidth=4           " line number width
 set mouse=a                 " mouse support
 set cpoptions+=n
 let &showbreak='    · '     " nicely wrapped lines
@@ -26,12 +26,9 @@ set undofile                " persistent undo
 set undodir=$HOME/.config/nvim/undo " undo dir
 set undolevels=1000         " undo levels
 set undoreload=10000        " number of lines to save for undo
-
-if v:version >= 800
-  set belloff=all           " disable bells
-  set breakindent           " break indentation
-  set emoji
-endif
+set belloff=all           " disable bells
+set breakindent           " break indentation
+set emoji
 
 " indentation
 set tabstop=2
@@ -46,25 +43,17 @@ if has('gui_running')
   set guioptions=
 endif
 
+" source other files
 source $HOME/.config/nvim/config/plugins.vim
 source $HOME/.config/nvim/config/colors.vim
 source $HOME/.config/nvim/config/maps.vim
+source $HOME/.config/nvim/config/autocmd.vim
 
 " incommand -- preview your substitution before
-" you even hit enter
-if exists("&inccommand") && has("nvim")
+" you even hit enter (neovim only)
+if exists("&inccommand")
   set inccommand=nosplit
 endif
-
-fun! <SID>AutoMakeDirectory()
-  let s:directory = expand("<afile>:p:h")
-  if !isdirectory(s:directory)
-    call mkdir(s:directory, "p")
-  endif
-endfun
-
-" automatically make directories
-autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 
 " use w!! to force save
 cmap w!! w !sudo tee >/dev/null %
