@@ -37,7 +37,7 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 # }}}
 # base variables {{{
-PS1="%{$fg[magenta]%}%4~%{$reset_color%} > "
+PS1="[%{$fg[magenta]%}%4~%{$reset_color%}] "
 # }}}
 # path {{{
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.bin"
@@ -50,7 +50,7 @@ export PREFIX="$HOME/.local"
 export PAGER="less"
 # }}}
 # aliases {{{
-alias ls="exa"
+alias ls="ls --color=auto"
 alias mv="mv -v"
 alias cp="cp -rv"
 alias reload="source ~/.zshrc"
