@@ -111,7 +111,28 @@ if !g:bare
     let g:deoplete#enable_at_startup = 1
 
     Plug 'w0rp/ale'
-    set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ %{ALEGetStatusLine()}\ 
+    set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
+
+    " Customize fzf colors to match your color scheme
+    let g:fzf_files_options =
+      \ '--preview "head -'.&lines.' {}"'
+    let g:fzf_colors =
+    \ { "fg":      ["fg", "Normal"],
+      \ "bg":      ["bg", "Normal"],
+      \ "hl":      ["fg", "Comment"],
+      \ "fg+":     ["fg", "CursorLine", "CursorColumn", "Normal"],
+      \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
+      \ "hl+":     ["fg", "Statement"],
+      \ "info":    ["fg", "PreProc"],
+      \ "prompt":  ["fg", "Conditional"],
+      \ "pointer": ["fg", "Exception"],
+      \ "marker":  ["fg", "Keyword"],
+      \ "spinner": ["fg", "Label"],
+      \ "header":  ["fg", "Comment"] }
+
+    " do not tie fzf to the shell
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+    Plug 'junegunn/fzf.vim'
   endif
 
   " colors
@@ -185,3 +206,7 @@ nmap ga <plug>(LiveEasyAlign)
 
 " clear highlight
 nmap <silent> <C-L> :noh<CR>
+
+" files
+nmap <silent> <C-K> :Ag<CR>
+nmap <silent> <C-P> :Files<CR>

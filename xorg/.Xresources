@@ -18,7 +18,7 @@ st.cursorthickness:  2
 st.bold_font:    1
 st.xfps:         60
 st.actionfps:    60
-st.chscale:      1.1
+st.chscale:      1.0
 st.cwscale:      0.85
 st.blinktimeout: 800
 st.bellvolume:   0
