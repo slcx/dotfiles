@@ -46,7 +46,6 @@ export PATH="$HOME/.luarocks/bin:$HOME/.pyenv/shims:./node_modules/.bin:$PATH:$H
 # exports {{{
 export GOPATH="$HOME/dev/go"
 export EDITOR="nvim"
-export PREFIX="$HOME/.local"
 export PAGER="less"
 # }}}
 # aliases {{{
@@ -103,4 +102,8 @@ repanel() {
 # }}}
 # opam {{{
 . /home/cheesy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# }}}
+# nvm {{{
+export NVM_DIR="/home/cheesy/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # }}}
