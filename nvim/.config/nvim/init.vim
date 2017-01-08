@@ -10,15 +10,15 @@
 " will only be applied on neovim.
                                  
 " light configuration -- no heavy plugins
-" only applicable if g:bare is 0
-let g:lite = 0
+" only applicable if s:bare is 0
+let s:lite = 0
 
 " bare configuration -- no plugins
-let g:bare = 0
+let s:bare = 0
 
 if !has("nvim")
   " we are not on neovim, assume a bare configuration
-  let g:bare = 1
+  let s:bare = 1
 endif
 
 " general
@@ -31,7 +31,7 @@ set foldmethod=marker               " fold by marker
 set virtualedit=block
 set ignorecase                      " insensitive searching
 set smartcase                       " smart searching
-set timeoutlen=200                  " key timeout
+set timeoutlen=180                  " key timeout
 set writebackup                     " enable write backups
 set noswapfile                      " disable swap files
 set history=500                     " command history
@@ -75,7 +75,7 @@ if !has('nvim')
   set backspace=2
 endif
 
-if !g:bare
+if !s:bare
   " plug
   call plug#begin('~/.config/nvim/plugged')
 
@@ -88,7 +88,7 @@ if !g:bare
   Plug 'othree/es.next.syntax.vim'
   Plug 'rschmukler/pangloss-vim-indent'
   Plug 'mxw/vim-jsx'
-  let g:jsx_ext_required = 0
+  let s:jsx_ext_required = 0
   Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
   Plug 'leafo/moonscript-vim'             " moonscript syntax
   Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
@@ -106,7 +106,7 @@ if !g:bare
   Plug 'tpope/vim-endwise'                " autoinsert end keywords
   Plug 'ervandew/supertab'                " tab for completion
 
-  if g:lite == 0
+  if s:lite == 0
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
     let g:deoplete#enable_at_startup = 1
 
@@ -193,20 +193,57 @@ fun! <SID>AutoMakeDirectory()
   endif
 endfun
 
+fun! <SID>HTMLAbbreviations()
+  " html entity abbreviations
+  :iabbrev <buffer> * &Star;
+  :iabbrev <buffer> -> &rarr;
+  :iabbrev <buffer> <- &larr;
+  :iabbrev <buffer> != &ne;
+  :iabbrev <buffer> <= &le;
+  :iabbrev <buffer> >= &ge;
+  :iabbrev <buffer> >> &Gt;
+  :iabbrev <buffer> << &Lt;
+  :inoremap <buffer> -- &mdash;
+endfun
+
 " automatically make directories if you
 " :tabe use/directories/that/dont/exist/test.c
 autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 
+" html helpers
+autocmd FileType html setlocal spell
+autocmd FileType html :call <SID>HTMLAbbreviations()
+
 " maps
 let mapleader="\<Space>"
 
+" quick escape
+inoremap jk <esc>
+vnoremap jk <esc>
+inoremap <esc> <nop>
+vnoremap <esc> <nop>
+
+" plug
+nnoremap <leader>pu :PlugUpdate<cr>
+nnoremap <leader>pg :PlugUpgrade<cr>
+
 " easy align
-xmap ga <plug>(LiveEasyAlign)
-nmap ga <plug>(LiveEasyAlign)
+xnoremap ga <plug>(LiveEasyAlign)
+nnoremap ga <plug>(LiveEasyAlign)
 
 " clear highlight
-nmap <silent> <C-L> :noh<CR>
+nnoremap <silent> <C-L> :noh<CR>
 
-" files
-nmap <silent> <C-K> :Ag<CR>
-nmap <silent> <C-P> :Files<CR>
+" fzf
+nnoremap <silent> <C-K> :Ag<CR>
+nnoremap <silent> <C-P> :Files<CR>
+
+" disable arrow keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" utilities
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
