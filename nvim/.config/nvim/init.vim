@@ -87,8 +87,8 @@ if !s:bare
   Plug 'othree/javascript-libraries-syntax.vim'
   Plug 'othree/es.next.syntax.vim'
   Plug 'rschmukler/pangloss-vim-indent'
+  let g:jsx_ext_required = 0
   Plug 'mxw/vim-jsx'
-  let s:jsx_ext_required = 0
   Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
   Plug 'leafo/moonscript-vim'             " moonscript syntax
   Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
@@ -98,6 +98,7 @@ if !s:bare
   Plug 'cespare/vim-toml'                 " toml
   Plug 'rust-lang/rust.vim'               " rust
   Plug 'fatih/vim-go'                     " golang
+  Plug 'posva/vim-vue'
 
   " misc
   Plug 'justinmk/vim-dirvish'             " nice file browser
