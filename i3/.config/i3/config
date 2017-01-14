@@ -4,18 +4,18 @@
 set $mod Mod4
 
 # primary font
-font pango:Source Code Pro 8
+font pango:xos4 Terminus 9
 
 # key for moving floating windows
 floating_modifier $mod
 
 # terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec urxvtc
 
 # colors
-#client.focused          #454545 #4A4A4A #DDDDDD
-#client.unfocused        #262626 #333333 #888888
-#client.focused_inactive #262626 #333333 #888888
+client.focused          #454545 #4A4A4A #DDDDDD
+client.unfocused        #262626 #333333 #888888
+client.focused_inactive #262626 #333333 #888888
 
 # kill
 bindsym $mod+w kill
@@ -127,6 +127,7 @@ bar {
   font pango:Font Awesome 8
   font pango:Source Sans Pro 9
   colors {
+    focused_workspace #454545 #4A4A4A #DDDDDD
     background #222222
   }
 }

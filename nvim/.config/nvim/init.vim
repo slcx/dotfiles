@@ -225,6 +225,7 @@ inoremap <esc> <nop>
 vnoremap <esc> <nop>
 
 " plug
+nnoremap <leader>pi :PlugInstall<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>pg :PlugUpgrade<cr>
 

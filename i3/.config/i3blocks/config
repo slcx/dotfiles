@@ -1,7 +1,7 @@
 # i3blocks config file
 
 command=/usr/lib/i3blocks/$BLOCK_NAME
-separator_block_width=15
+separator_block_width=30
 markup=none
 
 [music]

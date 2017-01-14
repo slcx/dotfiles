@@ -1,14 +1,12 @@
 #!/bin/sh
 
-# if tewi is in our ~/fonts/, make sure that x
-# recognizes it
+# apply tewi
 if [ -d ~/fonts/tewi/out ]; then
   xset +fp ~/fonts/tewi/out
 fi
 
-# properly export panel configuration variables
-. ~/.config/bspwm/panel_config
-export PANEL_FIFO PANEL_HEIGHT PANEL_FONT PANEL_WM_NAME
+# start urxvtd in the background
+urxvtd -q -f
 
 # set cursor properly
 xsetroot -cursor_name left_ptr
