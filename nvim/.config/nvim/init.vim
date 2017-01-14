@@ -220,9 +220,7 @@ let mapleader="\<Space>"
 
 " quick escape
 inoremap jk <esc>
-vnoremap jk <esc>
 inoremap <esc> <nop>
-vnoremap <esc> <nop>
 
 " plug
 nnoremap <leader>pi :PlugInstall<cr>
