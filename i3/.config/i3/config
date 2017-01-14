@@ -3,6 +3,10 @@
 # mod key
 set $mod Mod4
 
+# borders
+new_window pixel 2
+new_float normal
+
 # primary font
 font pango:xos4 Terminus 9
 
