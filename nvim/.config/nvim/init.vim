@@ -158,7 +158,7 @@ set t_Co=256
 " apply our current colorscheme
 try
   let g:jellybeans_use_gui_italics = 0
-  colorscheme jellybeans
+  colorscheme base16-atelier-plateau
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
