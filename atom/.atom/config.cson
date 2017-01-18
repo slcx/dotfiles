@@ -32,13 +32,14 @@
       "._*"
       "Thumbs.db"
       "node_modules"
+      "bower_components"
     ]
     projectHome: "/home/cheesy/dev/prj"
     reopenProjectMenuCount: 30
     telemetryConsent: "limited"
     themes: [
       "one-dark-ui"
-      "duotone-dark-sea-syntax"
+      "ariake-dark-syntax"
     ]
     warnOnLargeFileLimit: 10
   editor:

@@ -10,3 +10,6 @@ urxvtd -q -f
 
 # set cursor properly
 xsetroot -cursor_name left_ptr
+
+# swap caps with escape
+setxkbmap -option "caps:swapescape"

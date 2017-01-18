@@ -13,12 +13,28 @@ source $ZSH/oh-my-zsh.sh
 PS1="%3~%% "
 # }}}
 # path {{{
-path+=(
+path=(
   # ~/.local bin files
   $HOME/.local/bin
 
+  # binscripts
+  $HOME/.bin
+
   # rust
   $HOME/.cargo/bin
+
+  # perl
+  /usr/bin/site_perl
+  /usr/bin/vendor_perl
+  /usr/bin/core_perl
+
+  # sane bin
+  /usr/local/sbin
+  /usr/local/bin
+  /usr/bin
+  /bin
+  /sbin
+  /usr/lib/jvm/default/bin
 )
 # }}}
 if [[ -n $SSH_CONNECTION ]]; then
