@@ -67,3 +67,5 @@ hqgif() {
 bk() {
   nohup $* >/dev/null 2>&1 &
 }
+
+export PATH="$HOME/.yarn/bin:$PATH"

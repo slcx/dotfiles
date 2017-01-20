@@ -21,8 +21,7 @@
       "autocomplete-css"
       "autocomplete-plus"
       "snippets"
-      "vim-mode-plus-ex-mode"
-      "vim-mode-plus"
+      "vim-mode"
     ]
     ignoredNames: [
       ".git"
@@ -43,7 +42,7 @@
     ]
     warnOnLargeFileLimit: 10
   editor:
-    fontFamily: "PragmataPro"
+    fontFamily: "Iosevka"
     fontSize: 18
     lineHeight: 1.3
     scrollPastEnd: true

@@ -35,7 +35,7 @@ usage() {
 }
 
 # *** option defaults
-opt_filename=~/Videos/$(date +%F-%T).mp4
+opt_filename=~/Videos/$(date +%F-%T).mkv
 opt_slopcommand='slop --nokeyboard'
 opt_fps=20
 opt_silent='-loglevel warning'

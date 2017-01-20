@@ -4,31 +4,11 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=30
 markup=none
 
-[music]
-label=
-interval=1
-command=mpc current
-
-[brightness]
-label=
-interval=once
-signal=2
-command=~/.blocks/brightness
-
 [volume]
 label=
 interval=once
 signal=1
 command=~/.blocks/vol
-
-[disk]
-label=
-interval=30
-
-[essid]
-label=
-interval=1
-command=~/.blocks/essid
 
 [battery]
 label=
