@@ -17,9 +17,21 @@ floating_modifier $mod
 bindsym $mod+Return exec urxvtc
 
 # colors
-client.focused          #454545 #4A4A4A #DDDDDD
-client.unfocused        #262626 #333333 #888888
-client.focused_inactive #262626 #333333 #888888
+# get colors from wal
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+set_from_resource $acc i3wm.color3 #f0f0f0
+client.focused          $bg     $acc    $fg  $bg       $bg
+client.focused_inactive $bg     $acc    $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+client.background       $bg
+
+# old colors
+# client.focused          #454545 #4A4A4A #DDDDDD
+# client.unfocused        #262626 #333333 #888888
+# client.focused_inactive #262626 #333333 #888888
 
 # kill
 bindsym $mod+w kill
@@ -77,16 +89,16 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 "code"
-set $ws2 "www"
-set $ws3 "msg"
-set $ws4 "img"
-set $ws5 "t 1"
-set $ws6 "art"
-set $ws7 "t 2"
-set $ws8 "t 3"
-set $ws9 "t 4"
-set $ws10 "game"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "0"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -131,7 +143,7 @@ bar {
   font pango:Font Awesome 8
   font pango:Source Sans Pro 9
   colors {
-    focused_workspace #454545 #4A4A4A #DDDDDD
+    focused_workspace $bg $bg $fg
     background #222222
   }
 }
@@ -141,6 +153,7 @@ for_window [class="(?i)client.py"] move to workspace $ws4
 for_window [class="(?i)google-chrome-beta"] move to workspace $ws2
 for_window [class="(?i)discord"] move to workspace $ws3
 for_window [class="(?i)gimp"] move to workspace $ws6
+for_window [class="(?i)steam"] move to workspace $ws10
 
 # utility
 bindsym Print exec ~/.bin/scrn

@@ -44,8 +44,9 @@ set undolevels=1000                 " undo levels
 set undoreload=10000                " lines to save for undo
 set belloff=all                     " disable bells
 set breakindent                     " break indentation
-set emoji
-set cursorline
+set emoji                           " emoji support
+set laststatus=1                    " minimal
+set shortmess=I                     " minimal
 
 " indentation
 set tabstop=2
@@ -139,6 +140,7 @@ if !s:bare
   " colors
   Plug 'chriskempson/base16-vim'
   Plug 'nanotech/jellybeans.vim'
+  Plug 'dylanaraps/wal'
 
   call plug#end()
 endif
@@ -158,7 +160,7 @@ set t_Co=256
 " apply our current colorscheme
 try
   let g:jellybeans_use_gui_italics = 0
-  colorscheme base16-atelier-plateau
+  colorscheme wal
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -167,7 +169,7 @@ endtry
 " we only apply this if our terminal is suckless ;)
 if ($TERM =~ "st" || $TERM =~ "rxvt")
   " seoul looks better without terminal gui colors
-  if g:colors_name != "seoul256"
+  if g:colors_name != "seoul256" && g:colors_name != "wal"
     set termguicolors
   endif
 
@@ -219,8 +221,12 @@ autocmd FileType html :call <SID>HTMLAbbreviations()
 let mapleader="\<Space>"
 
 " quick escape
-inoremap jk <esc>
+" i have since binded caps lock to escape.
+" inoremap jk <esc>
 " inoremap <esc> <nop>
+
+" force statusbar to show
+nnoremap <silent> <leader>p :set laststatus=2<cr>
 
 " plug
 nnoremap <leader>pi :PlugInstall<cr>
@@ -245,5 +251,9 @@ nnoremap <left> <nop>
 nnoremap <right> <nop>
 
 " utilities
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+if g:colors_name != "wal"
+  set cursorline
+endif

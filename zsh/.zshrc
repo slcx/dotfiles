@@ -1,3 +1,4 @@
+(/home/cheesy/.bin/wal -r &)
 # keychain {{{
 eval $(keychain --eval --quiet id_rsa)
 [[ -f ~/.zshtokens ]] && source ~/.zshtokens
@@ -46,16 +47,18 @@ fi
 # environment variables
 export GOPATH="$HOME/dev/go"
 
+# special aliases
 alias cp="cp -r"
 alias ls="ls --color=auto -h"
 alias reload="source ~/.zshrc"
 alias evc="ed ~/.config/nvim/init.vim"
 
+# hand crafted LS_COLORS
 export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
 # call editor
 alias e="$EDITOR"
-ed() { nohup st -e $EDITOR $* >/dev/null 2>&1 & }
+ed() { nohup urxvtc -e $EDITOR $* >/dev/null 2>&1 & }
 
 hqgif() {
   palette="/tmp/gif_palette.png"
@@ -65,7 +68,7 @@ hqgif() {
 }
 
 bk() {
-  nohup $* >/dev/null 2>&1 &
+  (nohup $* >/dev/null 2>&1 &)
 }
 
 export PATH="$HOME/.yarn/bin:$PATH"
