@@ -21,10 +21,13 @@ bindsym $mod+Return exec urxvtc
 set_from_resource $fg i3wm.color7 #f0f0f0
 set_from_resource $bg i3wm.color2 #f0f0f0
 set_from_resource $acc i3wm.color3 #f0f0f0
-client.focused          $bg     $acc    $fg  $bg       $bg
-client.focused_inactive $bg     $acc    $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
-client.urgent           $bg     $bg     $fg  $bg       $bg
+set_from_resource $acc2 i3wm.color1 #f0f0f0
+set_from_resource $white1 i3wm.color4 #f0f0f0 
+set_from_resource $white2 i3wm.color5 #f0f0f0 
+client.focused          $bg     $bg     $fg  $acc      $white2
+client.focused_inactive $bg     $bg     $fg  $acc      $white2
+client.unfocused        $bg     $bg     $fg  $bg       $white1
+client.urgent           $bg     $bg     $fg  $bg       $white1
 client.placeholder      $bg     $bg     $fg  $bg       $bg
 client.background       $bg
 
@@ -37,7 +40,8 @@ client.background       $bg
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# requires dmenux for -z (fuzzy searching)
+bindsym $mod+d exec dmenu_run -h 21 -z -nb "$bg" -nf "$fg" -sb "$fg" -sf "$bg"
 
 # change focus
 bindsym $mod+h focus left
@@ -131,7 +135,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec i3-msg exit
 
 bindsym $mod+r mode "resize"
 
@@ -163,8 +167,9 @@ exec_always --no-startup-id feh --bg-fill ~/Pictures/wall3.jpg
 exec ~/.bin/touchpad disable
 exec --no-startup-id compton --no-fading-openclose -b
 exec --no-startup-id ~/.bin/notif-daemon
+
 # apps
-exec google-chrome-beta
-exec discord-canary
-exec hydrus-client
+exec google-chrome-beta &
+exec discord-canary &
+exec hydrus-client &
 exec dropbox &
