@@ -11,10 +11,10 @@ Xft.hintstyle: hintslight
 
 ! urxvt
 urxvt.scrollBar: false
-urxvt.font: xft:Iosevka:pixelsize=16
+urxvt.font: xft:PragmataPro Mono:pixelsize=17
 ! urxvt.font: -lucy-tewi-medium-r-normal--11-90-100-100-c-60-iso10646-*
 ! urxvt.boldFont: -lucy-tewi-bold-r-normal--11-80-100-100-c-60-iso10646-*
-URxvt.letterSpace: -1
+URxvt.letterSpace: -2
 
 st.termname:     st-256color
 st.font:         tewi:pixelsize=9

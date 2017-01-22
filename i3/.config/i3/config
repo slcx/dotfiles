@@ -18,18 +18,26 @@ bindsym $mod+Return exec urxvtc
 
 # colors
 # get colors from wal
-set_from_resource $fg i3wm.color7 #f0f0f0
-set_from_resource $bg i3wm.color2 #f0f0f0
-set_from_resource $acc i3wm.color3 #f0f0f0
-set_from_resource $acc2 i3wm.color1 #f0f0f0
-set_from_resource $white1 i3wm.color4 #f0f0f0 
-set_from_resource $white2 i3wm.color5 #f0f0f0 
-client.focused          $bg     $bg     $fg  $acc      $white2
-client.focused_inactive $bg     $bg     $fg  $acc      $white2
-client.unfocused        $bg     $bg     $fg  $bg       $white1
-client.urgent           $bg     $bg     $fg  $bg       $white1
-client.placeholder      $bg     $bg     $fg  $bg       $bg
-client.background       $bg
+set_from_resource $color1 i3wm.color1 #f0f0f0
+set_from_resource $color2 i3wm.color2 #f0f0f0
+set_from_resource $color3 i3wm.color3 #f0f0f0
+set_from_resource $color4 i3wm.color4 #f0f0f0 
+set_from_resource $color5 i3wm.color5 #f0f0f0 
+set_from_resource $color7 i3wm.color7 #f0f0f0
+set_from_resource $color7 i3wm.color8 #f0f0f0
+set_from_resource $color7 i3wm.color9 #f0f0f0
+set_from_resource $color7 i3wm.color10 #f0f0f0
+set_from_resource $color7 i3wm.color11 #f0f0f0
+set_from_resource $color7 i3wm.color12 #f0f0f0
+set_from_resource $color7 i3wm.color13 #f0f0f0
+set_from_resource $color7 i3wm.color14 #f0f0f0
+set_from_resource $color7 i3wm.color15 #f0f0f0
+client.focused           $color2     $color2     $color7  $acc      $color2
+client.focused_inactive  $color2     $color2     $color7  $acc      $color2
+client.unfocused         $color2     $color2     $color7  $color2       $color3
+client.urgent            $color2     $color2     $color7  $color2       $color3
+client.placeholder       $color2     $color2     $color7  $color2       $color2
+client.background        $color2
 
 # old colors
 # client.focused          #454545 #4A4A4A #DDDDDD
@@ -41,7 +49,7 @@ bindsym $mod+w kill
 
 # start dmenu (a program launcher)
 # requires dmenux for -z (fuzzy searching)
-bindsym $mod+d exec dmenu_run -h 21 -z -nb "$bg" -nf "$fg" -sb "$fg" -sf "$bg"
+bindsym $mod+d exec dmenu_run -h 21 -z -nb "$color2" -nf "$color7" -sb "$color7" -sf "$color2"
 
 # change focus
 bindsym $mod+h focus left
@@ -147,7 +155,7 @@ bar {
   font pango:Font Awesome 8
   font pango:Source Sans Pro 9
   colors {
-    focused_workspace $bg $bg $fg
+    focused_workspace $color2 $color2 $color7
     background #222222
   }
 }
@@ -165,7 +173,7 @@ bindsym Print exec ~/.bin/scrn
 # autostart
 exec_always --no-startup-id feh --bg-fill ~/Pictures/wall3.jpg
 exec ~/.bin/touchpad disable
-exec --no-startup-id compton --no-fading-openclose -b
+# exec --no-startup-id compton --no-fading-openclose -b
 exec --no-startup-id ~/.bin/notif-daemon
 
 # apps

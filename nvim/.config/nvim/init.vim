@@ -234,8 +234,8 @@ nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>pg :PlugUpgrade<cr>
 
 " easy align
-xnoremap ga <plug>(LiveEasyAlign)
-nnoremap ga <plug>(LiveEasyAlign)
+xmap ga <plug>(LiveEasyAlign)
+nmap ga <plug>(LiveEasyAlign)
 
 " clear highlight
 nnoremap <silent> <C-L> :noh<CR>

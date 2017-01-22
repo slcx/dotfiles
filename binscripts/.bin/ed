@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# apply colorscheme
+$HOME/.bin/wal -r
+
+nvim $*

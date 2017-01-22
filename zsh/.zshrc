@@ -1,4 +1,4 @@
-(/home/cheesy/.bin/wal -r &)
+(/$HOME/.bin/wal -r &)
 # keychain {{{
 eval $(keychain --eval --quiet id_rsa)
 [[ -f ~/.zshtokens ]] && source ~/.zshtokens
@@ -15,6 +15,9 @@ PS1="%3~%% "
 # }}}
 # path {{{
 path=(
+  # danger zone
+  ./node_modules/.bin
+
   # ~/.local bin files
   $HOME/.local/bin
 
@@ -23,6 +26,9 @@ path=(
 
   # rust
   $HOME/.cargo/bin
+
+  # yarn
+  $HOME/.yarn/bin
 
   # perl
   /usr/bin/site_perl
@@ -58,7 +64,10 @@ export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:
 
 # call editor
 alias e="$EDITOR"
-ed() { nohup urxvtc -e $EDITOR $* >/dev/null 2>&1 & }
+
+ed() {
+  (nohup urxvtc -e $HOME/.bin/ed $* >/dev/null 2>&1 &)
+}
 
 hqgif() {
   palette="/tmp/gif_palette.png"
@@ -71,4 +80,6 @@ bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
 
-export PATH="$HOME/.yarn/bin:$PATH"
+# clear and then fetch
+clear
+fetch
