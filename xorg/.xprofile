@@ -13,6 +13,3 @@ xsetroot -cursor_name left_ptr
 
 # swap caps with escape
 setxkbmap -option "caps:swapescape"
-
-# re-apply colorscheme
-$HOME/.bin/wal -i "$(< "${HOME}/.cache/wal/wal")"

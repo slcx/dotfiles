@@ -81,56 +81,55 @@ if !s:bare
   call plug#begin('~/.config/nvim/plugged')
 
   " syntaxes
-  Plug 'othree/html5.vim'                 " enhanced html5 syntax
-  Plug 'hail2u/vim-css3-syntax'           " enhanced css3 syntax
-  Plug 'lepture/vim-jinja'                " jinja syntax
+  Plug 'othree/html5.vim', 
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'lepture/vim-jinja'
   Plug 'othree/yajs.vim'
-  Plug 'othree/javascript-libraries-syntax.vim'
-  Plug 'othree/es.next.syntax.vim'
-  Plug 'rschmukler/pangloss-vim-indent'
+  Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
+  Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
+  Plug 'rschmukler/pangloss-vim-indent', { 'for': 'javascript' }
   let g:jsx_ext_required = 0
-  Plug 'mxw/vim-jsx'
-  Plug 'kchmck/vim-coffee-script'         " coffeescript syntax
-  Plug 'leafo/moonscript-vim'             " moonscript syntax
-  Plug 'octol/vim-cpp-enhanced-highlight' " enhanced c++ syntax
-  Plug 'evanmiller/nginx-vim-syntax'      " nginx
-  Plug 'rhysd/vim-crystal'                " vim
-  Plug 'leafgarland/typescript-vim'       " typescript
-  Plug 'cespare/vim-toml'                 " toml
-  Plug 'rust-lang/rust.vim'               " rust
-  Plug 'fatih/vim-go'                     " golang
+  Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+  Plug 'kchmck/vim-coffee-script'
+  Plug 'leafo/moonscript-vim'
+  Plug 'octol/vim-cpp-enhanced-highlight'
+  Plug 'evanmiller/nginx-vim-syntax'
+  Plug 'rhysd/vim-crystal'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'cespare/vim-toml'
+  Plug 'rust-lang/rust.vim'
+  Plug 'fatih/vim-go'
   Plug 'posva/vim-vue'
 
-  " misc
-  Plug 'justinmk/vim-dirvish'             " nice file browser
-  Plug 'junegunn/vim-easy-align'          " easy aligning
-  Plug 'tpope/vim-commentary'             " comment stuff out
-  Plug 'tpope/vim-endwise'                " autoinsert end keywords
-  Plug 'ervandew/supertab'                " tab for completion
+  Plug 'justinmk/vim-dirvish'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
+  Plug 'ervandew/supertab'
+  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
   if s:lite == 0
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
-    let g:deoplete#enable_at_startup = 1
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
+    " let g:deoplete#enable_at_startup = 1
 
     Plug 'w0rp/ale'
     set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
 
-    " Customize fzf colors to match your color scheme
     let g:fzf_files_options =
       \ '--preview "head -'.&lines.' {}"'
     let g:fzf_colors =
-    \ { "fg":      ["fg", "Normal"],
-      \ "bg":      ["bg", "Normal"],
-      \ "hl":      ["fg", "Comment"],
-      \ "fg+":     ["fg", "CursorLine", "CursorColumn", "Normal"],
-      \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
-      \ "hl+":     ["fg", "Statement"],
-      \ "info":    ["fg", "PreProc"],
-      \ "prompt":  ["fg", "Conditional"],
-      \ "pointer": ["fg", "Exception"],
-      \ "marker":  ["fg", "Keyword"],
-      \ "spinner": ["fg", "Label"],
-      \ "header":  ["fg", "Comment"] }
+    \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
     " do not tie fzf to the shell
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
@@ -141,6 +140,7 @@ if !s:bare
   Plug 'chriskempson/base16-vim'
   Plug 'nanotech/jellybeans.vim'
   Plug 'dylanaraps/wal'
+  Plug 'AlessandroYorba/Monrovia'
 
   call plug#end()
 endif
@@ -160,7 +160,7 @@ set t_Co=256
 " apply our current colorscheme
 try
   let g:jellybeans_use_gui_italics = 0
-  colorscheme wal
+  colorscheme monrovia
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry

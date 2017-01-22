@@ -17,39 +17,16 @@ floating_modifier $mod
 bindsym $mod+Return exec urxvtc
 
 # colors
-# get colors from wal
-set_from_resource $color1 i3wm.color1 #f0f0f0
-set_from_resource $color2 i3wm.color2 #f0f0f0
-set_from_resource $color3 i3wm.color3 #f0f0f0
-set_from_resource $color4 i3wm.color4 #f0f0f0 
-set_from_resource $color5 i3wm.color5 #f0f0f0 
-set_from_resource $color7 i3wm.color7 #f0f0f0
-set_from_resource $color7 i3wm.color8 #f0f0f0
-set_from_resource $color7 i3wm.color9 #f0f0f0
-set_from_resource $color7 i3wm.color10 #f0f0f0
-set_from_resource $color7 i3wm.color11 #f0f0f0
-set_from_resource $color7 i3wm.color12 #f0f0f0
-set_from_resource $color7 i3wm.color13 #f0f0f0
-set_from_resource $color7 i3wm.color14 #f0f0f0
-set_from_resource $color7 i3wm.color15 #f0f0f0
-client.focused           $color2     $color2     $color7  $acc      $color2
-client.focused_inactive  $color2     $color2     $color7  $acc      $color2
-client.unfocused         $color2     $color2     $color7  $color2       $color3
-client.urgent            $color2     $color2     $color7  $color2       $color3
-client.placeholder       $color2     $color2     $color7  $color2       $color2
-client.background        $color2
-
-# old colors
-# client.focused          #454545 #4A4A4A #DDDDDD
-# client.unfocused        #262626 #333333 #888888
-# client.focused_inactive #262626 #333333 #888888
+client.focused          #454545 #4A4A4A #DDDDDD
+client.unfocused        #262626 #333333 #888888
+client.focused_inactive #262626 #333333 #888888
 
 # kill
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
 # requires dmenux for -z (fuzzy searching)
-bindsym $mod+d exec dmenu_run -h 21 -z -nb "$color2" -nf "$color7" -sb "$color7" -sf "$color2"
+bindsym $mod+d exec dmenu_run -h 21 -z
 
 # change focus
 bindsym $mod+h focus left
@@ -155,7 +132,7 @@ bar {
   font pango:Font Awesome 8
   font pango:Source Sans Pro 9
   colors {
-    focused_workspace $color2 $color2 $color7
+    focused_workspace #454545 #4A4A4A #DDDDDD
     background #222222
   }
 }
