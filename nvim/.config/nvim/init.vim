@@ -49,7 +49,7 @@ set belloff=all                     " disable bells
 set breakindent                     " break indentation
 set emoji                           " emoji support
 set laststatus=1                    " minimal
-set shortmess+=I                     " minimal
+set shortmess+=I                    " minimal
 set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
 
 " indentation
@@ -94,10 +94,10 @@ if !s:bare
   Plug 'hail2u/vim-css3-syntax'
   Plug 'lepture/vim-jinja'
   Plug 'othree/yajs.vim'
-  Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-  Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
-  Plug 'rschmukler/pangloss-vim-indent', { 'for': 'javascript' }
-  Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+  Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'othree/es.next.syntax.vim'
+  let g:jsx_ext_required = 0
+  Plug 'mxw/vim-jsx'
   Plug 'kchmck/vim-coffee-script'
   Plug 'leafo/moonscript-vim'
   Plug 'octol/vim-cpp-enhanced-highlight'
@@ -171,8 +171,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  let g:jellybeans_use_gui_italics = 0
-  colorscheme monrovia
+  colorscheme base16-ashes
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -229,6 +228,15 @@ autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 autocmd FileType html setlocal spell
 autocmd FileType html :call <SID>HTMLAbbreviations()
 
+function! s:fzf_statusline()
+  hi! link fzf1 Comment
+  hi! link fzf2 Comment
+  hi! link fzf3 Comment
+  setlocal statusline=%#fzf1#\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 " maps
 let mapleader="\<Space>"
 
@@ -244,6 +252,7 @@ nnoremap <silent> <leader>p :set laststatus=2<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>pg :PlugUpgrade<cr>
+nnoremap <leader>pc :PlugClean<cr>
 
 " easy align
 xmap ga <plug>(LiveEasyAlign)
@@ -263,5 +272,5 @@ nnoremap <left> <nop>
 nnoremap <right> <nop>
 
 " utilities
-nnoremap <leader>ev :tabe $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
