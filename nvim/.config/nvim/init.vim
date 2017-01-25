@@ -13,6 +13,9 @@
 " only applicable if s:bare is 0
 let s:lite = 0
 
+" autocomplete plugin(s)
+let s:auto = 0
+
 " bare configuration -- no plugins
 let s:bare = 0
 
@@ -46,7 +49,8 @@ set belloff=all                     " disable bells
 set breakindent                     " break indentation
 set emoji                           " emoji support
 set laststatus=1                    " minimal
-set shortmess=I                     " minimal
+set shortmess+=I                     " minimal
+set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
 
 " indentation
 set tabstop=2
@@ -80,6 +84,11 @@ if !s:bare
   " plug
   call plug#begin('~/.config/nvim/plugged')
 
+  " plugin configuration
+  let g:jsx_ext_required = 0
+  let g:peekaboo_delay = 250
+  let g:peekaboo_window = 'vertical botright 30new'
+
   " syntaxes
   Plug 'othree/html5.vim', 
   Plug 'hail2u/vim-css3-syntax'
@@ -88,7 +97,6 @@ if !s:bare
   Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
   Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
   Plug 'rschmukler/pangloss-vim-indent', { 'for': 'javascript' }
-  let g:jsx_ext_required = 0
   Plug 'mxw/vim-jsx', { 'for': 'javascript' }
   Plug 'kchmck/vim-coffee-script'
   Plug 'leafo/moonscript-vim'
@@ -107,16 +115,21 @@ if !s:bare
   Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
   Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+  Plug 'junegunn/vim-peekaboo'
 
   if s:lite == 0
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
-    " let g:deoplete#enable_at_startup = 1
+    if s:auto
+      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
+      let g:deoplete#enable_at_startup = 1
+    endif
 
     Plug 'w0rp/ale'
-    set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
 
+    " fzf options
     let g:fzf_files_options =
       \ '--preview "head -'.&lines.' {}"'
+    let g:fzf_action = {
+      \ 'enter': 'tab split' }
     let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -139,7 +152,6 @@ if !s:bare
   " colors
   Plug 'chriskempson/base16-vim'
   Plug 'nanotech/jellybeans.vim'
-  Plug 'dylanaraps/wal'
   Plug 'AlessandroYorba/Monrovia'
 
   call plug#end()
@@ -169,7 +181,7 @@ endtry
 " we only apply this if our terminal is suckless ;)
 if ($TERM =~ "st" || $TERM =~ "rxvt")
   " seoul looks better without terminal gui colors
-  if g:colors_name != "seoul256" && g:colors_name != "wal"
+  if g:colors_name != "seoul256"
     set termguicolors
   endif
 
@@ -253,7 +265,3 @@ nnoremap <right> <nop>
 " utilities
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
-if g:colors_name != "wal"
-  set cursorline
-endif

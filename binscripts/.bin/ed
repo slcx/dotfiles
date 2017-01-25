@@ -1,6 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
-# apply colorscheme
-$HOME/.bin/wal -r
+editor_program = 'nvim'
 
-nvim $*
+if Dir.exists?(ARGV[0] || '')
+  # we have been pointed to a directory
+  system("pushd #{ARGV[0]}; #{editor_program}")
+else
+  system("#{editor_program} #{ARGV.join(' ')}")
+end
+
