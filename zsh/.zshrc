@@ -26,6 +26,9 @@ path=(
   # rust
   $HOME/.cargo/bin
 
+  # ruby
+  $HOME/.gem/ruby/2.4.0/bin
+
   # yarn
   $HOME/.yarn/bin
 

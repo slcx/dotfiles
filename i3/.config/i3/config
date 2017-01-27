@@ -155,6 +155,6 @@ exec --no-startup-id ~/.bin/notif-daemon
 
 # apps
 exec google-chrome-beta &
-exec discord-canary &
+exec discord &
 exec hydrus-client &
 exec dropbox &
