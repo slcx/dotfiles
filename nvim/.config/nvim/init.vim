@@ -126,6 +126,7 @@ if !s:bare
     Plug 'w0rp/ale'
 
     " fzf options
+    let g:fzf_layout = { 'down': '~70%' }
     let g:fzf_files_options =
       \ '--preview "head -'.&lines.' {}"'
     let g:fzf_action = {
