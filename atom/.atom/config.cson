@@ -21,7 +21,6 @@
       "autocomplete-css"
       "autocomplete-plus"
       "snippets"
-      "vim-mode"
     ]
     ignoredNames: [
       ".git"
@@ -42,8 +41,8 @@
     ]
     warnOnLargeFileLimit: 10
   editor:
-    fontFamily: "Iosevka"
-    fontSize: 18
+    fontFamily: "Fantasque Sans Mono"
+    fontSize: 17
     lineHeight: 1.3
     scrollPastEnd: true
     showIndentGuide: true

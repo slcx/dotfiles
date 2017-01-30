@@ -35,7 +35,6 @@ set virtualedit=block
 set ignorecase                      " insensitive searching
 set smartcase                       " smart searching
 set timeoutlen=180                  " key timeout
-set writebackup                     " enable write backups
 set noswapfile                      " disable swap files
 set history=500                     " command history
 set modeline                        " modeline
@@ -51,6 +50,7 @@ set emoji                           " emoji support
 set laststatus=1                    " minimal
 set shortmess+=I                    " minimal
 set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
+set nowritebackup                   " messes with fs.watch
 
 " indentation
 set tabstop=2
@@ -199,7 +199,7 @@ hi! link SpecialKey NonText
 cmap w!! w !sudo tee >/dev/null %
 
 " autocmd
-au BufRead,BufNewFile *.cson set ft=coffee
+autocmd BufRead,BufNewFile *.cson set ft=coffee
 
 fun! <SID>AutoMakeDirectory()
   let s:directory = expand("<afile>:p:h")

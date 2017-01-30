@@ -87,7 +87,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "0"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -155,6 +155,6 @@ exec --no-startup-id ~/.bin/notif-daemon
 
 # apps
 exec google-chrome-beta &
-exec discord &
+exec discord-ptb &
 exec hydrus-client &
 exec dropbox &

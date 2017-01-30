@@ -68,7 +68,7 @@ export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:
 alias e="$EDITOR"
 
 ed() {
-  (nohup urxvtc -e $HOME/.bin/ed $* >/dev/null 2>&1 &)
+  (nohup urxvtc -e zsh -i -c "~/.bin/ed $*" >/dev/null 2>&1 &)
 }
 
 hqgif() {
@@ -81,3 +81,6 @@ hqgif() {
 bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
+
+# change to a bit font
+[ -f ~/.bin/changefont ] && changefont bit_med
