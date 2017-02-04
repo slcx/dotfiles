@@ -25,6 +25,7 @@ if !has("nvim")
 endif
 
 " general
+set mouse=a
 set list                            " display invisibles
 set listchars=tab:▸\ 
 set number                          " line numbers
@@ -69,7 +70,6 @@ if !has('nvim')
   " neovim has sane defaults which are activated automatically.
   " since we aren't in neovim, activate sane defaults
   syntax on
-  set mouse=a
   set smarttab
   set wildmenu
   set hlsearch
@@ -81,6 +81,13 @@ if !has('nvim')
 endif
 
 if !s:bare
+  " auto plug install
+  if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
+
   " plug
   call plug#begin('~/.config/nvim/plugged')
 
@@ -179,7 +186,7 @@ endtry
 
 " terminal gui colors
 " we only apply this if our terminal is suckless ;)
-if ($TERM =~ "st" || $TERM =~ "rxvt")
+if ($TERM =~ "st" || $TERM =~ "rxvt" || $TERM =~ "xterm-256color")
   " seoul looks better without terminal gui colors
   if g:colors_name != "seoul256"
     set termguicolors
@@ -197,6 +204,15 @@ hi! link SpecialKey NonText
 
 " use w!! to force save
 cmap w!! w !sudo tee >/dev/null %
+
+" rg with fzf
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!*.{min.js,swp,o,zip}" 
+  \ -g "!{.git,node_modules,bower_modules,vendor}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 " autocmd
 autocmd BufRead,BufNewFile *.cson set ft=coffee
@@ -263,7 +279,7 @@ nmap ga <plug>(LiveEasyAlign)
 nnoremap <silent> <C-L> :noh<CR>
 
 " fzf
-nnoremap <silent> <C-K> :Ag<CR>
+nnoremap <silent> <C-K> :F<CR>
 nnoremap <silent> <C-P> :Files<CR>
 
 " disable arrow keys
