@@ -82,3 +82,15 @@ hqgif() {
 bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
+
+# load antigen
+source ~/antigen/antigen.zsh
+
+antigen use oh-my-zsh
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle git
+antigen bundle command-not-found
+antigen theme cypher
+
+antigen apply
