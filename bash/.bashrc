@@ -1,12 +1,21 @@
+#
 # ~/.bashrc
 #
-# i usually use zsh, but this is here _just in case_
 
 # if not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias ll='ls -al'
-alias la='ls -l'
+if [[ -x /usr/bin/nvim ]] || [[ -x /usr/local/bin/nvim ]]; then
+  export EDITOR=nvim
+elif [[ -x /usr/bin/vim ]] || [[ -x /bin/vim ]]; then
+  export EDITOR=vim
+else
+  echo "what? no nvim or vim on this system, falling back to \`vi'."
+  export EDITOR=vi
+fi
 
-PS1='[bash \W] '
+alias ls='ls --color=auto -hF'
+alias cp='cp -r'
+alias e='$EDITOR'
+
+PS1='ssh \u@\h \W% '

@@ -83,6 +83,9 @@ bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
 
+# nvm lazy load
+export NVM_LAZY_LOAD=true
+
 # load antigen
 source ~/antigen/antigen.zsh
 
@@ -91,6 +94,7 @@ antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
 antigen bundle command-not-found
+antigen bundle lukechilds/zsh-nvm
 antigen theme cypher
 
 antigen apply
