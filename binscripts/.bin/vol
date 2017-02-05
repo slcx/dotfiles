@@ -5,9 +5,9 @@ if [ "$1" == "up" ]; then
 elif [ "$1" == "down" ]; then
   amixer set Master 2%- unmute
 elif [ "$1" = "toggle" ]; then
-  amixer set Master toggle
+  pamixer -t
 elif [ "$1" == "i3block" ]; then
-  if [ "$(amixer | grep off)" ]; then
+  if [ "$(pamixer --get-mute)" == "true" ]; then
     echo mute
     echo mute
     echo '#ff5a52'

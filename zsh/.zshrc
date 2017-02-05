@@ -3,7 +3,7 @@ eval $(keychain --eval --quiet id_rsa)
 [[ -f ~/.zshtokens ]] && source ~/.zshtokens
 # }}}
 # oh my zsh {{{
-export ZSH=/home/cheesy/.oh-my-zsh
+export ZSH=/home/ch/.oh-my-zsh
 export UPDATE_ZSH_DAYS=5
 HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
@@ -46,6 +46,7 @@ path=(
   /usr/lib/jvm/default/bin
 )
 # }}}
+
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR="vim"
 else
@@ -57,7 +58,7 @@ export GOPATH="$HOME/dev/go"
 
 # special aliases
 alias cp="cp -r"
-alias ls="ls --color=auto -h"
+alias ls="ls --color=auto -hF"
 alias reload="source ~/.zshrc"
 alias evc="e ~/.config/nvim/init.vim"
 
@@ -81,6 +82,3 @@ hqgif() {
 bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
-
-# change to a bit font
-[ -f ~/.bin/changefont ] && changefont bit_med

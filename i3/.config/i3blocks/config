@@ -8,7 +8,7 @@ markup=none
 label=
 interval=once
 signal=1
-command=~/.blocks/vol
+command=~/.bin/vol i3block
 
 [battery]
 label=

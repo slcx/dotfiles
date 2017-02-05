@@ -154,7 +154,7 @@ exec ~/.bin/touchpad disable
 exec --no-startup-id ~/.bin/notif-daemon
 
 # apps
-exec google-chrome-beta &
+exec google-chrome-stable &
 exec discord-ptb &
 exec hydrus-client &
 exec dropbox &
