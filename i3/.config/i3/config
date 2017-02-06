@@ -139,7 +139,7 @@ bar {
 
 # rules
 for_window [class="(?i)client.py"] move to workspace $ws4
-for_window [class="(?i)google-chrome-beta"] move to workspace $ws2
+for_window [class="(?i)google-chrome"] move to workspace $ws2
 for_window [class="(?i)discord"] move to workspace $ws3
 for_window [class="(?i)gimp"] move to workspace $ws6
 for_window [class="(?i)steam"] move to workspace $ws10

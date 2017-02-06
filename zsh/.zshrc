@@ -2,6 +2,11 @@
 eval $(keychain --eval --quiet id_rsa)
 [[ -f ~/.zshtokens ]] && source ~/.zshtokens
 # }}}
+# early aliases {{{
+if [[ -x /usr/bin/hub ]]; then
+  alias git="hub"
+fi
+# }}}
 # oh my zsh {{{
 export ZSH=/home/ch/.oh-my-zsh
 export UPDATE_ZSH_DAYS=5
@@ -46,30 +51,31 @@ path=(
   /usr/lib/jvm/default/bin
 )
 # }}}
-
+# ssh {{{
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR="vim"
 else
   export EDITOR="nvim"
 fi
-
-# environment variables
+# }}}
+# env {{{
 export GOPATH="$HOME/dev/go"
-
-# special aliases
+export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+# }}}
+# aliases {{{
 alias cp="cp -r"
 alias ls="ls --color=auto -hF"
 alias reload="source ~/.zshrc"
 alias evc="e ~/.config/nvim/init.vim"
-
-# hand crafted LS_COLORS
-export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-
-# call editor
 alias e="$EDITOR"
-
+# }}}
+# functions {{{
 ed() {
-  (nohup urxvtc -e zsh -i -c "~/.bin/ed $*" >/dev/null 2>&1 &)
+  lunch "~/.bin/ed $*"
+}
+
+lunch() {
+  (nohup urxvtc -e zsh -i -c "$*" >/dev/null 2>&1 &)
 }
 
 hqgif() {
@@ -82,7 +88,8 @@ hqgif() {
 bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
-
+# }}}
+# antigen, plugins n stuff {{{
 # nvm lazy load
 export NVM_LAZY_LOAD=true
 
@@ -98,3 +105,4 @@ antigen bundle lukechilds/zsh-nvm
 antigen theme cypher
 
 antigen apply
+# }}}

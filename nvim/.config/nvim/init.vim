@@ -1,4 +1,4 @@
- " _       _ _         _           
+"  _       _ _         _           
 " (_)_ __ (_) |___   _(_)_ __ ___  
 " | | '_ \| | __\ \ / / | '_ ` _ \ 
 " | | | | | | |_ \ V /| | | | | | |
@@ -48,7 +48,7 @@ set undoreload=10000                " lines to save for undo
 set belloff=all                     " disable bells
 set breakindent                     " break indentation
 set emoji                           " emoji support
-set laststatus=1                    " minimal
+set laststatus=2                    " show status bar
 set shortmess+=I                    " minimal
 set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
 set nowritebackup                   " messes with fs.watch
@@ -96,7 +96,7 @@ if !s:bare
   let g:peekaboo_delay = 250
   let g:peekaboo_window = 'vertical botright 30new'
 
-  " syntaxes
+  " additional language support
   Plug 'othree/html5.vim', 
   Plug 'hail2u/vim-css3-syntax'
   Plug 'lepture/vim-jinja'
@@ -116,6 +116,8 @@ if !s:bare
   Plug 'fatih/vim-go'
   Plug 'posva/vim-vue'
 
+  " utilities
+  Plug 'tpope/vim-fugitive'
   Plug 'justinmk/vim-dirvish'
   Plug 'junegunn/vim-easy-align'
   Plug 'tpope/vim-commentary'
@@ -123,6 +125,11 @@ if !s:bare
   Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'junegunn/vim-peekaboo'
+
+  " aesthetics
+  Plug 'mhinz/vim-startify'
+  let g:airline_powerline_fonts = 1
+  Plug 'vim-airline/vim-airline'
 
   if s:lite == 0
     if s:auto
@@ -161,12 +168,13 @@ if !s:bare
   Plug 'chriskempson/base16-vim'
   Plug 'nanotech/jellybeans.vim'
   Plug 'AlessandroYorba/Monrovia'
+  Plug 'joshdick/onedark.vim'
 
   call plug#end()
 endif
 
 " cursor shape
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 
 " incommand -- preview your substitution before you even hit enter
 if exists("&inccommand") && has("nvim")
@@ -179,7 +187,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  colorscheme base16-ashes
+  colorscheme onedark
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -262,8 +270,8 @@ let mapleader="\<Space>"
 " inoremap jk <esc>
 " inoremap <esc> <nop>
 
-" force statusbar to show
-nnoremap <silent> <leader>p :set laststatus=2<cr>
+" hide statusbar
+nnoremap <silent> <leader>p :set laststatus=1<cr>
 
 " plug
 nnoremap <leader>pi :PlugInstall<cr>
@@ -291,3 +299,21 @@ nnoremap <right> <nop>
 " utilities
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+
+" term colors
+let g:terminal_color_0 = '#1c2023'
+let g:terminal_color_1 = '#c7ae95'
+let g:terminal_color_2 = '#95c7ae'
+let g:terminal_color_3 = '#aec795'
+let g:terminal_color_4 = '#ae95c7'
+let g:terminal_color_5 = '#c795ae'
+let g:terminal_color_6 = '#95aec7'
+let g:terminal_color_7 = '#c7ccd1'
+let g:terminal_color_8 = '#747c84'
+let g:terminal_color_9 = '#c7c795'
+let g:terminal_color_10 = '#393f45'
+let g:terminal_color_11 = '#565e65'
+let g:terminal_color_12 = '#adb3ba'
+let g:terminal_color_13 = '#dfe2e5'
+let g:terminal_color_14 = '#c79595'
+let g:terminal_color_15 = '#f3f4f5'
