@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo This script will sync the clock, ignoring deviations between local UTC and network UTC.
+echo Then, the current UTC time will be written to the hardware clock.
+echo This script requires superuser.
+echo
+echo Press ENTER to continue.
+read
+
+sudo ntpd -qg
+sudo hwclock --systohc

@@ -14,7 +14,7 @@ font pango:xos4 Terminus 9
 floating_modifier $mod
 
 # terminal
-bindsym $mod+Return exec urxvtc
+bindsym $mod+Return exec st
 
 # colors
 client.focused          #454545 #4A4A4A #DDDDDD

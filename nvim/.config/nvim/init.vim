@@ -1,6 +1,6 @@
-"  _       _ _         _           
-" (_)_ __ (_) |___   _(_)_ __ ___  
-" | | '_ \| | __\ \ / / | '_ ` _ \ 
+"  _       _ _         _
+" (_)_ __ (_) |___   _(_)_ __ ___
+" | | '_ \| | __\ \ / / | '_ ` _ \
 " | | | | | | |_ \ V /| | | | | | |
 " |_|_| |_|_|\__(_)_/ |_|_| |_| |_|
 "
@@ -8,7 +8,7 @@
 "
 " while this configuration is vim compatible, plugins
 " will only be applied on neovim.
-                                 
+
 " light configuration -- no heavy plugins
 " only applicable if s:bare is 0
 let s:lite = 0
@@ -27,7 +27,7 @@ endif
 " general
 set mouse=a
 set list                            " display invisibles
-set listchars=tab:▸\ 
+set listchars=tab:▸\  " list
 set number                          " line numbers
 set numberwidth=5                   " line number width
 set cpoptions+=n
@@ -50,7 +50,7 @@ set breakindent                     " break indentation
 set emoji                           " emoji support
 set laststatus=2                    " show status bar
 set shortmess+=I                    " minimal
-set statusline=%f\ %m%y%r%w%=%l/%L\ %P\ 
+set statusline=%f\ %m%y%r%w%=%l/%L\ %P\  " hand-crafted status
 set nowritebackup                   " messes with fs.watch
 
 " indentation
@@ -97,7 +97,7 @@ if !s:bare
   let g:peekaboo_window = 'vertical botright 30new'
 
   " additional language support
-  Plug 'othree/html5.vim', 
+  Plug 'othree/html5.vim'
   Plug 'hail2u/vim-css3-syntax'
   Plug 'lepture/vim-jinja'
   Plug 'othree/yajs.vim'
@@ -130,6 +130,8 @@ if !s:bare
   Plug 'mhinz/vim-startify'
   let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  set noshowmode
 
   if s:lite == 0
     if s:auto
@@ -187,7 +189,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  colorscheme onedark
+  colorscheme base16-atelier-heath
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -217,13 +219,16 @@ cmap w!! w !sudo tee >/dev/null %
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!*.{min.js,swp,o,zip}" 
+  \ -g "!*.{min.js,swp,o,zip}"
   \ -g "!{.git,node_modules,bower_modules,vendor}/*" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 " autocmd
-autocmd BufRead,BufNewFile *.cson set ft=coffee
+augroup filetypes
+  autocmd!
+  autocmd BufRead,BufNewFile *.cson set ft=coffee
+augroup END
 
 fun! <SID>AutoMakeDirectory()
   let s:directory = expand("<afile>:p:h")
@@ -234,24 +239,27 @@ endfun
 
 fun! <SID>HTMLAbbreviations()
   " html entity abbreviations
-  :iabbrev <buffer> * &Star;
-  :iabbrev <buffer> -> &rarr;
-  :iabbrev <buffer> <- &larr;
-  :iabbrev <buffer> != &ne;
-  :iabbrev <buffer> <= &le;
-  :iabbrev <buffer> >= &ge;
-  :iabbrev <buffer> >> &Gt;
-  :iabbrev <buffer> << &Lt;
-  :inoremap <buffer> -- &mdash;
+  iabbrev <buffer> * &Star;
+  iabbrev <buffer> -> &rarr;
+  iabbrev <buffer> <- &larr;
+  iabbrev <buffer> != &ne;
+  iabbrev <buffer> <= &le;
+  iabbrev <buffer> >= &ge;
+  iabbrev <buffer> >> &Gt;
+  iabbrev <buffer> << &Lt;
+  inoremap <buffer> -- &mdash;
 endfun
 
 " automatically make directories if you
 " :tabe use/directories/that/dont/exist/test.c
-autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+autocmd! BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 
 " html helpers
-autocmd FileType html setlocal spell
-autocmd FileType html :call <SID>HTMLAbbreviations()
+augroup htmlutilities
+  autocmd!
+  autocmd FileType html setlocal spell
+  autocmd FileType html :call <SID>HTMLAbbreviations()
+augroup END
 
 function! s:fzf_statusline()
   hi! link fzf1 Comment
@@ -299,21 +307,3 @@ nnoremap <right> <nop>
 " utilities
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
-
-" term colors
-let g:terminal_color_0 = '#1c2023'
-let g:terminal_color_1 = '#c7ae95'
-let g:terminal_color_2 = '#95c7ae'
-let g:terminal_color_3 = '#aec795'
-let g:terminal_color_4 = '#ae95c7'
-let g:terminal_color_5 = '#c795ae'
-let g:terminal_color_6 = '#95aec7'
-let g:terminal_color_7 = '#c7ccd1'
-let g:terminal_color_8 = '#747c84'
-let g:terminal_color_9 = '#c7c795'
-let g:terminal_color_10 = '#393f45'
-let g:terminal_color_11 = '#565e65'
-let g:terminal_color_12 = '#adb3ba'
-let g:terminal_color_13 = '#dfe2e5'
-let g:terminal_color_14 = '#c79595'
-let g:terminal_color_15 = '#f3f4f5'

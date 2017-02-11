@@ -17,10 +17,17 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 PS1="%3~%% "
 # }}}
+# env {{{
+export GOPATH="$HOME/go"
+# export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+# }}}
 # path {{{
 path=(
   # danger zone
   ./node_modules/.bin
+
+  # go
+  $GOPATH/bin
 
   # ~/.local bin files
   $HOME/.local/bin
@@ -58,16 +65,13 @@ else
   export EDITOR="nvim"
 fi
 # }}}
-# env {{{
-export GOPATH="$HOME/dev/go"
-export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
-# }}}
 # aliases {{{
 alias cp="cp -r"
 alias ls="ls --color=auto -hF"
 alias reload="source ~/.zshrc"
 alias evc="e ~/.config/nvim/init.vim"
 alias e="$EDITOR"
+alias pm="python manage.py"
 # }}}
 # functions {{{
 ed() {
@@ -75,7 +79,7 @@ ed() {
 }
 
 lunch() {
-  (nohup urxvtc -e zsh -i -c "$*" >/dev/null 2>&1 &)
+  (nohup st -e zsh -i -c "$*" >/dev/null 2>&1 &)
 }
 
 hqgif() {
@@ -102,7 +106,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
 antigen bundle command-not-found
 antigen bundle lukechilds/zsh-nvm
-antigen theme cypher
+antigen theme mh
 
 antigen apply
 # }}}
