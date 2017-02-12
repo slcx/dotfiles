@@ -94,9 +94,6 @@ bk() {
 }
 # }}}
 # antigen, plugins n stuff {{{
-# nvm lazy load
-export NVM_LAZY_LOAD=true
-
 # load antigen
 source ~/antigen/antigen.zsh
 
@@ -104,9 +101,16 @@ antigen use oh-my-zsh
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
+antigen bundle rvm
 antigen bundle command-not-found
 antigen bundle lukechilds/zsh-nvm
 antigen theme mh
 
 antigen apply
+# }}}
+# post aliases {{{
+alias glo="glol"
+# }}}
+# fzf {{{
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 # }}}

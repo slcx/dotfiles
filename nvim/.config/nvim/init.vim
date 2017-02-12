@@ -127,7 +127,6 @@ if !s:bare
   Plug 'junegunn/vim-peekaboo'
 
   " aesthetics
-  Plug 'mhinz/vim-startify'
   let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -171,6 +170,7 @@ if !s:bare
   Plug 'nanotech/jellybeans.vim'
   Plug 'AlessandroYorba/Monrovia'
   Plug 'joshdick/onedark.vim'
+  Plug 'romainl/Apprentice', { 'branch': 'fancylines-and-neovim' }
 
   call plug#end()
 endif
@@ -189,7 +189,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  colorscheme base16-atelier-heath
+  colorscheme apprentice
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -219,8 +219,8 @@ cmap w!! w !sudo tee >/dev/null %
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!*.{min.js,swp,o,zip}"
-  \ -g "!{.git,node_modules,bower_modules,vendor}/*" '
+  \ -g "!*.{min.js,swp,o,zip,pyc}"
+  \ -g "!{.git,node_modules,bower_modules,__pycache__,vendor}/*" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
@@ -295,6 +295,7 @@ nmap ga <plug>(LiveEasyAlign)
 nnoremap <silent> <C-L> :noh<CR>
 
 " fzf
+let $FZF_DEFUALT_COMMAND='ag --hidden --ignore .git -g ""'
 nnoremap <silent> <C-K> :F<CR>
 nnoremap <silent> <C-P> :Files<CR>
 
@@ -307,3 +308,6 @@ nnoremap <right> <nop>
 " utilities
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+
+" abbrevs
+cnoreabbrev W w
