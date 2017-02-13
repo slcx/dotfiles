@@ -115,6 +115,7 @@ if !s:bare
   Plug 'rust-lang/rust.vim'
   Plug 'fatih/vim-go'
   Plug 'posva/vim-vue'
+  Plug 'Vimjas/vim-python-pep8-indent'
 
   " utilities
   Plug 'tpope/vim-fugitive'
