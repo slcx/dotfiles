@@ -111,5 +111,10 @@ alias glo="glol"
 alias gc="git commit -S"
 # }}}
 # fzf {{{
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git\
+  --ignore node_modules \
+  --ignore .tmp \
+  --ignore dist \
+  --ignore bld \
+  --ignore build --ignore tmp -g ""'
 # }}}

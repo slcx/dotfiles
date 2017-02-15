@@ -25,7 +25,9 @@ urxvt.letterSpace: -2
 urxvt.intensityStyles: false
 
 st.termname:     st-256color
-st.font:         PragmataPro Mono:pixelsize=17
+! st.font:         Akkurat-Mono:pixelsize=17
+! st.font:         PragmataPro Mono:pixelsize=17
+st.font:         Iosevka:pixelsize=17
 st.borderpx:     2
 st.cursorshape:  2
 st.cursorthickness:  2
