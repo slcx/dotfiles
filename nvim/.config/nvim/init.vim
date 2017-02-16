@@ -52,6 +52,7 @@ set laststatus=2                    " show status bar
 set shortmess+=I                    " minimal
 set statusline=%f\ %m%y%r%w%=%l/%L\ %P\  " hand-crafted status
 set nowritebackup                   " messes with fs.watch
+set hidden
 
 " indentation
 set tabstop=2
@@ -145,8 +146,6 @@ if !s:bare
     let g:fzf_layout = { 'down': '~70%' }
     let g:fzf_files_options =
       \ '--preview "head -'.&lines.' {}"'
-    let g:fzf_action = {
-      \ 'enter': 'tab split' }
     let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -252,7 +251,7 @@ fun! <SID>HTMLAbbreviations()
 endfun
 
 " automatically make directories if you
-" :tabe use/directories/that/dont/exist/test.c
+" :e use/directories/that/dont/exist/test.c
 autocmd! BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 
 " html helpers
@@ -299,6 +298,11 @@ nnoremap <silent> <C-L> :noh<CR>
 let $FZF_DEFUALT_COMMAND='ag --hidden --ignore .git -g ""'
 nnoremap <silent> <C-K> :F<CR>
 nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <C-O> :Buffers<CR>
+
+" buffer navigation
+nnoremap <silent> <A-[> :bp<CR>
+nnoremap <silent> <A-]> :bn<CR>
 
 " disable arrow keys
 nnoremap <up> <nop>
@@ -307,7 +311,7 @@ nnoremap <left> <nop>
 nnoremap <right> <nop>
 
 " utilities
-nnoremap <silent> <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
