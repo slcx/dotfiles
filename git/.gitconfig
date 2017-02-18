@@ -2,3 +2,5 @@
 	email = cheesy.fried.bacon@gmail.com
 	name = sliceofcode
 	signingkey = 1508C19D7436A26D
+[http "https://gopkg.in"]
+	followRedirects = true

@@ -69,13 +69,17 @@ fi
 alias cp="cp -r"
 alias ls="ls --color=auto -hF"
 alias reload="source ~/.zshrc"
-alias evc="e ~/.config/nvim/init.vim"
+alias evc="ed ~/.config/nvim/init.vim"
 alias e="$EDITOR"
 alias pm="python manage.py"
 # }}}
 # functions {{{
 ed() {
-  lunch "~/.bin/ed $*"
+  if [[ -x /usr/local/bin/nvim-qt ]]; then
+    nvim-qt $*
+  else
+    lunch "~/.bin/ed $*"
+  fi
 }
 
 lunch() {

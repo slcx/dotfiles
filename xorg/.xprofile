@@ -5,6 +5,8 @@ if [ -d ~/fonts/tewi/out ]; then
   xset +fp ~/fonts/tewi/out
 fi
 
+xcompmgr &
+
 # start urxvtd in the background
 urxvtd -q -f
 

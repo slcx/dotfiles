@@ -46,7 +46,6 @@ set undodir=$HOME/.config/nvim/undo " undo dir
 set undolevels=1000                 " undo levels
 set undoreload=10000                " lines to save for undo
 set belloff=all                     " disable bells
-set breakindent                     " break indentation
 set emoji                           " emoji support
 set laststatus=2                    " show status bar
 set shortmess+=I                    " minimal
@@ -127,12 +126,17 @@ if !s:bare
   Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'junegunn/vim-peekaboo'
+  Plug 'tpope/vim-surround'
 
   " aesthetics
   let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   set noshowmode
+
+  " airline sep
+  let g:airline_left_sep=''
+  let g:airline_right_sep=''
 
   if s:lite == 0
     if s:auto
