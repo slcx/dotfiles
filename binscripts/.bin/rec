@@ -1,0 +1,124 @@
+#!/bin/bash
+
+usage() {
+  echo "USAGE"
+  echo " rec [-h] [-f filename] [-s cmd] [-p fps] [-v] [-x preset]"
+  echo "     [-g]"
+  echo
+  echo "OPTIONS"
+  echo " -h : shows help"
+  echo " -f [file] : specifies the filename to store the video file"
+  echo "    default : ~/Videos/2000-01-20-20:00:00.mkv"
+  echo "    (the date is formatted using \`date')"
+  echo " -s [cmd] : specifies the slop command to use"
+  echo "    default : slop --nokeyboard"
+  echo " -p [fps] : specifies the fps (framerate) to record"
+  echo "    default : 20"
+  echo " -v : unsilences ffmpeg"
+  echo "      default: only warnings show"
+  echo " -x [preset] : specifies the libx264 encoder preset to use"
+  echo "      default: ultrafast"
+  echo " -g : encodes the video file into a gif after recording"
+  echo " -q : [specify with -g] makes the gif high quality by"
+  echo "      generating a palette when encoding (takes longer and has"
+  echo "      an increased file size, but looks much better)"
+  echo
+  echo "EXAMPLES"
+  echo " rec -f ~/test.mkv -p 60"
+  echo "   records a video to ~/test.mkv (-f) with 60fps (-p)"
+  echo " rec -g -q -p 10"
+  echo "   records a high quality (-q) gif (-g) that runs"
+  echo "   at 10fps (-p) in the default directory"
+  echo " rec -g -p 25"
+  echo "   records a gif (-g) that runs at 25fps (-p), stored in the"
+  echo "   default directory (useful for screencasts)"
+}
+
+# *** option defaults
+opt_filename=~/demos/$(date +%F-%T).mkv
+opt_slopcommand='slop --nokeyboard'
+opt_fps=20
+opt_silent='-loglevel warning'
+opt_preset=ultrafast
+opt_gif=0
+opt_hqgif=0
+
+while getopts "hf:s:p:vx:gq" o; do
+  case "${o}" in
+    h)
+      usage
+      exit 0
+      ;;
+    f)
+      opt_filename=${OPTARG}
+      ;;
+    s)
+      opt_slopcommand=${OPTARG}
+      ;;
+    p)
+      opt_fps=${OPTARG}
+      ;;
+    v)
+      opt_silent=
+      ;;
+    x)
+      opt_preset=${OPTARG}
+      ;;
+    g)
+      opt_gif=1
+      ;;
+    q)
+      opt_hqgif=1
+      ;;
+  esac
+done
+
+# grab an area to record, it spits out some
+# variables that we can evaluate
+eval $($opt_slopcommand)
+
+# the Cancel variable holds "true" if the selection
+# was cancelled by the user
+if [ "$Cancel" = "true" ]; then
+  echo "aborted - selection was canceled"
+  exit 1
+fi
+
+# geometry
+X_G=$W,$H
+
+# position - tricky
+X_P=$X
+X_P+=x
+X_P+=$Y
+
+ffmpeg $opt_silent \
+  -video_size $X_G -framerate $opt_fps \
+  -f x11grab -i :0.0+$X_P -c:v libx264 -preset $opt_preset \
+  $opt_filename
+
+if [ "$opt_gif" = 1 ]; then
+  # encode as a gif
+  gif_name=$opt_filename
+  gif_name+=.gif
+  if [ "$opt_hqgif" = 1 ]; then
+    echo "+ gif time"
+    # from http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html
+    palette="/tmp/gif_palette.png"
+    filters="fps=$fps,scale=0:-1:flags=lanczos"
+    # generate the palette
+    echo "+ generating palette"
+    ffmpeg -v warning -i $opt_filename \
+     -vf "$filters,palettegen" -y $palette
+    # encode the gif
+    echo "+ encoding gif"
+    ffmpeg -v warning -i $opt_filename \
+     -i $palette -lavfi "$filters [x]; [x][1:v] paletteuse" -y $gif_name
+    rm $palette # remove the palette
+    echo "+ done!"
+  else
+    echo "+ gif time"
+    ffmpeg -v warning -i $opt_filename $gif_name
+    echo "+ done!"
+  fi
+fi

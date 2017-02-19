@@ -88,7 +88,7 @@ lunch() {
 
 hqgif() {
   palette="/tmp/gif_palette.png"
-  filters="fps=10,scale=400:-1:flags=lanczos"
+  filters="fps=10"
   ffmpeg -v warning -i $1 -vf "$filters,palettegen" -y $palette
   ffmpeg -v warning -i $1 -i $palette -lavfi "$filters [x]; [x][1:v] paletteuse" -y $2
 }
@@ -105,8 +105,6 @@ antigen use oh-my-zsh
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
-export NVM_LAZY_LOAD=true
-antigen bundle lukechilds/zsh-nvm
 antigen theme mh
 
 antigen apply
