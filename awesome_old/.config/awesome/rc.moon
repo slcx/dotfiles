@@ -452,9 +452,8 @@ autostart = (process, process_name) ->
 
 -- Autostart apps.
 log ">>> Autostarting all apps."
-autostart "google-chrome-beta", "chrome"
-autostart "slack", "slack"
-autostart "discord-canary", "discord-canary"
+autostart "google-chrome-stable", "chrome"
+autostart "discord-ptb", "DiscordPTB"
 autostart "telegram-desktop", "telegram"
 autostart "STEAM_RUNTIME=0 steam", "steam"
 -- }}}

@@ -134,10 +134,6 @@ if !s:bare
   Plug 'vim-airline/vim-airline-themes'
   set noshowmode
 
-  " airline sep
-  let g:airline_left_sep=''
-  let g:airline_right_sep=''
-
   if s:lite == 0
     if s:auto
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete

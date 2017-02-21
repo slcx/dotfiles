@@ -108,15 +108,12 @@ antigen bundle git
 antigen theme mh
 
 antigen apply
+# }}}
 # post aliases {{{
 alias glo="glol"
 alias gc="git commit -S"
 # }}}
 # fzf {{{
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git\
-  --ignore node_modules \
-  --ignore .tmp \
-  --ignore dist \
-  --ignore bld \
-  --ignore build --ignore tmp -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden \
+  --skip-vcs-ignores -g ""' # print out everything
 # }}}
