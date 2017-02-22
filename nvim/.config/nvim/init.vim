@@ -14,7 +14,7 @@
 let s:lite = 0
 
 " autocomplete plugin(s)
-let s:auto = 0
+let s:auto = 1
 
 " bare configuration -- no plugins
 let s:bare = 0
@@ -123,7 +123,6 @@ if !s:bare
   Plug 'junegunn/vim-easy-align'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
-  Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-surround'
@@ -136,8 +135,9 @@ if !s:bare
 
   if s:lite == 0
     if s:auto
-      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " deoplete
-      let g:deoplete#enable_at_startup = 1
+      Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+    else
+      Plug 'ervandew/supertab'
     endif
 
     Plug 'w0rp/ale'
@@ -252,7 +252,10 @@ endfun
 
 " automatically make directories if you
 " :e use/directories/that/dont/exist/test.c
-autocmd! BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+augroup easywrite
+  autocmd!
+  autocmd! BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+augroup END
 
 " html helpers
 augroup htmlutilities
@@ -268,7 +271,10 @@ function! s:fzf_statusline()
   setlocal statusline=%#fzf1#\ %#fzf2#fz%#fzf3#f
 endfunction
 
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+augroup fzf
+  autocmd!
+  autocmd! User FzfStatusLine call <SID>fzf_statusline()
+augroup END
 
 " maps
 let mapleader="\<Space>"

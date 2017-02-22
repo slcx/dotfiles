@@ -11,6 +11,11 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
+-- run something in bash
+function sh(cmd)
+    return awful.util.spawn_with_shell("bash -c \"" .. cmd .. "\"")
+end
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -213,6 +218,19 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
+    awful.key({ }, "XF86AudioRaiseVolume", function()
+        sh("amixer set Master 3%+")
+    end),
+    awful.key({ }, "XF86AudioLowerVolume", function()
+        sh("amixer set Master 3%-")
+    end),
+    awful.key({ }, "XF86AudioMute", function()
+        sh("amixer set Master toggle")
+    end),
+    awful.key({ }, "Print", function()
+        sh("maim -s --nokeyboard ~/screenshots/$(date +%F-%T.png)")
+    end),
+
     -- focus by direction
     awful.key({ modkey }, "h",
         function() awful.client.focus.bydirection("left") end,
@@ -390,6 +408,10 @@ awful.rules.rules = {
       properties = { tag = "3" } },
     { rule = { class = "Gimp-2.8" },
       properties = { tag = "4" } },
+    { rule_any = { class = { "Client.pyw", "client.pyw" }, name = { "hydrus client" } },
+      properties = { tag = "5" } },
+    { rule_any = { class = { "Steam", "stem" }, name = { "Steam Login", "Stem" } },
+      properties = { tag = "9" } },
 }
 -- }}}
 -- {{{ Signals
@@ -459,4 +481,26 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+-- Autostart {{{
+sh("xinput disable 13")
+
+function create_bash_macro(process_name)
+  return "bash -c \"if pgrep " .. process_name .. " >/dev/null; then echo 1; fi\""
+end
+
+function autostart(process, process_name)
+  local is_running = function(name)
+    local result = io.popen(create_bash_macro(process_name)):read()
+    if result == "1" then return true end
+  end
+  if is_running(process_name) then
+    return
+  end
+  sh(process)
+end
+
+autostart("google-chrome-stable", "chrome")
+autostart("discord-ptb", "DiscordPTB")
+autostart("STEAM_RUNTIME=0 steam", "steam")
 -- }}}
