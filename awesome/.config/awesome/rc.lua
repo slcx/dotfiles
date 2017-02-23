@@ -1,4 +1,4 @@
--- vim: set tabstop=4 shiftwidth=4 softtabstop=4
+-- vim: set ts=4 sw=4 sts=4:
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
@@ -10,6 +10,9 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+
+-- make icon size 64 pixels big
+naughty.config.icon_size = 64
 
 -- run something in bash
 function sh(cmd)
@@ -410,7 +413,9 @@ awful.rules.rules = {
       properties = { tag = "4" } },
     { rule_any = { class = { "Client.pyw", "client.pyw" }, name = { "hydrus client" } },
       properties = { tag = "5" } },
-    { rule_any = { class = { "Steam", "stem" }, name = { "Steam Login", "Stem" } },
+    { rule_any = { class = { "Mail", "Thunderbird" } },
+      properties = { tag = "6" } },
+    { rule_any = { class = { "Steam", "stem" }, name = { "Steam Login", "Steam" } },
       properties = { tag = "9" } },
 }
 -- }}}
@@ -503,4 +508,5 @@ end
 autostart("google-chrome-stable", "chrome")
 autostart("discord-ptb", "DiscordPTB")
 autostart("STEAM_RUNTIME=0 steam", "steam")
+autostart("thunderbird", "thunderbird")
 -- }}}
