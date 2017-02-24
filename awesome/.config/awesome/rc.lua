@@ -12,7 +12,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 -- make icon size 64 pixels big
-naughty.config.icon_size = 64
+naughty.config.defaults.icon_size = 64
 
 -- run something in bash
 function sh(cmd)

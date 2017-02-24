@@ -114,6 +114,5 @@ alias glo="glol"
 alias gc="git commit -S"
 # }}}
 # fzf {{{
-export FZF_DEFAULT_COMMAND='ag --hidden \
-  --skip-vcs-ignores -g ""' # print out everything
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 # }}}
