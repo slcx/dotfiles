@@ -25,21 +25,22 @@ urxvt.letterSpace: -2
 urxvt.intensityStyles: false
 
 st.termname:     st-256color
+st.font: Fantasque Sans Mono:pixelsize=16
 ! st.font:         Akkurat-Mono:pixelsize=17
 ! st.font:         PragmataPro Mono:pixelsize=17
 ! st.font:         Iosevka:pixelsize=17
 ! st.font: Envy Code R:pixelsize=18
-st.font: lucy tewi:pixelsize=16
+! st.font: lucy tewi:pixelsize=16
 st.borderpx:     2
 st.cursorshape:  2
 st.cursorthickness:  2
 st.bold_font:    1
 st.xfps:         60
 st.actionfps:    60
-! st.chscale:      1.0
-! st.cwscale:      0.9
-st.chscale:      0.7
-st.cwscale:      0.75
+st.chscale:      1.0
+st.cwscale:      0.9
+! st.chscale:      0.7
+! st.cwscale:      0.75
 st.blinktimeout: 800
 st.bellvolume:   0
 st.opacity:      255

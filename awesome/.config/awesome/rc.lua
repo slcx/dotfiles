@@ -405,7 +405,7 @@ awful.rules.rules = {
         -- rule_any = {type = { "normal", "dialog" } },
         properties = { titlebars_enabled = true } },
 
-    { rule = { class = "Google-chrome" },
+    { rule = { class = "Chromium" },
       properties = { tag = "2" } },
     { rule = { class = "discord" },
       properties = { tag = "3" } },
@@ -413,7 +413,7 @@ awful.rules.rules = {
       properties = { tag = "4" } },
     { rule_any = { class = { "Client.pyw", "client.pyw" }, name = { "hydrus client" } },
       properties = { tag = "5" } },
-    { rule_any = { class = { "Mail", "Thunderbird" } },
+    { rule_any = { class = { "Mail", "Icedove" } },
       properties = { tag = "6" } },
     { rule_any = { class = { "Steam", "stem" }, name = { "Steam Login", "Steam" } },
       properties = { tag = "9" } },
@@ -488,25 +488,24 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 -- Autostart {{{
-sh("xinput disable 13")
+sh("xinput disable 14")
 
 function create_bash_macro(process_name)
-  return "bash -c \"if pgrep " .. process_name .. " >/dev/null; then echo 1; fi\""
+    return "bash -c \"if pgrep " .. process_name .. " >/dev/null; then echo 1; fi\""
 end
 
 function autostart(process, process_name)
-  local is_running = function(name)
-    local result = io.popen(create_bash_macro(process_name)):read()
-    if result == "1" then return true end
-  end
-  if is_running(process_name) then
-    return
-  end
-  sh(process)
+    local is_running = function(name)
+        local result = io.popen(create_bash_macro(process_name)):read()
+        if result == "1" then return true end
+    end
+    if is_running(process_name) then
+        return
+    end
+    sh(process)
 end
 
-autostart("google-chrome-stable", "chrome")
-autostart("discord-ptb", "DiscordPTB")
-autostart("STEAM_RUNTIME=0 steam", "steam")
-autostart("thunderbird", "thunderbird")
+autostart("chromium", "chrome")
+autostart("discord-canary", "DiscordCanary")
+autostart("icedove", "icedove")
 -- }}}
