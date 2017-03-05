@@ -231,7 +231,7 @@ globalkeys = awful.util.table.join(
         sh("amixer set Master toggle")
     end),
     awful.key({ }, "Print", function()
-        sh("maim -s --nokeyboard ~/screenshots/$(date +%F-%T.png)")
+        sh("~/bin/snap")
     end),
 
     -- focus by direction
@@ -488,7 +488,7 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 -- Autostart {{{
-sh("xinput disable 14")
+sh("xinput disable 13")
 
 function create_bash_macro(process_name)
     return "bash -c \"if pgrep " .. process_name .. " >/dev/null; then echo 1; fi\""
