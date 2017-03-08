@@ -14,7 +14,7 @@
 let s:lite = 0
 
 " autocomplete plugin(s)
-let s:auto = 1
+let s:auto = 0
 
 " bare configuration -- no plugins
 let s:bare = 0

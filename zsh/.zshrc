@@ -7,16 +7,6 @@ if [[ -x /usr/bin/hub ]]; then
   alias git="hub"
 fi
 # }}}
-# oh my zsh {{{
-export ZSH=/home/ch/.oh-my-zsh
-export UPDATE_ZSH_DAYS=5
-HYPHEN_INSENSITIVE="true"
-COMPLETION_WAITING_DOTS="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
-PS1="%3~%% "
-# }}}
 # env {{{
 export GOPATH="$HOME/go"
 # export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
@@ -105,13 +95,12 @@ antigen use oh-my-zsh
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle git
-antigen theme mh
+antigen theme minimal
 
 antigen apply
 # }}}
 # post aliases {{{
 alias glo="glol"
-alias gc="git commit -S"
 # }}}
 # fzf {{{
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'

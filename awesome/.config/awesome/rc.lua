@@ -405,7 +405,7 @@ awful.rules.rules = {
         -- rule_any = {type = { "normal", "dialog" } },
         properties = { titlebars_enabled = true } },
 
-    { rule = { class = "Chromium" },
+    { rule = { class = "Google-chrome" },
       properties = { tag = "2" } },
     { rule = { class = "discord" },
       properties = { tag = "3" } },
@@ -505,7 +505,7 @@ function autostart(process, process_name)
     sh(process)
 end
 
-autostart("chromium", "chrome")
-autostart("discord-canary", "DiscordCanary")
+autostart("google-chrome-stable", "chrome")
+autostart("discord", "Discord")
 autostart("icedove", "icedove")
 -- }}}
