@@ -1,5 +1,12 @@
 # keychain {{{
-eval $(keychain --eval --quiet id_rsa)
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent | head -n 2 > ~/.shag
+    eval "$(<~/.shag)"
+    ssh-add ~/.ssh/id_rsa
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval "$(<~/.shag)"
+fi
 [[ -f ~/.zshtokens ]] && source ~/.zshtokens
 # }}}
 # early aliases {{{
@@ -65,7 +72,7 @@ alias pm="python manage.py"
 # }}}
 # functions {{{
 ed() {
-  if [[ -x /usr/local/bin/nvim-qt ]]; then
+  if [[ -x /usr/bin/nvim-qt ]]; then
     nvim-qt $*
   else
     lunch "~/.bin/ed $*"
