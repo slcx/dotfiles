@@ -1,0 +1,5 @@
+#!/bin/bash
+
+file_path="~/Screenshots/$(date +%F-%T).png"
+maim -s $file_path
+notify-send 'Screenshot taken' "Screenshot saved in $file_path"
