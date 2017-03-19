@@ -405,7 +405,7 @@ awful.rules.rules = {
         -- rule_any = {type = { "normal", "dialog" } },
         properties = { titlebars_enabled = true } },
 
-    { rule = { class = "Google-chrome" },
+    { rule_any = { class = { "chromium", "Chromium" } },
       properties = { tag = "2" } },
     { rule = { class = "discord" },
       properties = { tag = "3" } },
@@ -415,8 +415,8 @@ awful.rules.rules = {
       properties = { tag = "5" } },
     { rule_any = { class = { "Mail", "Icedove" } },
       properties = { tag = "6" } },
-    { rule_any = { class = { "Steam", "stem" }, name = { "Steam Login", "Steam" } },
-      properties = { tag = "9" } },
+    { rule_any = { class = { "Steam", "steam" }, name = { "Steam Login" } },
+      properties = { tag = "9" } }
 }
 -- }}}
 -- {{{ Signals
@@ -489,6 +489,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 -- Autostart {{{
 sh("xinput disable 13")
+sh("setxkbmap -option caps:escape")
 
 function create_bash_macro(process_name)
     return "bash -c \"if pgrep " .. process_name .. " >/dev/null; then echo 1; fi\""
@@ -505,7 +506,6 @@ function autostart(process, process_name)
     sh(process)
 end
 
-autostart("google-chrome-stable", "chrome")
+autostart("chromium", "chromium")
 autostart("discord", "Discord")
-autostart("icedove", "icedove")
 -- }}}
