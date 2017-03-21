@@ -53,6 +53,7 @@ set statusline=%f\ %m%y%r%w%=%l/%L\ %P\  " hand-crafted status
 set nowritebackup                   " messes with fs.watch
 set hidden
 set completeopt=menu
+set colorcolumn=80
 
 " indentation
 set tabstop=2
@@ -326,3 +327,6 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
 cnoreabbrev W w
+
+" hl
+hi! ColorColumn guibg=#333333
