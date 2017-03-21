@@ -1,5 +1,9 @@
 #!/bin/bash
 
-file_path="~/Screenshots/$(date +%F-%T).png"
+file_path="/home/ch/Screenshots/$(date +%F-%T).png"
 maim -s $file_path
+if [[ "$?" != "0" ]]; then
+  exit $?
+fi
 notify-send 'Screenshot taken' "Screenshot saved in $file_path"
+xclip -sel clip -t 'image/png' < $file_path
