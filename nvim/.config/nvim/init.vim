@@ -52,6 +52,7 @@ set shortmess+=I                    " minimal
 set statusline=%f\ %m%y%r%w%=%l/%L\ %P\  " hand-crafted status
 set nowritebackup                   " messes with fs.watch
 set hidden
+set completeopt=menu
 
 " indentation
 set tabstop=2
@@ -137,6 +138,9 @@ if !s:bare
     if s:auto
       Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
     else
+      Plug 'Shougo/deoplete.nvim'
+      let g:deoplete#enable_at_startup = 1
+      Plug 'zchee/deoplete-jedi'
       Plug 'ervandew/supertab'
     endif
 
