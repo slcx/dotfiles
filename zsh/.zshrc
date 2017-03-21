@@ -109,6 +109,3 @@ antigen apply
 # post aliases {{{
 alias glo="glol"
 # }}}
-# fzf {{{
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
-# }}}

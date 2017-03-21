@@ -306,7 +306,7 @@ nmap ga <plug>(LiveEasyAlign)
 nnoremap <silent> <C-L> :noh<CR>
 
 " fzf
-let $FZF_DEFUALT_COMMAND='ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 nnoremap <silent> <C-K> :F<CR>
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <C-O> :Buffers<CR>
