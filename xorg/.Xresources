@@ -26,9 +26,9 @@ urxvt.intensityStyles: false
 
 st.termname:     st-256color
 ! st.font: Fantasque Sans Mono:pixelsize=16
-! st.font: DejaVu Sans Mono:pixelsize=11
+st.font: DejaVu Sans Mono:pixelsize=11
 ! st.font:         Akkurat-Mono:pixelsize=17
-st.font:         PragmataPro Mono:pixelsize=17
+! st.font:         PragmataPro Mono:pixelsize=17
 ! st.font:         Iosevka:pixelsize=17
 ! st.font: Envy Code R:pixelsize=18
 ! st.font: lucy tewi:pixelsize=16

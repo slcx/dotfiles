@@ -1,1 +1,1 @@
-GuiFont PragmataPro Mono:h13
+GuiFont Fantasque Sans Mono:h13
