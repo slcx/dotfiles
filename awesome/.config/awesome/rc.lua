@@ -231,15 +231,26 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
+    -- volume
     awful.key({ }, "XF86AudioRaiseVolume", function()
         sh("amixer set Master 3%+")
-    end),
+    end, {description="raise volume", group="system"}),
     awful.key({ }, "XF86AudioLowerVolume", function()
         sh("amixer set Master 3%-")
-    end),
+    end, {description="lower volume", group="system"}),
     awful.key({ }, "XF86AudioMute", function()
         sh("amixer set Master toggle")
-    end),
+    end, {description="toggle volume", group="system"}),
+
+    -- brightness
+    awful.key({ }, "XF86MonBrightnessUp", function()
+        sh("xbacklight -inc 5")
+    end, {description="increase brightness", group="system"}),
+    awful.key({ }, "XF86MonBrightnessDown", function()
+        sh("xbacklight -dec 5")
+    end, {description="lower brightness", group="system"}),
+
+    -- screenshot
     awful.key({ }, "Print", function()
         sh("~/bin/snap")
     end),
