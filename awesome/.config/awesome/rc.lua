@@ -53,7 +53,8 @@ beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 -- This is used later as the default terminal and editor to run.
 terminal = "st"
 editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -e " .. editor
+editor_cmd = "nvim-qt"
+www_cmd = "chromium"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -84,18 +85,21 @@ end
 -- }}}
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
+awesome_menu = {
    { "hotkeys", function() return false, hotkeys_popup.show_help end},
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "docs", www_cmd .. " " .. "https://awesomewm.org/apidoc/" },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end}
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+mymainmenu = awful.menu({
+    items = {
+        { "awesome", awesome_menu, beautiful.awesome_icon },
+        { "open terminal", terminal }
+    }
+})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
