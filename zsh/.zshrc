@@ -16,12 +16,13 @@ fi
 # }}}
 # env {{{
 export GOPATH="$HOME/go"
+export PREFIX="/home/$USER/.local"
 # export LS_COLORS="or=30;41:mi=30;41:di=34:ln=1;35:so=30;42:pi=33:ex=32:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 # }}}
 # path {{{
 path=(
   # danger zone
-  ./node_modules/.bin
+  $PREFIX/bin
 
   # go
   $GOPATH/bin
@@ -108,4 +109,8 @@ antigen apply
 # }}}
 # post aliases {{{
 alias glo="glol"
+# }}}
+# rbenv {{{
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 # }}}
