@@ -103,6 +103,7 @@ if !s:bare
   Plug 'hail2u/vim-css3-syntax'
   Plug 'lepture/vim-jinja'
   Plug 'othree/yajs.vim'
+  Plug 'rschmukler/pangloss-vim-indent'
   Plug 'othree/javascript-libraries-syntax.vim'
   Plug 'othree/es.next.syntax.vim'
   let g:jsx_ext_required = 0
