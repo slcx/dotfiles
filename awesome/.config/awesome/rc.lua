@@ -51,7 +51,7 @@ end
 beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = "nvim-qt"
 www_cmd = "chromium"
@@ -431,13 +431,13 @@ awful.rules.rules = {
     { rule = { class = "discord" },
       properties = { tag = "3" } },
     { rule = { class = "Gimp-2.8" },
+      properties = { tag = "5" } },
+    { rule_any = { class = { "Mail", "Thunderbird" } },
       properties = { tag = "4" } },
     { rule_any = { class = { "Client.pyw", "client.pyw" }, name = { "hydrus client" } },
-      properties = { tag = "5" } },
-    { rule_any = { class = { "Mail", "Icedove" } },
       properties = { tag = "6" } },
     { rule_any = { class = { "Steam", "steam" }, name = { "Steam Login" } },
-      properties = { tag = "9" } }
+      properties = { tag = "9" } },
 }
 -- }}}
 -- {{{ Signals
@@ -529,4 +529,5 @@ end
 
 autostart("chromium", "chromium")
 autostart("discord-canary", "DiscordCanary")
+autostart("thunderbird", "thunderbird")
 -- }}}
