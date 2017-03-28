@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+from collections import namedtuple
+from os import popen
+
+Action = namedtuple('Action', ['type', 'data'])
+
+actions = {
+    'edit awesomewm config':
+        Action(type='edit', data='~/.config/awesome/rc.lua'),
+    'edit neovim config': Action(type='edit', data='~/.config/nvim/init.vim'),
+    'edit neovim ginit': Action(type='edit', data='~/.config/nvim/ginit.vim'),
+
+    'lxappearance': Action(type='system', data='lxappearance')
+}
+
+keys = list(actions)  # <3 python
+actionshell = '\\n'.join(keys)
+output = popen(f'echo -e "{actionshell}" | rofi -dmenu').read().strip()
+
+if output not in actions:
+    print(f'uh oh -- invalid action "{output}"!')
+
+action = actions[output]
+
+if action.type == 'edit':
+    popen(f'nvim-qt {action.data}')
+elif action.type == 'system':
+    popen(action.data)

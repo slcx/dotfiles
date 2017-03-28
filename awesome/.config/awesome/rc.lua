@@ -314,7 +314,7 @@ globalkeys = awful.util.table.join(
         {description = "restore minimized", group = "client"}
     ),
 
-    awful.key({ modkey }, "r", function() awful.screen.focused().mypromptbox:run() end,
+    awful.key({ modkey }, "r", function() sh("rofi -show run") end,
               {description = "run prompt", group = "launcher"}),
     awful.key({ modkey }, "x",
         function()
@@ -327,7 +327,7 @@ globalkeys = awful.util.table.join(
         end,
         {description = "lua execute prompt", group = "awesome"}
     ),
-    awful.key({ modkey }, "p", function() menubar.show() end,
+    awful.key({ modkey }, "p", function() sh("~/.bin/quick") end,
               {description = "show the menubar", group = "launcher"})
 )
 
@@ -412,9 +412,8 @@ awful.rules.rules = {
     },
 
     { rule_any = {
-        instance = { "DTA", "copyq" },
-        class = { "Arandr", "Gpick", "Kruler", "MessageWin", "Sxiv", "Wpa_gui",
-          "pinentry", "veromix", "xtightvncviewer"},
+        instance = { },
+        class = { "Lxappearance" },
         name = { "Event Tester" },
         role = { "AlarmWindow", "pop-up" }
       }, properties = { floating = true }},
