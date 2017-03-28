@@ -11,11 +11,12 @@ Xft.hintstyle: hintslight
 
 ! urxvt
 urxvt.scrollBar: false
+urxvt.font: xft:Liberation Mono:size=10
 ! urxvt.font: xft:Fantasque Sans Mono:pixelsize=16
 ! urxvt.font: xft:Iosevka:pixelsize=17
 ! urxvt.font: xft: Office Code Pro:pixelsize=15
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=12
-urxvt.font: xft:PragmataPro Mono:pixelsize=18
+! urxvt.font: xft:PragmataPro Mono:pixelsize=18
 ! urxvt.font: xft:PxPlus IBM BIOS:pixelsize=8:antialias=false
 ! urxvt.font: xft:PxPlus IBM EGA8:pixelsize=15:antialias=false
 ! urxvt.font: -lucy-tewi-medium-r-normal--11-90-100-100-c-60-iso10646-*
@@ -64,3 +65,15 @@ st.opacity:      255
 *.color14:    #5FAFAF
 *.color7:     #6C6C6C
 *.color15:    #FFFFFF
+
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   #ffffff,#525d76,#f5f5f5,#5294e2,#ffffff
+! Color scheme for urgent row
+rofi.color-urgent:                   #ffffff,#dc322f,#f5f5f5,#5294e2,#dc322f
+! Color scheme for active row
+rofi.color-active:                   #ffffff,#c2cad0,#f5f5f5,#5294e2,#c2cad0
+! Color scheme window
+rofi.color-window:                   #ffffff,#f5f5f5
+! Separator style (none, dash, solid)
+rofi.separator-style:                solid

@@ -1,1 +1,1 @@
-GuiFont Fantasque Sans Mono:h13
+GuiFont Liberation Mono:h9
