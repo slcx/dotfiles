@@ -129,12 +129,13 @@ if !s:bare
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-surround'
+  Plug 'qpkorr/vim-bufkill'
 
   " aesthetics
-  let g:airline_powerline_fonts = 1
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  set noshowmode
+  " let g:airline_powerline_fonts = 1
+  " Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline-themes'
+  " set noshowmode
 
   if s:lite == 0
     if s:auto
@@ -311,6 +312,9 @@ let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 nnoremap <silent> <C-K> :F<CR>
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <C-O> :Buffers<CR>
+
+" nerdtree
+nnoremap <silent> <leader>nt :NERDTreeToggle<CR>
 
 " buffer navigation
 nnoremap <silent> <A-[> :bp<CR>
