@@ -11,7 +11,7 @@ Xft.hintstyle: hintslight
 
 ! urxvt
 urxvt.scrollBar: false
-urxvt.font: xft:Liberation Mono:size=10
+urxvt.font: xft:Liberation Mono:pixelsize=14
 ! urxvt.font: xft:Fantasque Sans Mono:pixelsize=16
 ! urxvt.font: xft:Iosevka:pixelsize=17
 ! urxvt.font: xft: Office Code Pro:pixelsize=15

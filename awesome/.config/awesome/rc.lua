@@ -327,7 +327,7 @@ globalkeys = awful.util.table.join(
         end,
         {description = "lua execute prompt", group = "awesome"}
     ),
-    awful.key({ modkey }, "p", function() sh("~/.bin/quick") end,
+    awful.key({ modkey }, "p", function() sh("~/bin/quick") end,
               {description = "show the menubar", group = "launcher"})
 )
 

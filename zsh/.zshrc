@@ -31,7 +31,7 @@ path=(
   $HOME/.local/bin
 
   # binscripts
-  $HOME/.bin
+  $HOME/bin
 
   # rust
   $HOME/.cargo/bin
@@ -73,15 +73,11 @@ alias pm="python manage.py"
 # }}}
 # functions {{{
 ed() {
-  if [[ -x /usr/bin/nvim-qt ]]; then
-    nvim-qt $*
-  else
-    lunch "~/.bin/ed $*"
-  fi
+  lunch "~/bin/ed $*"
 }
 
 lunch() {
-  (nohup st -e zsh -i -c "$*" >/dev/null 2>&1 &)
+  (nohup urxvt -e zsh -c "$*" >/dev/null 2>&1 &)
 }
 
 hqgif() {
