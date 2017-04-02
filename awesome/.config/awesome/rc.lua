@@ -418,7 +418,7 @@ awful.rules.rules = {
         role = { "AlarmWindow", "pop-up" }
       }, properties = { floating = true }},
 
-    { rule_any = { class = { "st-256color" } },
+    { rule_any = { class = { "st-256color", "URxvt" } },
       properties = { size_hints_honor = false } },
 
     {

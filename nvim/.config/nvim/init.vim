@@ -82,6 +82,9 @@ if !has('nvim')
   set backspace=2
 endif
 
+" plugin config
+let g:NERDTreeIgnore = ['\.pyc$', '__pycache__']
+
 if !s:bare
   " auto plug install
   if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -268,6 +271,7 @@ augroup END
 augroup htmlutilities
   autocmd!
   autocmd FileType html setlocal spell
+  autocmd FileType markdown setlocal spell
   autocmd FileType html :call <SID>HTMLAbbreviations()
 augroup END
 
@@ -285,11 +289,6 @@ augroup END
 
 " maps
 let mapleader="\<Space>"
-
-" quick escape
-" i have since binded caps lock to escape.
-" inoremap jk <esc>
-" inoremap <esc> <nop>
 
 " hide statusbar
 nnoremap <silent> <leader>p :set laststatus=1<cr>
