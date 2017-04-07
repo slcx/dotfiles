@@ -70,6 +70,7 @@ alias reload="source ~/.zshrc"
 alias evc="ed ~/.config/nvim/init.vim"
 alias e="$EDITOR"
 alias pm="python manage.py"
+alias space="du -h --max-depth 1"
 # }}}
 # functions {{{
 ed() {

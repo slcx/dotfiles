@@ -10,8 +10,8 @@ actions = {
         Action(type='edit', data='~/.config/awesome/rc.lua'),
     'edit neovim config': Action(type='edit', data='~/.config/nvim/init.vim'),
     'edit neovim ginit': Action(type='edit', data='~/.config/nvim/ginit.vim'),
-
-    'lxappearance': Action(type='system', data='lxappearance')
+    'edit fontconfig': Action(type='edit', data='~/.config/fontconfig/fonts.conf'),
+    'lxappearance': Action(type='system', data='lxappearance'),
 }
 
 keys = list(actions)  # <3 python
@@ -24,6 +24,6 @@ if output not in actions:
 action = actions[output]
 
 if action.type == 'edit':
-    popen(f'nvim-qt {action.data}')
+    popen(f'nohup urxvt -c zsh -e nvim {action.data} &')
 elif action.type == 'system':
     popen(action.data)

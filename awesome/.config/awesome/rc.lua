@@ -48,7 +48,7 @@ end
 -- }}}
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.init("/home/" .. os.getenv("USER") .. "/.config/awesome/theme/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -101,19 +101,13 @@ mymainmenu = awful.menu({
     }
 })
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock("%m/%d %I:%M:%S %p", 1)
+mytextclock = wibox.widget.textclock("%a %m/%d/%y %I:%M:%S %p", 1)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -168,7 +162,15 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
-    local battery = battery_widget({adapter="BAT0"})
+    local battery = battery_widget({
+        adapter = "BAT0",
+        battery_prefix = "Battery: ",
+        limits = {
+            { 25, "#db0000" },
+            { 50, "#db8400" },
+            { 100, "#aaa" },
+        },
+    })
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -189,28 +191,38 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s,
-        awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+        awful.widget.tasklist.filter.currenttags, tasklist_buttons, {
+            tasklist_disable_icon = true,
+        })
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
+
+    function wrap_widget(widget, paddings)
+        local margin = wibox.layout.margin()
+        margin:set_widget(widget)
+        margin:set_top(paddings['top'] or 0)
+        margin:set_left(paddings['left'] or 0)
+        margin:set_right(paddings['right'] or 0)
+        margin:set_bottom(paddings['bottom'] or 0)
+        return margin
+    end
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
-            battery.widget,
-            mytextclock,
-            s.mylayoutbox,
+            wrap_widget(battery.widget, { left = 5 }),
+            wrap_widget(mytextclock, { left = 5 }),
+            wrap_widget(s.mylayoutbox, { left = 5 }),
         },
     }
 end)
@@ -413,7 +425,7 @@ awful.rules.rules = {
 
     { rule_any = {
         instance = { },
-        class = { "Lxappearance" },
+        class = { "Lxappearance", "Thunar" },
         name = { "Event Tester" },
         role = { "AlarmWindow", "pop-up" }
       }, properties = { floating = true }},
@@ -422,14 +434,14 @@ awful.rules.rules = {
       properties = { size_hints_honor = false } },
 
     {
-        -- rule_any = {type = { "normal", "dialog" } },
-        properties = { titlebars_enabled = true } },
+        rule_any = {type = { "normal", "dialog" } },
+        properties = { titlebars_enabled = false } },
 
     { rule_any = { class = { "chromium", "Chromium" } },
       properties = { tag = "2" } },
     { rule = { class = "discord" },
       properties = { tag = "3" } },
-    { rule = { class = "Gimp-2.8" },
+    { rule = { class = "Gimp" },
       properties = { tag = "5" } },
     { rule_any = { class = { "Mail", "Thunderbird" } },
       properties = { tag = "4" } },

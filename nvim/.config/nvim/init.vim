@@ -27,7 +27,7 @@ endif
 " general
 set mouse=a
 set list                            " display invisibles
-set listchars=tab:▸\  " list
+set listchars=tab:>- " list
 set number                          " line numbers
 set numberwidth=5                   " line number width
 set cpoptions+=n
@@ -84,6 +84,10 @@ endif
 
 " plugin config
 let g:NERDTreeIgnore = ['\.pyc$', '__pycache__']
+
+let g:ale_linters = {
+\  'javascript': ['standard'],
+\}
 
 if !s:bare
   " auto plug install
