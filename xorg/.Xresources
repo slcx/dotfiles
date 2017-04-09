@@ -17,7 +17,8 @@ urxvt.scrollBar: false
 ! urxvt.font: xft:Iosevka:pixelsize=17
 ! urxvt.font: xft:Source Code Pro:pixelsize=13
 ! urxvt.font: xft:Office Code Pro:pixelsize=15
-urxvt.font: xft:PragmataPro Mono:pixelsize=13
+! urxvt.font: xft:PragmataPro Mono:pixelsize=13
+urxvt.font: xft:Fira Code:pixelsize=12
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=18
 ! urxvt.font: xft:PxPlus IBM BIOS:pixelsize=8:antialias=false
 ! urxvt.font: xft:PxPlus IBM EGA8:pixelsize=15:antialias=false

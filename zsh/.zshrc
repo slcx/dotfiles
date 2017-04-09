@@ -69,6 +69,7 @@ alias ls="ls --color=auto -hF"
 alias reload="source ~/.zshrc"
 alias evc="ed ~/.config/nvim/init.vim"
 alias e="$EDITOR"
+alias se="sudo -E $EDITOR"
 alias pm="python manage.py"
 alias space="du -h --max-depth 1"
 # }}}
@@ -103,9 +104,13 @@ antigen bundle git
 antigen theme minimal
 
 antigen apply
+
+source ~/bin/virtualenv-auto-activate.sh
 # }}}
 # post aliases {{{
 alias glo="glol"
+alias gl="glo"
+alias grs="git reset"
 # }}}
 # rbenv {{{
 export PATH="$HOME/.rbenv/bin:$PATH"

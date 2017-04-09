@@ -127,7 +127,11 @@ if !s:bare
   Plug 'posva/vim-vue'
   Plug 'Vimjas/vim-python-pep8-indent'
 
+  " wakatime
+  Plug 'wakatime/vim-wakatime'
+
   " utilities
+  Plug 'mhinz/vim-startify'
   Plug 'tpope/vim-fugitive'
   Plug 'justinmk/vim-dirvish'
   Plug 'junegunn/vim-easy-align'

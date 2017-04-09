@@ -11,6 +11,7 @@ actions = {
     'edit neovim config': Action(type='edit', data='~/.config/nvim/init.vim'),
     'edit neovim ginit': Action(type='edit', data='~/.config/nvim/ginit.vim'),
     'edit fontconfig': Action(type='edit', data='~/.config/fontconfig/fonts.conf'),
+    'edit zshrc': Action(type='edit', data='~/.zshrc'),
     'lxappearance': Action(type='system', data='lxappearance'),
 }
 

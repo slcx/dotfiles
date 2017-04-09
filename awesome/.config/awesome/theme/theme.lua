@@ -16,13 +16,13 @@ theme.font          = "PragmataPro Mono 7.5"
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#444444" -- basically, the main color
 theme.bg_urgent     = "#a21a1a"
-theme.bg_minimize   = "#444444"
+theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#aaaaaa"
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_minimize   = theme.fg_normal
 
 theme.useless_gap   = 0
 theme.border_width  = dpi(1)
