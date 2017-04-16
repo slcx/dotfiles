@@ -51,7 +51,7 @@ end
 beautiful.init("/home/" .. os.getenv("USER") .. "/.config/awesome/theme/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = "nvim-qt"
 www_cmd = "chromium"
@@ -261,6 +261,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, ";", function()
         sh("xbacklight -dec 5")
     end, {description="lower brightness", group="system"}),
+
+    -- lock
+    awful.key({ modkey }, "b", function()
+        sh("xscreensaver-command -lock")
+    end, {description="lock", group="system"}),
 
     -- screenshot
     awful.key({ }, "Print", function()
@@ -520,7 +525,7 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 -- Autostart {{{
-sh("xinput disable 13")
+sh("xinput disable \"ETPS/2 Elantech Touchpad\"")
 sh("setxkbmap -option caps:escape")
 
 function create_bash_macro(process_name)

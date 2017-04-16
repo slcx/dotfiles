@@ -13,5 +13,11 @@ urxvtd -q -f
 # set cursor properly
 xsetroot -cursor_name left_ptr
 
-# swap caps with escape
-setxkbmap -option "caps:swapescape"
+# keyboard modifiers and such
+xmodmap ~/.xmodmap
+
+# xscreensaver
+xscreensaver -no-splash &
+
+# syndaemon
+syndaemon -i 0.2 -K -R -d
