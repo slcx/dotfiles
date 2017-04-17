@@ -6,3 +6,13 @@
 	followRedirects = true
 [credential]
 	helper = cache
+[alias]
+	co = checkout
+	ci = commit
+	br = branch
+	st = status
+	unstage = reset HEAD --
+  last = log -1 HEAD
+  visual = !gitk
+	pu = push
+	rb = rebase
