@@ -54,6 +54,7 @@ set nowritebackup                   " messes with fs.watch
 set hidden
 set completeopt=menu
 set colorcolumn=80
+set guicursor=a:block,i:ver1
 
 " indentation
 set tabstop=2
@@ -131,7 +132,6 @@ if !s:bare
   Plug 'wakatime/vim-wakatime'
 
   " utilities
-  Plug 'mhinz/vim-startify'
   Plug 'tpope/vim-fugitive'
   Plug 'justinmk/vim-dirvish'
   Plug 'junegunn/vim-easy-align'
@@ -189,12 +189,10 @@ if !s:bare
   Plug 'AlessandroYorba/Monrovia'
   Plug 'joshdick/onedark.vim'
   Plug 'romainl/Apprentice', { 'branch': 'fancylines-and-neovim' }
+  Plug 'w0ng/vim-hybrid'
 
   call plug#end()
 endif
-
-" cursor shape
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 
 " incommand -- preview your substitution before you even hit enter
 if exists("&inccommand") && has("nvim")
@@ -207,7 +205,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  colorscheme apprentice
+  colorscheme hybrid
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -339,6 +337,3 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
 cnoreabbrev W w
-
-" hl
-hi! ColorColumn guibg=#333333

@@ -93,7 +93,7 @@ bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
 
-export PS1="%4~ "
+export PS1="%4~%% "
 
 # virtualenv automatic activation
 if [[ -f ~/bin/virtualenv-auto-activate.sh ]]; then
