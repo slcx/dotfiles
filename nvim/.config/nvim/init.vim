@@ -141,6 +141,7 @@ if !s:bare
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-surround'
   Plug 'qpkorr/vim-bufkill'
+  Plug 'ap/vim-buftabline'
 
   " aesthetics
   " let g:airline_powerline_fonts = 1
@@ -337,3 +338,7 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
 cnoreabbrev W w
+
+" buftabline
+hi! link BufTabLineFill Normal
+hi! link BufTabLineCurrent StatusLine

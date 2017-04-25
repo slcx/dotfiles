@@ -16,6 +16,9 @@ xsetroot -cursor_name left_ptr
 # keyboard modifiers and such
 xmodmap ~/.xmodmap
 
+# xcompmgr
+xcompmgr &
+
 # xscreensaver
 xscreensaver -no-splash &
 

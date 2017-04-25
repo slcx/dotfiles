@@ -36,6 +36,7 @@ export PREFIX="/home/$USER/.local"
 
 path=(
   $PREFIX/bin
+  $HOME/subl
   $GOPATH/bin
   $HOME/.local/bin
   $HOME/bin
@@ -70,6 +71,9 @@ alias space="du -h --max-depth 1"
 alias glo="glol"
 alias gl="glo"
 alias grs="git reset"
+alias sub="sublime_text"
+alias py="python"
+alias av="source .venv/bin/activate"
 
 ed() {
   lunch "~/bin/ed $*"
@@ -94,11 +98,6 @@ bk() {
 }
 
 export PS1="%4~%% "
-
-# virtualenv automatic activation
-if [[ -f ~/bin/virtualenv-auto-activate.sh ]]; then
-  source ~/bin/virtualenv-auto-activate.sh
-fi
 
 # rbenv
 if [[ -d ~/.rbenv ]]; then
