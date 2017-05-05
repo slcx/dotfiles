@@ -16,3 +16,4 @@
   visual = !gitk
 	pu = push
 	rb = rebase
+  lo = log --oneline --pretty='%Cred%h%Creset %Cblue%s%Creset (%Cgreen%an%Creset, %ar)'

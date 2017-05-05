@@ -73,7 +73,15 @@ alias gl="glo"
 alias grs="git reset"
 alias sub="sublime_text"
 alias py="python"
-alias av="source .venv/bin/activate"
+av() {
+  source ~/venvs/$1/bin/activate
+  if [[ "$?" == "0" ]]; then
+    echo "✔ Activated \`$1'."
+  else
+    echo "✘ Could not activate..."
+  fi
+}
+alias deav="deactivate"
 
 ed() {
   lunch "~/bin/ed $*"
@@ -98,9 +106,3 @@ bk() {
 }
 
 export PS1="%4~%% "
-
-# rbenv
-if [[ -d ~/.rbenv ]]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi

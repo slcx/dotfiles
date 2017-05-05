@@ -53,7 +53,7 @@ set statusline=%f\ %m%y%r%w%=%l/%L\ %P\  " hand-crafted status
 set nowritebackup                   " messes with fs.watch
 set hidden
 set completeopt=menu
-set colorcolumn=80
+set colorcolumn=101
 set guicursor=a:block,i:ver1
 
 " indentation
@@ -141,7 +141,6 @@ if !s:bare
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-surround'
   Plug 'qpkorr/vim-bufkill'
-  Plug 'ap/vim-buftabline'
 
   " aesthetics
   " let g:airline_powerline_fonts = 1
@@ -163,6 +162,7 @@ if !s:bare
 
     " fzf options
     let g:fzf_layout = { 'down': '~70%' }
+    let g:fzf_action = { 'enter': 'tabe' }
     let g:fzf_files_options =
       \ '--preview "head -'.&lines.' {}"'
     let g:fzf_colors =
@@ -245,6 +245,7 @@ command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>),
 augroup filetypes
   autocmd!
   autocmd BufRead,BufNewFile *.cson set ft=coffee
+  autocmd BufRead,BufNewFile *.cson setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 augroup END
 
 fun! <SID>AutoMakeDirectory()
@@ -323,8 +324,8 @@ nnoremap <silent> <C-O> :Buffers<CR>
 nnoremap <silent> <leader>nt :NERDTreeToggle<CR>
 
 " buffer navigation
-nnoremap <silent> <A-[> :bp<CR>
-nnoremap <silent> <A-]> :bn<CR>
+nnoremap <silent> <A-[> gT<CR>
+nnoremap <silent> <A-]> gt<CR>
 
 " disable arrow keys
 nnoremap <up> <nop>
@@ -333,12 +334,10 @@ nnoremap <left> <nop>
 nnoremap <right> <nop>
 
 " utilities
-nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
+nnoremap <silent> <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
 cnoreabbrev W w
 
 " buftabline
-hi! link BufTabLineFill Normal
-hi! link BufTabLineCurrent StatusLine

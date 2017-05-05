@@ -17,9 +17,11 @@ urxvt.scrollBar: false
 ! urxvt.font: xft:Iosevka:pixelsize=17
 ! urxvt.font: xft:Source Code Pro:pixelsize=13
 ! urxvt.font: xft:Office Code Pro:pixelsize=15
-urxvt.font: xft:PragmataPro Mono:pixelsize=13
-! urxvt.font: xft:Fira Code:pixelsize=12
+! urxvt.font: xft:PragmataPro Mono:pixelsize=12
+! urxvt.font: xft:PragmataPro Mono:pixelsize=13
+urxvt.font: xft:PragmataPro Mono:pixelsize=16
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=18
+! urxvt.font: xft:Fira Code:pixelsize=12
 ! urxvt.font: xft:PxPlus IBM BIOS:pixelsize=8:antialias=false
 ! urxvt.font: xft:PxPlus IBM EGA8:pixelsize=15:antialias=false
 ! urxvt.font: -lucy-tewi-medium-r-normal--11-90-100-100-c-60-iso10646-*
@@ -49,6 +51,7 @@ st.cwscale:      0.9
 st.blinktimeout: 800
 st.bellvolume:   0
 st.opacity:      255
+! urxvt.font: xft:PragmataPro Mono:pixelsize=13
 
 ! Hybrid Terminal Colours. Uses the palette from Tomorrow-Night:
 ! https://github.com/chriskempson/tomorrow-theme/blob/master/vim/colors/Tomorrow-Night.vim

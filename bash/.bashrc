@@ -20,6 +20,3 @@ alias e='$EDITOR'
 
 PS1='ssh \u@\h \W% '
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH=$PATH:/opt/openresty/bin/:/opt/openresty/nginx/sbin/ #Automatically added by openresty package
-
