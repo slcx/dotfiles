@@ -11,9 +11,6 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
--- third party
-local battery_widget = require("battery-widget")
-
 -- make icon size 64 pixels big
 naughty.config.defaults.icon_size = 64
 
@@ -162,16 +159,6 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
-    local battery = battery_widget({
-        adapter = "BAT0",
-        battery_prefix = "Battery: ",
-        limits = {
-            { 25, "#db0000" },
-            { 50, "#db8400" },
-            { 100, "#aaa" },
-        },
-    })
-
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
@@ -220,7 +207,6 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            wrap_widget(battery.widget, { left = 5 }),
             wrap_widget(mytextclock, { left = 5 }),
             wrap_widget(s.mylayoutbox, { left = 5 }),
         },

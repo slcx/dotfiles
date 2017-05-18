@@ -19,12 +19,13 @@ urxvt.scrollBar: false
 ! urxvt.font: xft:Office Code Pro:pixelsize=15
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=12
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=13
-urxvt.font: xft:PragmataPro Mono:pixelsize=16
+! urxvt.font: xft:PragmataPro Mono:pixelsize=16
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=18
 ! urxvt.font: xft:Fira Code:pixelsize=12
 ! urxvt.font: xft:PxPlus IBM BIOS:pixelsize=8:antialias=false
 ! urxvt.font: xft:PxPlus IBM EGA8:pixelsize=15:antialias=false
 ! urxvt.font: -lucy-tewi-medium-r-normal--11-90-100-100-c-60-iso10646-*
+urxvt.font: xft:DejaVu Sans Mono:pixelsize=11
 ! urxvt.boldFont: -lucy-tewi-bold-r-normal--11-80-100-100-c-60-iso10646-*
 ! urxvt.boldFont: xft:Essential PragmataPro:style=bold:pixelsize=13
 urxvt.letterSpace: -2

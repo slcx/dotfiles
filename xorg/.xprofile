@@ -24,6 +24,3 @@ xscreensaver -no-splash &
 
 # disable touchpad
 xinput disable "ETPS/2 Elantech Touchpad"
-
-# syndaemon
-syndaemon -i 0.2 -K -R -d
