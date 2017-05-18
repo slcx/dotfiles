@@ -3,7 +3,12 @@ if [[ ! -n $SSH_CONNECTION ]]; then
   if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent | head -n 2 > ~/.shag
     eval "$(<~/.shag)"
-    ssh-add ~/.ssh/id_rsa
+    while true; do
+      ssh-add ~/.ssh/id_rsa
+      if [[ "$?" == "0" ]]; then
+        break
+      fi
+    done
   fi
   if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.shag)"

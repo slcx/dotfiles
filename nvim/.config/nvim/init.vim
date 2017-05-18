@@ -339,5 +339,3 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
 cnoreabbrev W w
-
-" buftabline
