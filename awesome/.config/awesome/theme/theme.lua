@@ -11,7 +11,7 @@ local themes_path = "/home/"..os.getenv("USER").."/.config/awesome/theme/"
 
 local theme = {}
 
-theme.font          = "PragmataPro Mono 7.5"
+theme.font          = "DejaVu Sans Mono 7.5"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#444444" -- basically, the main color

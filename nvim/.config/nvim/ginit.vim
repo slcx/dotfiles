@@ -1,1 +1,1 @@
-GuiFont! Liberation Mono:h10
+GuiFont! DejaVu Sans Mono:h9

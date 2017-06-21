@@ -1,4 +1,4 @@
-"  _       _ _         _
+
 " (_)_ __ (_) |___   _(_)_ __ ___
 " | | '_ \| | __\ \ / / | '_ ` _ \
 " | | | | | | |_ \ V /| | | | | | |
@@ -53,7 +53,7 @@ set statusline=%f\ %m%y%r%w%=%l/%L\ %P\  " hand-crafted status
 set nowritebackup                   " messes with fs.watch
 set hidden
 set completeopt=menu
-set colorcolumn=101
+set colorcolumn=
 set guicursor=a:block,i:ver1
 
 " indentation
@@ -162,7 +162,7 @@ if !s:bare
 
     " fzf options
     let g:fzf_layout = { 'down': '~70%' }
-    let g:fzf_action = { 'enter': 'tabe' }
+    " let g:fzf_action = { 'enter': 'tabe' }
     let g:fzf_files_options =
       \ '--preview "head -'.&lines.' {}"'
     let g:fzf_colors =
@@ -189,6 +189,7 @@ if !s:bare
   Plug 'nanotech/jellybeans.vim'
   Plug 'AlessandroYorba/Monrovia'
   Plug 'joshdick/onedark.vim'
+  Plug 'tpope/vim-vividchalk'
   Plug 'romainl/Apprentice', { 'branch': 'fancylines-and-neovim' }
   Plug 'w0ng/vim-hybrid'
 
@@ -206,7 +207,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  colorscheme hybrid
+  colorscheme apprentice
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
@@ -324,8 +325,8 @@ nnoremap <silent> <C-O> :Buffers<CR>
 nnoremap <silent> <leader>nt :NERDTreeToggle<CR>
 
 " buffer navigation
-nnoremap <silent> <A-[> gT<CR>
-nnoremap <silent> <A-]> gt<CR>
+nnoremap <silent> <A-[> <ESC>:bp<CR>
+nnoremap <silent> <A-]> <ESC>:bn<CR>
 
 " disable arrow keys
 nnoremap <up> <nop>

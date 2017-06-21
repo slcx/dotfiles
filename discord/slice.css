@@ -1,3 +1,6 @@
+.user-popout-banned-video { display: none; }
+.user-popout-banned-video + .margin-top-20 { margin-top: 0; }
+
 .guilds-wrapper { width: 125px; }
 .guilds-wrapper .scroller-wrap { width: 150px; }
 .guilds-wrapper .guilds { display: flex; flex-flow: row wrap; padding-left: 0;
@@ -13,3 +16,31 @@
 .guilds-wrapper .guilds .guild { position: relative; }
 .guilds-wrapper .guilds .dms { width: 100%; display: flex; flex-flow: row wrap; }
 .guilds-wrapper .guilds .dms .guild { left: 0; }
+.guilds-wrapper { width: 25px !important;
+  transition: all 200ms !important; filter: brightness(20%); }
+.guilds-wrapper:hover { width: 125px !important; filter: none; }
+
+/*
+.member-username-inner, .user-name, .channel-name, .guild-header span, .member-activity strong,
+.channel-members h2, .topic {
+  font-size: 0 !important;
+}
+.member-username-inner:after, .user-name:after, .guild-header span:after, .member-activity strong:after,
+.channel-members h2:after, .topic:after {
+  font-size: 16px !important;
+  content: 'devon';
+}
+.topic img { display: none !important; }
+.channel-members h2:after { font-size: 13px !important; }
+.member-activity strong:after { font-size: 12px !important; }
+.channel-name:before { font-size: 12px !important; }
+.account-details .username, .account-details .discriminator { font-size: 0 !important; }
+.account-details .username:after { content: 'devon'; font-size: 14px !important; }
+.account-details .discriminator:after { content: '#4089'; font-size: 11px !important; }
+.typing .text strong { font-size: 0 !important; }
+.typing .text strong:after { font-size: 13px !important; content: 'devon'; }
+.channel-name:after { font-size: 15px !important; content: 'devon'; }
+.avatar-small, .avatar-large {
+  background-image: url(https://images.discordapp.net/avatars/122122926760656896/bec58ca810e767279ddda23ebeb971eb.png?size=1024) !important;
+}
+

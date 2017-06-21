@@ -51,7 +51,7 @@ beautiful.init("/home/" .. os.getenv("USER") .. "/.config/awesome/theme/theme.lu
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = "nvim-qt"
-www_cmd = "chromium"
+www_cmd = "google-chrome-stable"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -255,7 +255,7 @@ globalkeys = awful.util.table.join(
 
     -- screenshot
     awful.key({ }, "Print", function()
-        sh("~/bin/snap")
+        sh("owo -s")
     end),
 
     -- focus by direction
@@ -428,7 +428,7 @@ awful.rules.rules = {
         rule_any = {type = { "normal", "dialog" } },
         properties = { titlebars_enabled = false } },
 
-    { rule_any = { class = { "chromium", "Chromium" } },
+    { rule_any = { class = { "google-chrome", "Google-chrome" } },
       properties = { tag = "2" } },
     { rule = { class = "discord" },
       properties = { tag = "3" } },
@@ -529,7 +529,7 @@ function autostart(process, process_name)
     sh(process)
 end
 
-autostart("chromium", "chromium")
+autostart("google-chrome-stable", "chrome")
 autostart("discord-canary", "DiscordCanary")
 autostart("thunderbird", "thunderbird")
 -- }}}

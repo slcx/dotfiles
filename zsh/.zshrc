@@ -37,9 +37,11 @@ if [[ -x /usr/bin/hub ]]; then
 fi
 
 export GOPATH="$HOME/go"
-export PREFIX="/home/$USER/.local"
+
+NPM_PACKAGES="${HOME}/.npm-packages"
 
 path=(
+  $NPM_PACKAGES/bin
   $PREFIX/bin
   $HOME/subl
   $GOPATH/bin
@@ -111,3 +113,12 @@ bk() {
 }
 
 export PS1="%4~%% "
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
