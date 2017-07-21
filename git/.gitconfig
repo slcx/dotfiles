@@ -1,19 +1,20 @@
 [user]
-	email = cheesy.fried.bacon@gmail.com
-	name = sliceofcode
-	signingkey = 1508C19D7436A26D
+  email = cheesy.fried.bacon@gmail.com
+  name = sliceofcode
+  signingkey = 1508C19D7436A26D
 [http "https://gopkg.in"]
-	followRedirects = true
+  followRedirects = true
 [credential]
-	helper = cache
+  helper = cache
 [alias]
-	co = checkout
-	ci = commit
-	br = branch
-	st = status
-	unstage = reset HEAD --
+  a = add
+  co = checkout
+  ci = commit -v
+  br = branch
+  st = status -s
+  unstage = reset HEAD --
   last = log -1 HEAD
   visual = !gitk
-	pu = push
-	rb = rebase
+  pu = push
+  rb = rebase
   lo = log --oneline --pretty='%Cred%h%Creset %Cblue%s%Creset (%Cgreen%an%Creset, %ar)'

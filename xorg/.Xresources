@@ -20,16 +20,16 @@ urxvt.scrollBar: false
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=12
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=13
 ! urxvt.font: xft:PragmataPro Mono:pixelsize=16
-! urxvt.font: xft:PragmataPro Mono:pixelsize=18
+urxvt.font: xft:PragmataPro Mono:pixelsize=18
 ! urxvt.font: xft:Fira Code:pixelsize=12
 ! urxvt.font: xft:PxPlus IBM BIOS:pixelsize=8:antialias=false
 ! urxvt.font: xft:PxPlus IBM EGA8:pixelsize=15:antialias=false
 ! urxvt.font: -lucy-tewi-medium-r-normal--11-90-100-100-c-60-iso10646-*
 ! urxvt.font: xft:DejaVu Sans Mono:pixelsize=11
-urxvt.font: xft:Misc Tamsyn:pixelsize=14
+! urxvt.font: xft:Misc Tamsyn:pixelsize=14
 ! urxvt.boldFont: -lucy-tewi-bold-r-normal--11-80-100-100-c-60-iso10646-*
 ! urxvt.boldFont: xft:Essential PragmataPro:style=bold:pixelsize=13
-urxvt.letterSpace: -1
+urxvt.letterSpace: -3
 urxvt.intensityStyles: false
 
 st.termname:     st-256color
@@ -53,30 +53,25 @@ st.cwscale:      0.9
 st.blinktimeout: 800
 st.bellvolume:   0
 st.opacity:      255
-! urxvt.font: xft:PragmataPro Mono:pixelsize=13
 
-! Hybrid Terminal Colours. Uses the palette from Tomorrow-Night:
-! https://github.com/chriskempson/tomorrow-theme/blob/master/vim/colors/Tomorrow-Night.vim
-! vim: ft=xdefaults
-
-*.foreground: #BCBCBC
-*.background: #262626
-*.color0:     #1C1C1C
-*.color8:     #444444
-*.color1:     #AF5F5F
-*.color9:     #FF8700
-*.color2:     #5F875F
-*.color10:    #87AF87
-*.color3:     #87875F
-*.color11:    #FFFFAF
-*.color4:     #5F87AF
-*.color12:    #8FAFD7
-*.color5:     #5F5F87
-*.color13:    #8787AF
-*.color6:     #5F8787
-*.color14:    #5FAFAF
-*.color7:     #6C6C6C
-*.color15:    #FFFFFF
+*.background: #080808
+*.foreground: #b2b2b2
+*.color0:  #373c40
+*.color1:  #ff5454
+*.color2:  #8cc85f
+*.color3:  #e3c78a
+*.color4:  #80a0ff
+*.color5:  #ce76e8
+*.color6:  #7ee0ce
+*.color7:  #de935f
+*.color8:  #f09479
+*.color9:  #f74782
+*.color10: #42cf89
+*.color11: #cfcfb0
+*.color12: #78c2ff
+*.color13: #ae81ff
+*.color14: #85dc85
+*.color15: #e2637f
 
 rofi.color-enabled:                  true
 rofi.color-normal:                   #ffffff,#525d76,#f5f5f5,#5294e2,#ffffff

@@ -195,6 +195,9 @@ awful.screen.connect_for_each_screen(function(s)
         return margin
     end
 
+    local battery_widget = require('battery')
+    local battery = battery_widget({adapter = 'BAT0'})
+
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
@@ -206,7 +209,8 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
+            wrap_widget(wibox.widget.systray(), { right = 5}),
+            battery,
             wrap_widget(mytextclock, { left = 5 }),
             wrap_widget(s.mylayoutbox, { left = 5 }),
         },

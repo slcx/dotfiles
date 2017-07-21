@@ -32,15 +32,13 @@ SAVEHIST=30000
 setopt append_history
 setopt extended_history
 
-if [[ -x /usr/bin/hub ]]; then
-  alias git="hub"
-fi
-
+# env vars
 export GOPATH="$HOME/go"
-
-NPM_PACKAGES="${HOME}/.npm-packages"
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export EDITOR="nvim"
 
 path=(
+  # home stuff
   $NPM_PACKAGES/bin
   $PREFIX/bin
   $HOME/subl
@@ -50,23 +48,24 @@ path=(
   $HOME/.cargo/bin
   $HOME/.gem/ruby/2.4.0/bin
   $HOME/.yarn/bin
+
+  # perl stuff
   /usr/bin/site_perl
   /usr/bin/vendor_perl
   /usr/bin/core_perl
+
+  # essential
   /usr/local/sbin
   /usr/local/bin
   /usr/bin
   /bin
   /sbin
+
+  # jvm
   /usr/lib/jvm/default/bin
 )
 
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR="vim"
-else
-  export EDITOR="nvim"
-fi
-
+# aliases
 alias g="git"
 alias cp="cp -r"
 alias ls="ls --color=auto -hF"
@@ -80,6 +79,12 @@ alias gl="glo"
 alias grs="git reset"
 alias sub="sublime_text"
 alias py="python"
+alias deav="deactivate"
+if [[ -x /usr/bin/hub ]]; then
+  alias git="hub"
+fi
+
+# activate virtualenv
 av() {
   source ~/venvs/$1/bin/activate
   if [[ "$?" == "0" ]]; then
@@ -88,7 +93,6 @@ av() {
     echo "✘ Could not activate..."
   fi
 }
-alias deav="deactivate"
 
 ed() {
   lunch "~/bin/ed $*"
@@ -112,13 +116,18 @@ bk() {
   (nohup $* >/dev/null 2>&1 &)
 }
 
-export PS1="%4~%% "
+if [[ -n "$SSH_CONNECTION" ]]; then
+  pfx="[34m(ssh/$(hostname)) [0m"
+fi
+
+export PS1="$pfx%4~%% "
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+[ -d "$HOME/.pyenv" ] && eval "$(pyenv init -)"
 
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

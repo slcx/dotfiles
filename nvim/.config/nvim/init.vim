@@ -185,13 +185,7 @@ if !s:bare
   endif
 
   " colors
-  Plug 'chriskempson/base16-vim'
-  Plug 'nanotech/jellybeans.vim'
-  Plug 'AlessandroYorba/Monrovia'
-  Plug 'joshdick/onedark.vim'
-  Plug 'tpope/vim-vividchalk'
-  Plug 'romainl/Apprentice', { 'branch': 'fancylines-and-neovim' }
-  Plug 'w0ng/vim-hybrid'
+  Plug 'bluz71/vim-moonfly-colors'
 
   call plug#end()
 endif
@@ -207,7 +201,7 @@ set t_Co=256
 
 " apply our current colorscheme
 try
-  colorscheme apprentice
+  colorscheme moonfly
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
