@@ -1,3 +1,0 @@
-#!/bin/sh
-
-maim --showcursor -s --nokeyboard ~/screenshots/$(date +%F-%T).png

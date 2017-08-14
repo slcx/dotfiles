@@ -1,4 +1,0 @@
-PANEL_FIFO="/tmp/panel-fifo"
-PANEL_HEIGHT=24
-PANEL_FONT="-lucy-tewi-medium-*-*-*-*-*-*-*-*-*-*-*"
-PANEL_WM_NAME=bspwm_panel

@@ -1,7 +1,0 @@
-#!/bin/sh
-
-bright=$(light)
-formatted_brightness=$(awk "BEGIN{printf \"%.1f\n\", $bright}")
-
-echo "$formatted_brightness%"
-echo "$formatted_brightness%"

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo 'removing comments. . .'
-mid3v2 --delete-frames=COMM "$1"
-echo 'removing encoder. . .'
-mid3v2 --delete-frames=TENC "$1"
-mid3v2 --delete-frames=TSSE "$1"
