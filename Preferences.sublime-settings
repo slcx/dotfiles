@@ -1,0 +1,43 @@
+{
+	"always_show_minimap_viewport": true,
+	"caret_extra_bottom": 0,
+	"caret_extra_top": 0,
+	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Medium).tmTheme",
+	"drag_text": false,
+	"draw_minimap_border": true,
+	"enable_hexadecimal_encoding": false,
+	"enable_tab_scrolling": false,
+	"ensure_newline_at_eof_on_save": true,
+	"folder_exclude_patterns":
+	[
+		"node_modules",
+		".git",
+		"__pycache__",
+		"*.egg-info",
+		"venv"
+	],
+	"font_face": "Input",
+	"font_options":
+	[
+		"no_italic",
+		"no_round"
+	],
+	"font_size": 14,
+	"gruvbox_disable_faded_file_icons": true,
+	"gruvbox_folder_icons_spacegray": true,
+	"gruvbox_iconset_midstroke": true,
+	"gruvbox_statusbar_xxs": true,
+	"gruvbox_tabs_xxs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"rulers":
+	[
+		120
+	],
+	"tab_size": 2,
+	"theme": "gruvbox (Dark) (Medium).sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
+}
