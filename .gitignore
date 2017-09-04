@@ -1,4 +1,5 @@
 .tup
+.DS_Store
 
 # ignore other nvim stuff
 nvim/.config/nvim/undo
