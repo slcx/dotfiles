@@ -4,6 +4,11 @@ link() {
   source="$(pwd)/$1"
   target="$2"
 
+  if [[ ! -e "$source" ]]; then
+    echo "err: cannot find $source"
+    return
+  fi
+
   if [[ -e "$target" ]]; then
     echo -n "$target exists, overwrite? [y/n] "
     read -r prompt
@@ -14,9 +19,10 @@ link() {
 
   rm -r "$target"
   ln -s "$source" "$target"
-  echo "$source -> $target"
+  echo -e "\033[32m✔ $source → $target\033[0m"
 }
 
+# link some stuff
 link tmux.conf "$HOME/.tmux.conf"
 link init.vim "$HOME/.config/nvim/init.vim"
 link zshrc "$HOME/.zshrc"
