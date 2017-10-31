@@ -1,16 +1,21 @@
-#!/usr/bin/env zsh
+# -- omz
 
-# -- completion
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' menu select
+export ZSH=/Users/ryant/.oh-my-zsh
+ZSH_THEME="robbyrussell"
 
-# -- history
-setopt inc_append_history
-setopt extended_history
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=10000000
-SAVEHIST=10000000
+# --- omz settings
+CASE_SENSITIVE="false"
+HYPHEN_INSENSITIVE="false"
+DISABLE_AUTO_UPDATE="false"
+export UPDATE_ZSH_DAYS=10
+DISABLE_LS_COLORS="false"
+DISABLE_AUTO_TITLE="true"
+ENABLE_CORRECTION="true"
+COMPLETION_WAITING_DOTS="true"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
 
 # -- regular exports
 export LANG=en_US.UTF-8
@@ -22,9 +27,7 @@ export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python3"
 export EDITOR="nvim"
 export NODE_PATH="/usr/local/lib/node_modules"
 export NVM_DIR="$HOME/.nvm"
-
-# -- PS1
-PS1=$'%n@%m:%{\e[32;1m%}[%4~]%{\e[0m%}%# '
+export GOPATH="$HOME/Code/Go"
 
 # --- useful aliases
 alias reload="source ~/.zshrc"
@@ -46,7 +49,7 @@ alias dva="deactivate"
 function rmux() {
   ssh "$1" -t 'tmux a'
 }
-function gforcesync() {
+function gsyn() {
   git fetch --all
   git reset --hard $1/master
 }
@@ -60,7 +63,7 @@ alias br="brew"
 alias gc="git commit -v"
 alias gr="git remote"
 alias gd="git diff"
-alias gst="git status"
+alias gst="git status -s"
 alias gp="git push"
 alias grh="git reset HEAD"
 alias gs="git show"
@@ -77,8 +80,10 @@ alias gcl="git clone"
 [[ -x "/usr/local/bin/hub" ]] && alias git="hub"
 
 # --- path
-export PATH="$HOME/.yarn/bin:$HOME/.npm/bin:$PATH"
+export PATH="$GOPATH/bin:$HOME/.yarn/bin:$HOME/.npm/bin:$PATH"
 
 # -- post-scripts
 . "$HOME/Code/Lib/z/z.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
