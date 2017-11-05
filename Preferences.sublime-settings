@@ -1,51 +1,51 @@
 {
-  "always_show_minimap_viewport": true,
-  "atomic_save": true,
-  "auto_find_in_selection": true,
-  "bold_folder_labels": true,
-  "caret_extra_bottom": 1,
-  "caret_extra_top": 1,
-  "caret_extra_width": 2,
-  "color_scheme": "Packages/Pastel Paws Color Scheme/Pastel Paws.tmTheme",
-  "detect_indentation": false,
-  "drag_text": false,
-  "draw_shadows": false,
-  "enable_hexadecimal_encoding": false,
-  "enable_tab_scrolling": false,
-  "ensure_newline_at_eof_on_save": true,
-  "folder_exclude_patterns":
-  [
-    "node_modules",
-    ".git",
-    "__pycache__",
-    "*.egg-info",
-    "venv"
-  ],
-  "font_face": "SF Mono",
-  "font_options":
-  [
-    "no_italic"
-  ],
-  "font_size": 12.5,
-  "highlight_line": true,
-  "ignored_packages":
-  [
-    "ActualVim",
-    "Six",
-    "Vintage"
-  ],
-  "margin": 0,
-  "rulers":
-  [
-    80,
-    120
-  ],
-  "scroll_speed": 0.0,
-  "show_encoding": true,
-  "show_line_endings": true,
-  "show_navigation_bar": false,
-  "tab_size": 2,
-  "theme": "Adaptive.sublime-theme",
-  "translate_tabs_to_spaces": true,
-  "trim_trailing_white_space_on_save": true
+	"always_show_minimap_viewport": true,
+	"atomic_save": true,
+	"auto_find_in_selection": true,
+	"bold_folder_labels": true,
+	"caret_extra_bottom": 1,
+	"caret_extra_top": 1,
+	"caret_extra_width": 2,
+	"color_scheme": "Packages/Pastel Paws Color Scheme/Pastel Paws.tmTheme",
+	"detect_indentation": false,
+	"drag_text": false,
+	"draw_shadows": false,
+	"enable_hexadecimal_encoding": false,
+	"enable_tab_scrolling": false,
+	"ensure_newline_at_eof_on_save": true,
+	"folder_exclude_patterns":
+	[
+		"node_modules",
+		".git",
+		"__pycache__",
+		"*.egg-info",
+		"venv"
+	],
+	"font_face": "SF Mono",
+	"font_options":
+	[
+		"no_italic"
+	],
+	"font_size": 11.5,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"ActualVim",
+		"Six",
+		"Vintage"
+	],
+	"margin": 0,
+	"rulers":
+	[
+		80,
+		120
+	],
+	"scroll_speed": 0.0,
+	"show_encoding": true,
+	"show_line_endings": true,
+	"show_navigation_bar": false,
+	"tab_size": 2,
+	"theme": "Adaptive.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
 }

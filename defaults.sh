@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 # dock
 defaults write com.apple.dock tilesize -int 36
 defaults write com.apple.dock magnification -float 0
