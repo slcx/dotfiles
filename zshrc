@@ -1,21 +1,9 @@
-# -- omz
+#!/usr/bin/env zsh
 
-export ZSH=/Users/ryant/.oh-my-zsh
-ZSH_THEME="robbyrussell"
-
-# --- omz settings
-CASE_SENSITIVE="false"
-HYPHEN_INSENSITIVE="false"
-DISABLE_AUTO_UPDATE="false"
-export UPDATE_ZSH_DAYS=10
-DISABLE_LS_COLORS="false"
-DISABLE_AUTO_TITLE="true"
-ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
+# -- ps1
+autoload -U colors && colors
+setopt PROMPT_SUBST
+PROMPT='%{$fg[magenta]%}%3~%{$reset_color%} ❯ '
 
 # -- regular exports
 export LANG=en_US.UTF-8
@@ -29,15 +17,17 @@ export NODE_PATH="/usr/local/lib/node_modules"
 export NVM_DIR="$HOME/.nvm"
 export GOPATH="$HOME/Code/Go"
 
-# --- useful aliases
-alias reload="source ~/.zshrc"
+# -- useful aliases
+alias reload="source ~/.zshrc && clear; echo reloaded!"
 alias serve="python3 -m http.server"
 alias ls="ls -hGp"
 alias e="$EDITOR"
-alias public_ip="curl https://ifconfig.co"
-function local_ip() {
-  ifconfig | grep 'inet ' | awk '{ print $2 }'
-}
+alias dva="deactivate"
+alias sherlock="mdfind -name"
+alias svg2png="rsvg-convert -h 1000"
+alias usage="du -h -d 1 ."
+
+# -- functions
 function pva() {
   if [[ ! -d "$HOME/Code/Virtualenvs/$1" ]]; then
     echo "pva: no such virtualenv"
@@ -45,16 +35,15 @@ function pva() {
   fi
   source "$HOME/Code/Virtualenvs/$1/bin/activate"
 }
-alias dva="deactivate"
+
+function gsyn() {
+  git fetch --all
+  git reset --hard "$1/master"
+}
+
 function rmux() {
   ssh "$1" -t 'tmux a'
 }
-function gsyn() {
-  git fetch --all
-  git reset --hard $1/master
-}
-alias sherlock="mdfind -name"
-alias svg2png="rsvg-convert -h 1000"
 
 # -- tool aliases
 alias dkc="docker-compose"
@@ -67,13 +56,15 @@ alias gst="git status -s"
 alias gp="git push"
 alias grh="git reset HEAD"
 alias gs="git show"
-function gl() {
-  git log --graph --oneline --pretty='format:%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%Creset'
-}
+alias gl="git log --graph --oneline --pretty='format:%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%Creset'"
 alias grm="git rm"
 alias gb="git branch"
 alias ga="git add"
 function gsu() {
+  if [[ ! "$1" ]]; then
+    echo "err: provide repo name"
+    return
+  fi
   git remote add origin "git@github.com:slice/$1.git"
 }
 alias gcl="git clone"
@@ -83,7 +74,7 @@ alias gcl="git clone"
 export PATH="$GOPATH/bin:$HOME/.yarn/bin:$HOME/.npm/bin:$PATH"
 
 # -- post-scripts
-. "$HOME/Code/Lib/z/z.sh"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f ~/Code/Lib/z/z.sh ]] && source "$HOME/Code/Lib/z/z.sh"
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 
