@@ -1,5 +1,12 @@
 #!/usr/bin/env zsh
 
+# -- history
+setopt inc_append_history
+setopt extended_history
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+
 # -- ps1
 autoload -U colors && colors
 setopt PROMPT_SUBST
