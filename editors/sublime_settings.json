@@ -21,12 +21,12 @@
 		"*.egg-info",
 		"venv"
 	],
-	"font_face": "SF Mono",
+	"font_face": "Iosevka",
 	"font_options":
 	[
 		"no_italic"
 	],
-	"font_size": 11.5,
+	"font_size": 12,
 	"highlight_line": true,
 	"ignored_packages":
 	[

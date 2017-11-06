@@ -7,5 +7,6 @@ here's my dotfiles!
 ## installing
 
 ```
-$ bash link.sh
+$ cd dotfiles
+$ bash scripts/link.sh
 ```
