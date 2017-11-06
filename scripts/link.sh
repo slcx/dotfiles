@@ -40,7 +40,7 @@ link() {
     fi
   fi
 
-  rm -r "$target"
+  rm -rf "$target"
   ln -s "$source" "$target"
   echo -e "\033[32m✔ $source → $target\033[0m"
 }
