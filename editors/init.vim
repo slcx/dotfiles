@@ -129,7 +129,7 @@ endif
 set background=dark
 syntax enable
 
-colorscheme solarized
+colorscheme apprentice
 
 " maps
 let g:mapleader="\<Space>"
