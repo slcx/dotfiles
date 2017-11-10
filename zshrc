@@ -10,7 +10,7 @@ SAVEHIST=10000000
 # -- ps1
 autoload -U colors && colors
 setopt PROMPT_SUBST
-PROMPT='%{$fg[magenta]%}%3~%{$reset_color%} ❯ '
+PROMPT='%{$fg[red]%}♥ %{$fg[blue]%}[%1~]:%{$reset_color%} '
 
 # -- regular exports
 export LANG=en_US.UTF-8
