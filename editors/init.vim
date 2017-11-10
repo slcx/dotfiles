@@ -1,20 +1,18 @@
-" mouse
+scriptencoding utf-8
+
+set backspace=indent,eol,start
 set mouse=a
-
-" under certain situations, save the file
+set hidden
+set wildmenu
 set autowrite
-
-" swap files/backups
 set noswapfile
 set nowritebackup
-
-" disable greeting message
 set shortmess+=I
+set laststatus=2
+set number
 
-" buffer management
-set hidden
-
-" smart searching
+" searching
+set incsearch
 set ignorecase
 set smartcase
 
@@ -24,9 +22,7 @@ set undodir=$HOME/.config/nvim/undo
 set undolevels=1000
 set undoreload=10000
 
-" number lines
-set number
-
+" indentation
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -34,14 +30,17 @@ set softtabstop=2
 
 let s:bare = 0
 let s:lite = 0
-let s:auto = 0
+let s:auto = 1
 
 if !s:bare
   " automatically install plug
   if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    " install plug.vim
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    augroup InitialPlugInstall
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    augroup END
   endif
 
   " plug
@@ -82,10 +81,12 @@ if !s:bare
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-surround'
+  Plug 'junegunn/vim-slash'
 
   if s:lite == 0
-    if s:auto
-      Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+    if s:auto && has('nvim')
+      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+      let g:deoplete#enable_at_startup = 1
     else
       Plug 'ervandew/supertab'
     endif
@@ -116,20 +117,23 @@ if !s:bare
   endif
 
   " colors
-  Plug 'chriskempson/base16-vim'
-  Plug 'nanotech/jellybeans.vim'
-  Plug 'joshdick/onedark.vim'
-  Plug 'romainl/Apprentice', { 'branch': 'fancylines-and-neovim' }
-  Plug 'altercation/vim-colors-solarized'
+  Plug 'junegunn/seoul256.vim'
 
   call plug#end()
 endif
 
-" colors
+" ui
 set background=dark
+set guifont=SF\ Mono:h12
+set guioptions=
+set termguicolors
 syntax enable
 
-colorscheme apprentice
+try
+  colorscheme seoul256
+catch
+  colorscheme peachpuff
+endtry
 
 " maps
 let g:mapleader="\<Space>"
@@ -169,3 +173,4 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " abbrevs
 cnoreabbrev W w
+cnoreabbrev Wq wq
