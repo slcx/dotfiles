@@ -21,7 +21,7 @@
 		"*.egg-info",
 		"venv"
 	],
-	"font_face": "Iosevka",
+	"font_face": "SF Mono",
 	"font_options":
 	[
 		"no_italic"
