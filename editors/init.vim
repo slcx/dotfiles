@@ -38,7 +38,8 @@ if !s:bare
     " install plug.vim
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    augroup InitialPlugInstall
+    augroup initialplug
+      autocmd!
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     augroup END
   endif
@@ -50,6 +51,11 @@ if !s:bare
   let g:jsx_ext_required = 0
   let g:peekaboo_delay = 250
   let g:peekaboo_window = 'vertical botright 30new'
+  let g:neoformat_javascript_prettier = {
+    \ 'exe': '/Users/ryant/.yarn/bin/prettier',
+    \ 'args': ['--config /Users/ryant/.prettierrc'],
+    \ }
+  let g:neoformat_enabled_javascript = ['prettier']
 
   " additional language support
   Plug 'othree/html5.vim'
@@ -63,7 +69,6 @@ if !s:bare
   Plug 'kchmck/vim-coffee-script'
   Plug 'leafo/moonscript-vim'
   Plug 'octol/vim-cpp-enhanced-highlight'
-  Plug 'evanmiller/nginx-vim-syntax'
   Plug 'rhysd/vim-crystal'
   Plug 'leafgarland/typescript-vim'
   Plug 'cespare/vim-toml'
@@ -82,6 +87,7 @@ if !s:bare
   Plug 'junegunn/vim-peekaboo'
   Plug 'tpope/vim-surround'
   Plug 'junegunn/vim-slash'
+  Plug 'sbdchd/neoformat'
 
   if s:lite == 0
     if s:auto && has('nvim')
@@ -118,6 +124,7 @@ if !s:bare
 
   " colors
   Plug 'junegunn/seoul256.vim'
+  Plug 'chriskempson/base16-vim'
 
   call plug#end()
 endif
@@ -130,13 +137,18 @@ set termguicolors
 syntax enable
 
 try
-  colorscheme seoul256
+  colorscheme base16-hopscotch
 catch
   colorscheme peachpuff
 endtry
 
 " maps
 let g:mapleader="\<Space>"
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 " plug
 nnoremap <leader>pi :PlugInstall<cr>

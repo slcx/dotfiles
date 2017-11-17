@@ -62,3 +62,4 @@ link "editors/init.vim" "$HOME/.config/nvim/init.vim"
 # linters:
 link "linters/flake8" "$HOME/.config/flake8"
 link "linters/eslintrc.json" "$HOME/.eslintrc"
+link "linters/prettierrc" "$HOME/.prettierrc"

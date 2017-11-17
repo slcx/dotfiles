@@ -28,6 +28,9 @@ w -g AppleFontSmoothing -int 2 # lighter font smoothing
 # keyboard
 w -g AppleKeyboardUIMode -int 2 # fka
 
+# mouse
+w -g com.apple.mouse.scaling -float 5.0
+
 # autohide
 w com.apple.dock autohide-delay -float 0
 w com.apple.dock autohide-time-modifier -float 0.8
