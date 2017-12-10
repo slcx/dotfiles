@@ -45,7 +45,7 @@ if !s:bare
     " install plug.vim
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    augroup initialplug,120
+    augroup initialplug
       autocmd!
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     augroup END
