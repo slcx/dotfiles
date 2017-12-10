@@ -1,12 +1,11 @@
 {
-	"_save": true,
 	"always_show_minimap_viewport": true,
 	"auto_find_in_selection": true,
 	"bold_folder_labels": true,
 	"caret_extra_bottom": 1,
 	"caret_extra_top": 1,
 	"caret_extra_width": 2,
-	"color_scheme": "Packages/User/SublimeLinter/base16-hopscotch (SL).tmTheme",
+	"color_scheme": "Packages/User/SublimeLinter/base16-bespin (SL).tmTheme",
 	"detect_indentation": false,
 	"drag_text": false,
 	"draw_shadows": false,
@@ -19,20 +18,16 @@
 		".git",
 		"__pycache__",
 		"*.egg-info",
-		"venv"
+		"venv",
+		".cache"
 	],
-	"font_face": "PragmataPro Combined",
-	"font_options":
-	[
-		"no_italic"
-	],
-	"font_size": 11.5,
+	"font_face": "PragmataPro",
+	"font_size": 15,
 	"ignored_packages":
 	[
 		"ActualVim",
 		"Six",
-		"Vintage",
-		"JavaScript"
+		"Vintage"
 	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,

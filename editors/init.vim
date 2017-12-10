@@ -1,3 +1,8 @@
+if !has('nvim')
+  echom 'You must use NeoVim with this vimrc.'
+  qa!
+endif
+
 scriptencoding utf-8
 
 set backspace=indent,eol,start
@@ -10,6 +15,8 @@ set nowritebackup
 set shortmess+=I
 set laststatus=2
 set number
+set inccommand=nosplit
+set colorcolumn=80,120
 
 " searching
 set incsearch
@@ -38,7 +45,7 @@ if !s:bare
     " install plug.vim
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    augroup initialplug
+    augroup initialplug,120
       autocmd!
       autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     augroup END
@@ -90,13 +97,17 @@ if !s:bare
   Plug 'sbdchd/neoformat'
 
   if s:lite == 0
-    if s:auto && has('nvim')
+    if s:auto
+      Plug 'zchee/deoplete-jedi'
+      let g:python3_host_prog = '/Users/ryant/Code/Virtualenvs/growl/bin/python'
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
       let g:deoplete#enable_at_startup = 1
     else
       Plug 'ervandew/supertab'
     endif
 
+    let g:ale_echo_msg_format = '%linter%: %s (%severity%)'
+    let g:ale_python_mypy_options = '--config-file /Users/ryant/.mypy.cfg'
     Plug 'w0rp/ale'
 
     " fzf options
@@ -137,17 +148,22 @@ set termguicolors
 syntax enable
 
 try
-  colorscheme base16-hopscotch
+  colorscheme base16-atelier-savanna
 catch
   colorscheme peachpuff
 endtry
 
 " maps
-let g:mapleader="\<Space>"
+let g:mapleader=' '
 
 augroup fmt
   autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+  autocmd BufWritePre * Neoformat
+augroup END
+
+augroup term
+  autocmd!
+  autocmd TermOpen * setlocal nonumber
 augroup END
 
 " plug
@@ -186,3 +202,7 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 " abbrevs
 cnoreabbrev W w
 cnoreabbrev Wq wq
+cnoreabbrev Qa qa
+
+" terminal
+tnoremap <Esc> <C-\><C-n>

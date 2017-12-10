@@ -10,7 +10,7 @@ SAVEHIST=10000000
 # -- ps1
 autoload -U colors && colors
 setopt PROMPT_SUBST
-PROMPT='%{$fg[red]%}♥ %{$fg[blue]%}[%1~]:%{$reset_color%} '
+PROMPT="%{[31m%}♥ %{[1;34m%}[%1~]:%{$reset_color%} "
 
 # -- regular exports
 export LANG=en_US.UTF-8
@@ -25,10 +25,9 @@ export NVM_DIR="$HOME/.nvm"
 export GOPATH="$HOME/Code/Go"
 
 # -- useful aliases
-alias reload="source ~/.zshrc && clear; echo reloaded!"
-alias serve="python3 -m http.server"
+alias reload="source ~/.zshrc && clear; echo Reloaded!"
 alias ls="ls -hGp"
-alias e="$EDITOR"
+alias e="nvim"
 alias dva="deactivate"
 alias sherlock="mdfind -name"
 alias svg2png="rsvg-convert -h 1000"
@@ -83,5 +82,3 @@ export PATH="$GOPATH/bin:$HOME/.yarn/bin:$HOME/.npm/bin:$PATH"
 # -- post-scripts
 [[ -f ~/Code/Lib/z/z.sh ]] && source "$HOME/Code/Lib/z/z.sh"
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
-

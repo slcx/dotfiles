@@ -1,41 +1,57 @@
 {
-    "workbench.startupEditor": "newUntitledFile",
-    "editor.fontFamily": "SF Mono",
-    "editor.fontWeight": "400",
-    "editor.lineHeight": 18,
-    "files.trimTrailingWhitespace": true,
-    "editor.cursorBlinking": "solid",
-    "workbench.colorCustomizations": {
-        "statusBar.debuggingForeground": "#aaa",
-        "tab.activeBorder": "#ebebeb"
-    },
-    "editor.cursorStyle": "underline-thin",
-    "eslint.packageManager": "yarn",
-    "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
-    "editor.letterSpacing": 0.2,
-    "editor.fontLigatures": true,
-    "editor.renderWhitespace": "all",
-    "editor.minimap.renderCharacters": false,
-    "eslint.options": {
-       "configFile": "/Users/ryant/.eslintrc.json"
-    },
-    "eslint.autoFixOnSave": true,
-    "editor.fontSize": 12,
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/node_modules": true
-    },
-    "vscode_custom_css.imports": [
-        "/Users/ryant/.vscode.css"
-    ],
-    "editor.tabSize": 2,
-    "vim.disableAnnoyingNeovimMessage": true,
-    "explorer.confirmDelete": false,
-    "editor.renderIndentGuides": false,
-    "workbench.colorTheme": "Cobalt2",
-    "explorer.confirmDragAndDrop": false
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.fontFamily": "PragmataPro",
+  "editor.fontWeight": "400",
+  "editor.lineHeight": 22,
+  "files.trimTrailingWhitespace": true,
+  "editor.cursorBlinking": "solid",
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "workbench.colorCustomizations": {
+    "statusBar.debuggingForeground": "#aaa",
+    "tab.activeBorder": "#ebebeb",
+  },
+  "editor.cursorStyle": "underline-thin",
+  "eslint.packageManager": "yarn",
+  "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
+  "editor.letterSpacing": 0.2,
+  "editor.fontLigatures": true,
+  "editor.renderWhitespace": "all",
+  "editor.minimap.renderCharacters": false,
+  "eslint.options": {
+    "configFile": "/Users/ryant/.eslintrc"
+  },
+  "python.formatting.formatOnSave": true,
+  "python.linting.mypyEnabled": true,
+  "python.formatting.yapfPath": "/Users/ryant/Code/Virtualenvs/growl/bin/yapf",
+  "python.linting.pylintPath": "/Users/ryant/Code/Virtualenvs/growl/bin/pylint",
+  "python.linting.prospectorPath":
+    "/Users/ryant/Code/Virtualenvs/growl/bin/prospector",
+  "python.linting.mypyPath": "/Users/ryant/Code/Virtualenvs/growl/bin/mypy",
+  "python.linting.maxNumberOfProblems": 500,
+  "python.linting.flake8Path": "/Users/ryant/Code/Virtualenvs/growl/bin/flake8",
+  "eslint.autoFixOnSave": true,
+  "editor.fontSize": 15,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
+  "vscode_custom_css.imports": ["/Users/ryant/.vscode.css"],
+  "editor.tabSize": 2,
+  "[python]": {
+    "editor.tabSize": 4
+  },
+  "vim.disableAnnoyingNeovimMessage": true,
+  "explorer.confirmDelete": false,
+  "editor.renderIndentGuides": false,
+  "workbench.colorTheme": "Nord",
+  "explorer.confirmDragAndDrop": false,
+  "python.formatting.provider": "yapf"
 }
