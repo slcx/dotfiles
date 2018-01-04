@@ -5,21 +5,17 @@ endif
 
 scriptencoding utf-8
 
-set backspace=indent,eol,start
 set mouse=a
 set hidden
-set wildmenu
 set autowrite
 set noswapfile
 set nowritebackup
 set shortmess+=I
-set laststatus=2
 set number
 set inccommand=nosplit
 set colorcolumn=80,120
 
 " searching
-set incsearch
 set ignorecase
 set smartcase
 
@@ -136,6 +132,7 @@ if !s:bare
   " colors
   Plug 'junegunn/seoul256.vim'
   Plug 'chriskempson/base16-vim'
+  Plug 'tssm/fairyfloss.vim'
 
   call plug#end()
 endif
@@ -148,7 +145,7 @@ set termguicolors
 syntax enable
 
 try
-  colorscheme base16-atelier-savanna
+  colorscheme base16-woodland
 catch
   colorscheme peachpuff
 endtry
@@ -186,6 +183,9 @@ nnoremap <silent> <C-O> :Buffers<CR>
 " buffer navigation
 nnoremap <silent> <A-[> :bp<CR>
 nnoremap <silent> <A-]> :bn<CR>
+" macos's default keyboard layout's option key outputs special characters
+" when the option key is held, and macos's alt key is option -- account for
+" that here
 nnoremap <silent> ‘ :bn<CR>
 nnoremap <silent> “ :bp<CR>
 
@@ -206,3 +206,10 @@ cnoreabbrev Qa qa
 
 " terminal
 tnoremap <Esc> <C-\><C-n>
+
+" hungry backspace
+inoremap <silent><expr><bs> 
+  \ (&indentexpr isnot '' ? &indentkeys : &cinkeys) =~? '!\^F' &&
+  \ &backspace =~? '.*eol\&.*start\&.*indent\&' &&
+  \ !search('\S','nbW',line('.')) ? (col('.') != 1 ? "\<C-U>" : "") .
+  \ "\<bs>" . (getline(line('.')-1) =~ '\S' ? "" : "\<C-F>") : "\<bs>"

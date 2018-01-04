@@ -30,6 +30,7 @@
   "rules": {
     "react/display-name": "off",
     "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
     "no-await-in-loop": "warn",
     "no-compare-neg-zero": "error",
     "no-extra-parens": [
@@ -125,14 +126,6 @@
       "1tbs",
       {
         "allowSingleLine": true
-      }
-    ],
-    "capitalized-comments": [
-      "error",
-      "always",
-      {
-        "ignoreConsecutiveComments": true,
-        "ignoreInlineComments": true
       }
     ],
     "comma-dangle": [
@@ -241,8 +234,7 @@
     ],
     "semi-spacing": "error",
     "semi": [
-      "error",
-      "never"
+      "error"
     ],
     "space-before-blocks": "error",
     "space-before-function-paren": [

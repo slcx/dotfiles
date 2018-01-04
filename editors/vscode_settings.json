@@ -14,7 +14,6 @@
     "statusBar.debuggingForeground": "#aaa",
     "tab.activeBorder": "#ebebeb",
   },
-  "editor.cursorStyle": "underline-thin",
   "eslint.packageManager": "yarn",
   "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
   "editor.letterSpacing": 0.2,

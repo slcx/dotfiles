@@ -10,7 +10,7 @@ SAVEHIST=10000000
 # -- ps1
 autoload -U colors && colors
 setopt PROMPT_SUBST
-PROMPT="%{[31m%}♥ %{[1;34m%}[%1~]:%{$reset_color%} "
+PROMPT="%{[31m%}%n@%m%{[1;37m%}:%{[1;34m%}%1~%#%{$reset_color%} "
 
 # -- regular exports
 export LANG=en_US.UTF-8
@@ -32,6 +32,8 @@ alias dva="deactivate"
 alias sherlock="mdfind -name"
 alias svg2png="rsvg-convert -h 1000"
 alias usage="du -h -d 1 ."
+alias ydl="youtube-dl"
+alias ydle="youtube-dl --extract-audio"
 
 # -- functions
 function pva() {
@@ -77,7 +79,7 @@ alias gcl="git clone"
 [[ -x "/usr/local/bin/hub" ]] && alias git="hub"
 
 # --- path
-export PATH="$GOPATH/bin:$HOME/.yarn/bin:$HOME/.npm/bin:$PATH"
+export PATH="$GOPATH/bin:$HOME/.npm/bin:/usr/local/bin:$PATH"
 
 # -- post-scripts
 [[ -f ~/Code/Lib/z/z.sh ]] && source "$HOME/Code/Lib/z/z.sh"

@@ -5,7 +5,7 @@
 	"caret_extra_bottom": 1,
 	"caret_extra_top": 1,
 	"caret_extra_width": 2,
-	"color_scheme": "Packages/User/SublimeLinter/base16-bespin (SL).tmTheme",
+	"color_scheme": "Packages/Base16 Color Schemes/Themes/base16-circus.tmTheme",
 	"detect_indentation": false,
 	"drag_text": false,
 	"draw_shadows": false,
@@ -22,7 +22,7 @@
 		".cache"
 	],
 	"font_face": "PragmataPro",
-	"font_size": 15,
+	"font_size": 16,
 	"ignored_packages":
 	[
 		"ActualVim",
