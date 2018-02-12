@@ -1,0 +1,6 @@
+#!/bin/bash
+
+wal -i ~/walls/sun.jpg
+rm -v ~/.config/kitty/kitty.conf
+cat ~/src/prj/dotfiles/kitty_base.conf >> ~/.config/kitty/kitty.conf
+cat ~/.cache/wal/colors-kitty.conf >> ~/.config/kitty/kitty.conf
