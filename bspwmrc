@@ -1,5 +1,6 @@
 #!/bin/sh
 
+xsetroot -cursor_name left_ptr
 xrdb ~/.Xresources
 xrdb -merge ~/.cache/wal/colors.Xresources
 feh --bg-fill ~/walls/sun.jpg
