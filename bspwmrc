@@ -7,7 +7,17 @@ feh --bg-fill ~/walls/sun.jpg
 ~/bin/bar
 setxkbmap -option caps:escape
 sxhkd &
-~/bin/osud &
+~/bin/osud & >/dev/null 2>&1
+
+autostart() {
+	pgrep -i "$1" >/dev/null 2>&1
+	if [ $? == 1 ]; then
+		nohup $2 >/dev/null 2>&1 &
+	fi
+}
+
+autostart discord discord-canary
+autostart chromium chromium
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
@@ -18,3 +28,6 @@ bspc config split_ratio           0.52
 bspc config borderless_monocle    true
 bspc config gapless_monocle       true
 bspc config focus_follows_pointer true
+
+bspc rule -a Chromium desktop='^2'
+bspc rule -a discord desktop='^3'
