@@ -1,0 +1,7 @@
+#!/bin/sh
+
+clear
+echo
+toilet --rainbow 'ケロケロ
+ボニト'
+echo

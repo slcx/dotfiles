@@ -1,0 +1,7 @@
+#!/bin/sh
+
+shots="$HOME/pics/shots"
+out="$shots/$(date +%F-%T).png"
+
+maim -s > $out
+xclip -sel clipboard -t image/png -i "$out"

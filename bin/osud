@@ -1,0 +1,10 @@
+#!/bin/bash
+
+while true; do
+	title=$(xtitle)
+	case "$title" in
+		  *osu!cuttingedge*) xinput --set-prop 10 'libinput Accel Speed' -1 ;;
+		  *)      xinput --set-prop 10 'libinput Accel Speed' 0  ;;
+	esac
+	sleep 0.5
+done

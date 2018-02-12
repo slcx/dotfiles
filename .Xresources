@@ -1,0 +1,7 @@
+! URxvt.font: -misc-fixed-medium-r-semicondensed-*-12-*-*-*-*-*-*-*
+! URxvt.font: -misc-termsyn-medium-r-normal--11-79-100-100-c-60-iso8859-1
+URxvt.font: xft:PragmataPro:size=10
+URxvt.letterSpacing: -3
+URxvt.scrollBar: false
+#include "/home/sl/.cache/wal/colors.Xresources"
+URxvt.internalBorder: 10
