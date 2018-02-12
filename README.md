@@ -4,6 +4,4 @@
 - **window manager:** bspwm
 - **keybinding daemon:** sxhkd
 - **color manager:** wal
-- **fonts:**
-  - **terminal:** pragmatapro
-  - **bar:** operator mono
+- **font:** operator mono
