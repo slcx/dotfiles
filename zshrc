@@ -1,86 +1,57 @@
-#!/usr/bin/env zsh
-
-# -- history
-setopt inc_append_history
-setopt extended_history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
+setopt extended_history
+setopt inc_append_history
+setopt share_history
+setopt hist_reduce_blanks
 
-# -- ps1
-autoload -U colors && colors
-setopt PROMPT_SUBST
-PROMPT="%{[31m%}%n@%m%{[1;37m%}:%{[1;34m%}%1~%#%{$reset_color%} "
+autoload -U compinit && compinit
+zstyle ':completion:::::' completer _complete _approximate
+zstyle ':completion:*:approximate:*' max-errors 2
 
-# -- regular exports
-export LANG=en_US.UTF-8
-export ARCHFLAGS="-arch x86_64"
-export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
-export MAGICK_HOME="/usr/local/opt/imagemagick@6/"
-export WORKON_HOME="$HOME/Code/Virtualenvs"
-export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python3"
-export EDITOR="nvim"
-export NODE_PATH="/usr/local/lib/node_modules"
-export NVM_DIR="$HOME/.nvm"
-export GOPATH="$HOME/Code/Go"
+export EDITOR='nvim'
+export PS1='%4~ ❯ '
+export GOPATH="$HOME/src/go"
+export PATH="$PATH:$HOME/.npm/bin:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"
 
-# -- useful aliases
-alias reload="source ~/.zshrc && clear; echo Reloaded!"
-alias ls="ls -hGp"
-alias e="nvim"
-alias dva="deactivate"
-alias sherlock="mdfind -name"
-alias svg2png="rsvg-convert -h 1000"
-alias usage="du -h -d 1 ."
-alias ydl="youtube-dl"
-alias ydle="youtube-dl --extract-audio"
+if [ -x /usr/local/bin/hub ]; then
+  alias git='hub'
+fi
 
-# -- functions
-function pva() {
-  if [[ ! -d "$HOME/Code/Virtualenvs/$1" ]]; then
-    echo "pva: no such virtualenv"
-    return
-  fi
-  source "$HOME/Code/Virtualenvs/$1/bin/activate"
-}
-
-function gsyn() {
-  git fetch --all
-  git reset --hard "$1/master"
-}
-
-function rmux() {
-  ssh "$1" -t 'tmux a'
-}
-
-# -- tool aliases
-alias dkc="docker-compose"
-alias dk="docker"
-alias br="brew"
-alias gc="git commit -v"
-alias gr="git remote"
-alias gd="git diff"
-alias gst="git status -s"
-alias gp="git push"
-alias grh="git reset HEAD"
-alias gs="git show"
+alias br='brew'
+alias gi='git init'
+alias gc='git commit -v'
+alias gco='git checkout'
+alias gr='git remote'
+alias gd='git diff'
+alias gst='git status -s'
+alias gp='git push'
+alias gpl='git pull'
+alias grh='git reset HEAD'
+alias gs='git show'
 alias gl="git log --graph --oneline --pretty='format:%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%Creset'"
-alias grm="git rm"
-alias gb="git branch"
-alias ga="git add"
-function gsu() {
-  if [[ ! "$1" ]]; then
-    echo "err: provide repo name"
-    return
+alias grm='git rm'
+alias gb='git branch'
+alias ga='git add'
+alias gcl='git clone'
+alias e="$EDITOR"
+alias ls='ls -GFh'
+alias ll='ls -l'
+alias la='ls -al'
+alias reload='source ~/.zshrc'
+alias usage='du -h -d 1 .'
+alias ydl='youtube-dl'
+alias ydle='ydl --extract-audio'
+
+# quickly move file to current directory, and create link from file
+# in current dir to previous location
+lqk() {
+  if [ -n "$2" ]; then
+    dest="$2"
+  else
+    dest=$(basename $1)
   fi
-  git remote add origin "git@github.com:slice/$1.git"
+  mv -v "$1" "$dest"
+  ln -vs "$(greadlink -f $dest)" "$1"
 }
-alias gcl="git clone"
-[[ -x "/usr/local/bin/hub" ]] && alias git="hub"
-
-# --- path
-export PATH="$GOPATH/bin:$HOME/.npm/bin:/usr/local/bin:$PATH"
-
-# -- post-scripts
-[[ -f ~/Code/Lib/z/z.sh ]] && source "$HOME/Code/Lib/z/z.sh"
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh

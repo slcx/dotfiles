@@ -21,9 +21,8 @@ w com.apple.dock expose-group-by-app -bool true
 
 # key repeat
 w -g ApplePressAndHoldEnabled -bool false # ditch accents for key repeat
-w -g KeyRepeat -int 2
+w -g KeyRepeat -int 1
 w -g InitialKeyRepeat -int 20
-w -g AppleFontSmoothing -int 2 # lighter font smoothing
 
 # keyboard
 w -g AppleKeyboardUIMode -int 2 # fka
