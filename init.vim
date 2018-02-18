@@ -18,14 +18,23 @@ set undolevels=1000
 set undoreload=10000
 
 call plug#begin('~/.local/share/nvim/plugged')
-let g:ale_javascript_eslint_executable = '/Users/slice/.npm/bin/eslint'
+
+let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:airline_powerline_fonts = 1
+
+" linters
 Plug 'w0rp/ale'
+
+" aesthetics
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+
+" language support
+Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
+
 call plug#end()
 
 set termguicolors
@@ -34,11 +43,11 @@ let g:gruvbox_italic=1
 colorscheme gruvbox
 
 let g:mapleader = ' '
-nnoremap <silent> <leader>ev :e ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>pi :PlugInstall<CR>
 nnoremap <silent> <leader>pu :PlugUpdate<CR>
 nnoremap <silent> <leader>pg :PlugUpgrade<CR>
-nnoremap <silent> <leader>sv :source ~/.config/nvim/init.vim<CR>
+nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 
 nnoremap <silent> <C-L> :noh<CR>
 nnoremap <silent> <A-[> :bp<CR>
