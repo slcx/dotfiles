@@ -20,27 +20,46 @@ set undoreload=10000
 call plug#begin('~/.local/share/nvim/plugged')
 
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
-let g:airline_powerline_fonts = 1
 
 " linters
 Plug 'w0rp/ale'
 
 " aesthetics
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
+Plug 'fenetikm/falcon'
 
 " language support
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
+Plug 'reasonml-editor/vim-reason-plus'
 
 call plug#end()
 
 set termguicolors
-set background=dark
-let g:gruvbox_italic=1
-colorscheme gruvbox
+set background=light
+colorscheme falcon
+
+if g:colors_name == "falcon"
+  let g:terminal_color_0 = "#000002"
+  let g:terminal_color_1 = "#ff4000"
+  let g:terminal_color_10 = "#85a663"
+  let g:terminal_color_11 = "#ffd966"
+  let g:terminal_color_12 = "#8fa3bf"
+  let g:terminal_color_13 = "#ffac59"
+  let g:terminal_color_14 = "#85ccc0"
+  let g:terminal_color_15 = "#fdfdff"
+  let g:terminal_color_2 = "#598033"
+  let g:terminal_color_3 = "#ffbf00"
+  let g:terminal_color_4 = "#306cbf"
+  let g:terminal_color_5 = "#ff8000"
+  let g:terminal_color_6 = "#30bfa7"
+  let g:terminal_color_7 = "#d4d4d9"
+  let g:terminal_color_8 = "#0b0b1a"
+  let g:terminal_color_9 = "#ff794c"
+  hi! ColorColumn guibg=#0f0f24
+endif
 
 let g:mapleader = ' '
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>

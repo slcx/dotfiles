@@ -1,3 +1,5 @@
+# ~/.zshrc
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
@@ -5,15 +7,22 @@ setopt extended_history
 setopt inc_append_history
 setopt share_history
 setopt hist_reduce_blanks
+setopt correct
+setopt prompt_subst
 
 autoload -U compinit && compinit
+autoload -U vcs_info
 zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 2
+zstyle ':vcs_info:*' formats '%F{3}  %s:%b'
+zstyle ':vcs_info:*' actionformats '%F{1}  %s:%b (%a)'
+zstyle ':vcs_info:*' enable git cvs svn
+precmd() { vcs_info }
+PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭ %{\x1b[0m%} '
 
 export EDITOR='nvim'
-export PS1='%4~ ❯ '
 export GOPATH="$HOME/src/go"
-export PATH="$PATH:$HOME/.npm/bin:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"
+export PATH="$HOME/.npm/bin:$PATH:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"
 
 if [ -x /usr/local/bin/hub ]; then
   alias git='hub'
@@ -55,3 +64,13 @@ lqk() {
   mv -v "$1" "$dest"
   ln -vs "$(greadlink -f $dest)" "$1"
 }
+
+prj() {
+  cd "$HOME/src/prj/$1"
+}
+
+# exa
+source "$HOME/.exa_colors"
+
+# opam
+. /Users/slice/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
