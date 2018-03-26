@@ -12,13 +12,14 @@ setopt prompt_subst
 
 autoload -U compinit && compinit
 autoload -U vcs_info
+zstyle ':completion:*' menu select
 zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 2
-zstyle ':vcs_info:*' formats '%F{3}  %s:%b'
+zstyle ':vcs_info:*' formats '%F{3} %b'
 zstyle ':vcs_info:*' actionformats '%F{1}  %s:%b (%a)'
-zstyle ':vcs_info:*' enable git cvs svn
+zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
-PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭ %{\x1b[0m%} '
+PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭  %{\x1b[0m%} '
 
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"

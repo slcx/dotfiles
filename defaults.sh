@@ -5,6 +5,9 @@ w() {
   defaults write "$@"
 }
 
+w -g AppleFontSmoothing -int 1
+sudo defaults write -g AppleFontSmoothing -int 1
+
 # dock
 w com.apple.dock tilesize -int 36
 w com.apple.dock magnification -float 0
@@ -39,6 +42,16 @@ w com.apple.dock showhidden -bool true
 # iterm
 w com.googlecode.iterm2 PromptOnQuit -bool false
 w com.googlecode.iterm2 QuitWhenAllWindowsClosed -bool false
+w com.googlecode.iterm2 SplitPaneDimmingAmount -float 0.6
+w com.googlecode.iterm2 DimOnlyText -bool true
+w com.googlecode.iterm2 EnableDivisionView -bool false
+w com.googlecode.iterm2 EnableProxyIcon -bool true
+w com.googlecode.iterm2 FlashTabBarInFullscreen -bool true
+w com.googlecode.iterm2 HideActivityIndicator -bool true
+w com.googlecode.iterm2 HideScrollbar -bool true
+w com.googlecode.iterm2 HideTab -bool true
+w com.googlecode.iterm2 HideTabCloseButton -bool true
+w com.googlecode.iterm2 HideTabNumber -bool true
 
 # terminal
 w com.apple.terminal SecureKeyboardEntry -bool true
