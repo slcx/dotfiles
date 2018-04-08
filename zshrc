@@ -19,8 +19,9 @@ zstyle ':vcs_info:*' formats '%F{3} %b'
 zstyle ':vcs_info:*' actionformats '%F{1}  %s:%b (%a)'
 zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
-PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭  %{\x1b[0m%} '
+PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭ %{\x1b[0m%} '
 
+export MAGICK_HOME='/usr/local/opt/imagemagick@6/'
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"
 export PATH="$HOME/.npm/bin:$PATH:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"

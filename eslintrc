@@ -1,30 +1,17 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
     "ecmaVersion": 2017,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
-    }
+    },
+    "sourceType": "module"
   },
   "env": {
     "es6": true,
     "node": true,
     "browser": true
   },
-  "overrides": [
-    {
-      "files": ["*.jsx"],
-      "parserOptions": {
-        "ecmaFeatures": { "jsx": true }
-      }
-    },
-    {
-      "files": ["*.mjs", "*.web.js"],
-      "parserOptions": {
-        "sourceType": "module"
-      }
-    }
-  ],
   "rules": {
     "no-await-in-loop": "warn",
     "no-compare-neg-zero": "error",
@@ -156,7 +143,6 @@
     "unicode-bom": "error",
 
     "arrow-body-style": "error",
-    "arrow-parens": ["error", "always"],
     "arrow-spacing": "error",
     "no-duplicate-imports": "error",
     "no-useless-computed-key": "error",
