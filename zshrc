@@ -24,7 +24,7 @@ PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭ %{\x1b[0m%} 
 export MAGICK_HOME='/usr/local/opt/imagemagick@6/'
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"
-export PATH="$HOME/.npm/bin:$PATH:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"
+export PATH="$HOME/.yarn/bin:$HOME/.npm/bin:$PATH:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"
 
 if [ -x /usr/local/bin/hub ]; then
   alias git='hub'

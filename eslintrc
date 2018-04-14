@@ -120,7 +120,6 @@
     "no-trailing-spaces": "error",
     "no-unneeded-ternary": "error",
     "no-whitespace-before-property": "error",
-    "nonblock-statement-body-position": ["error", "below"],
     "object-curly-spacing": ["error", "always"],
     "operator-assignment": "error",
     "operator-linebreak": ["error", "after"],
