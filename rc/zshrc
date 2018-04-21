@@ -15,8 +15,8 @@ autoload -U vcs_info
 zstyle ':completion:*' menu select
 zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 2
-zstyle ':vcs_info:*' formats '%F{3} %b'
-zstyle ':vcs_info:*' actionformats '%F{1} %s:%b (%a)'
+zstyle ':vcs_info:*' formats '%F{3} %b %f'
+zstyle ':vcs_info:*' actionformats '%F{1} %s:%b (%a) %f'
 zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
 PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭  %{\x1b[0m%} '
@@ -24,12 +24,22 @@ PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} ☭  %{\x1b[0m%}
 export MAGICK_HOME='/usr/local/opt/imagemagick@6/'
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"
-export PATH="$HOME/.yarn/bin:$HOME/.npm/bin:$PATH:/usr/local/opt/go/libexec/bin:/usr/local/bin/:$GOPATH/bin"
 
-if [ -x /usr/local/bin/hub ]; then
-  alias git='hub'
-fi
+# $path is tied to $PATH
+typeset -U path # enforce uniqueness
+path+=(
+  # langs
+  ~/.yarn/bin
+  ~/.npm/bin
+  $GOPATH/bin
 
+  # bins
+  /usr/local/bin
+)
+
+[ -x "/usr/local/bin/hub" ] && alias git='hub'
+
+alias inst='brew install'
 alias br='brew'
 alias gi='git init'
 alias gc='git commit -v'
@@ -72,7 +82,7 @@ prj() {
 }
 
 # exa
-source "$HOME/.exa_colors"
+[ -x "/usr/local/bin/exa" ] && source "$HOME/.exa_colors"
 
 # opam
-. /Users/slice/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
