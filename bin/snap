@@ -1,0 +1,14 @@
+#!/bin/bash
+# written by: slice
+#             april 21, 2018
+
+date=$(date "+%B %d, %Y %I:%M:%S %p")
+destination="$HOME/Pictures/screenshots"
+file="$destination/$date.png"
+
+screencapture -ix "$file"
+
+osascript -e "on run args" \
+  -e "set the clipboard to POSIX file (first item of args)" \
+  -e "end" \
+  "$file"
