@@ -9,7 +9,7 @@ filter:subscribe(wf.windowFocused, function(window)
   if is_osu_window(window:title()) then
     hs.mouse.trackingSpeed(-1)
   else
-    hs.mouse.trackingSpeed(5.0)
+    hs.mouse.trackingSpeed(7.0)
   end
   print('window title:', window:title())
   print('tracking speed:', hs.mouse.trackingSpeed())
