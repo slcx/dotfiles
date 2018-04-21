@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+import datetime
+import plistlib
+import os.path
+import sys
+from collections import Counter
+
+ANSI = [f'\033[{code}m' for code in range(0, 98)]
+RESET = ANSI[0]
+
+
+def humanize(time):
+    if isinstance(time, datetime.timedelta):
+        time = time.total_seconds()
+
+    hours, r = divmod(time, 3600)
+    minutes, r = divmod(r, 60)
+
+    return f'{hours:,} hours, {minutes:n} minutes, and {r:n}s'
+
+
+def read_library():
+    library_plist = os.path.expanduser(
+        '~/Music/iTunes/iTunes Music Library.xml'
+    )
+
+    with open(library_plist, 'rb') as fp:
+        return plistlib.load(fp)
+
+
+def total_listening_time(library):
+    def total_listening_time(track) -> int:
+        if 'Total Time' in track and 'Play Count' in track:
+            return (track['Total Time'] * track['Play Count']) / 1000
+        return 0
+    return sum(map(total_listening_time, library['Tracks'].values()))
+
+
+def most_common_genres(library, amount):
+    def get_genre(track):
+        return track.get('Genre', 'Unknown')
+    return Counter(map(get_genre, library['Tracks'].values())).most_common(amount)
+
+
+def top_tracks(library):
+    def play_time(track):
+        return track.get('Play Count', 0)
+    return sorted(library['Tracks'].values(), key=play_time, reverse=True)
+
+
+if __name__ == '__main__':
+    library = read_library()
+
+    if 'Tracks' not in library:
+        print("err: no tracks in library")
+        sys.exit(1)
+
+    print(f'{ANSI[35]}Total tracks:{RESET} {len(library["Tracks"])}')
+    total_library_duration = sum(track["Total Time"] / 1000 for track in library["Tracks"].values())
+    print(f'{ANSI[35]}Total library duration:{RESET} {humanize(total_library_duration)}')
+    print()
+
+    print(f'{ANSI[32]}Top tracks:{RESET}')
+    top_five = top_tracks(library)[:5]
+    listing = [
+        f'- {track["Artist"]} - {track["Name"]} {ANSI[90]}(played {track["Play Count"]} times){RESET}'
+        for track in top_five
+    ]
+    print('\n'.join(listing))
+    print()
+
+    mc_genres = most_common_genres(library, 5)
+    print(f'{ANSI[33]}Most common genres:{RESET}')
+    print('\n'.join(f'- {genre}: {tracks} tracks' for (genre, tracks) in mc_genres))
+    print()
+
+    total_time = humanize(total_listening_time(library))
+    print(f'{ANSI[31]}Total listening time:{RESET} {total_time}')
