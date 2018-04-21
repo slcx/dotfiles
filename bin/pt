@@ -48,6 +48,13 @@ def top_tracks(library):
     return sorted(library['Tracks'].values(), key=play_time, reverse=True)
 
 
+def format_track(track):
+    an = f'{track["Artist"]} - {track["Name"]}'
+    time = (track['Total Time'] * track['Play Count']) / 1000
+    count = f'{ANSI[90]}(played {track["Play Count"]} times for {humanize(time)} total){RESET}'
+    return f'{an} {count}'
+
+
 if __name__ == '__main__':
     library = read_library()
 
@@ -62,10 +69,7 @@ if __name__ == '__main__':
 
     print(f'{ANSI[32]}Top tracks:{RESET}')
     top_five = top_tracks(library)[:5]
-    listing = [
-        f'- {track["Artist"]} - {track["Name"]} {ANSI[90]}(played {track["Play Count"]} times){RESET}'
-        for track in top_five
-    ]
+    listing = [f'- {format_track(track)}' for track in top_five]
     print('\n'.join(listing))
     print()
 
