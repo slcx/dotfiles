@@ -35,6 +35,7 @@ let g:prettier#autoformat = 0
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
+Plug 'reedes/vim-pencil'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " linters
 Plug 'w0rp/ale'
@@ -42,6 +43,7 @@ Plug 'w0rp/ale'
 Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-color-spring-night'
 " language support
+Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
@@ -76,7 +78,8 @@ cnoreabbrev Wq wq
 cnoreabbrev Qa qa
 
 " --- autocmd
-autocmd BufNewFile,BufRead *.go \
-  setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+autocmd BufNewFile,BufRead *.go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+autocmd BufNewFile,BufRead *.sass,*.scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd TermOpen * setlocal nonumber
-autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd FileType markdown,md,text call pencil#init()
