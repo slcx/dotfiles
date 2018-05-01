@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import plistlib
+import os.path
+from urllib.parse import unquote
+from shutil import copy
+from pathlib import Path
+
+
+def read_library():
+    library_plist = os.path.expanduser(
+        '~/Music/iTunes/iTunes Music Library.xml'
+    )
+
+    with open(library_plist, 'rb') as fp:
+        return plistlib.load(fp)
+
+
+def free_tracks(library):
+    def track_map(track):
+        if 'Location' not in track:
+            return None
+        location = unquote(track['Location']).replace('file://', '')
+        if 'Apple Music' in location:
+            return None
+        track['Location'] = location
+        return track
+    tracks = library['Tracks'].values()
+    return filter(None, map(track_map, tracks))
+
+
+def cleanse(content: str) -> str:
+    return content.replace('/', '-').replace('\\', '-')
+
+
+if __name__ == '__main__':
+    library = read_library()
+    tracks = list(free_tracks(library))
+
+    print(f'Notice: {len(library["Tracks"]) - len(tracks)} '
+          f'(out of {len(library["Tracks"])}) tracks are non-free and cannot '
+          'be processed.'
+          )
+
+    input('All free tracks will be copied into this directory. Press ENTER to continue, CTRL+C to abort.')
+
+    for track in tracks:
+        path = Path(track['Location'])
+        filename = f"{cleanse(track['Artist'])} - {cleanse(track['Name'])}"
+        target = f'{filename}{path.suffix}'
+
+        if os.path.isfile(target):
+            print(f'Skipping {target}, already exists.')
+            continue
+
+        print(f'{path} -> {target}')
+        copy(str(path.resolve()), target)

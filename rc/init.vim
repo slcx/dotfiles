@@ -4,13 +4,40 @@
 "   \ .--.(    ___
 "jgs \\   \\  /___\
 
+if !has('nvim')
+  " recreate neovim's sane defaults
+  set autoindent
+  set autoread
+  set backspace=indent,eol,start
+  set complete-=i
+  set display=lastline
+  set encoding=utf-8
+  set formatoptions=tcqj
+  set history=10000
+  set hlsearch
+  set incsearch
+  set langnoremap
+  set laststatus=2
+  set listchars=tab:>\ ,trail:-,nbsp:+
+  set nrformats=hex
+  set sessionoptions-=options
+  set smarttab
+  set tabpagemax=50
+  set tags=./tags;,tags
+  set ttyfast
+  set viminfo+=!
+  set wildmenu
+else
+  " neovim exclusives
+  set inccommand=nosplit
+endif
+
 set mouse=a
 set autowrite
 set noswapfile
 set nowritebackup
 set hidden
 set number
-set inccommand=nosplit
 set colorcolumn=80,120
 set ignorecase
 set smartcase
@@ -25,34 +52,36 @@ set undoreload=10000
 
 " --- plugin config
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
-let g:prettier#exec_cmd_path = "~/.yarn/bin/prettier"
-let g:prettier#nvim_unstable_async=1
-let g:prettier#exec_cmd_async = 1
-let g:prettier#quickfix_enabled = 0
-let g:prettier#autoformat = 0
+let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
 
 " --- plugins
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'reedes/vim-pencil'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " linters
 Plug 'w0rp/ale'
 " aesthetics
 Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-color-spring-night'
 " language support
+Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
+Plug 'mxw/vim-jsx'
 Plug 'othree/es.next.syntax.vim'
 Plug 'reasonml-editor/vim-reason-plus'
+Plug 'posva/vim-vue'
+Plug 'wavded/vim-stylus'
 call plug#end()
 
 " --- colors
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+endif
 set background=dark
 colorscheme spring-night
 
@@ -80,6 +109,8 @@ cnoreabbrev Qa qa
 " --- autocmd
 autocmd BufNewFile,BufRead *.go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 autocmd BufNewFile,BufRead *.sass,*.scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-autocmd TermOpen * setlocal nonumber
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 autocmd FileType markdown,md,text call pencil#init()
+
+if has('nvim')
+  autocmd TermOpen * setlocal nonumber
+endif
