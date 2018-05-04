@@ -1,11 +1,8 @@
-"    ,    /-.
-"   ((___/ __>
-"   /      }
-"   \ .--.(    ___
-"jgs \\   \\  /___\
+" ryan's (neo)vimrc
 
 if !has('nvim')
   " recreate neovim's sane defaults
+  set ruler
   set autoindent
   set autoread
   set backspace=indent,eol,start
@@ -19,7 +16,7 @@ if !has('nvim')
   set langnoremap
   set laststatus=2
   set listchars=tab:>\ ,trail:-,nbsp:+
-  set nrformats=hex
+  set nrformats=bin,hex
   set sessionoptions-=options
   set smarttab
   set tabpagemax=50
@@ -27,6 +24,8 @@ if !has('nvim')
   set ttyfast
   set viminfo+=!
   set wildmenu
+  set sessionoptions-=options
+  set belloff=all
 else
   " neovim exclusives
   set inccommand=nosplit
@@ -49,6 +48,7 @@ set undofile
 set undodir=$HOME/.config/nvim/undo
 set undolevels=1000
 set undoreload=10000
+set iskeyword-=_ " _ breaks words
 
 " --- plugin config
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
@@ -59,12 +59,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
 Plug 'reedes/vim-pencil'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 " linters
 Plug 'w0rp/ale'
-" aesthetics
+" colors
 Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-color-spring-night'
+Plug 'junegunn/seoul256.vim'
 " language support
 Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'
@@ -78,12 +83,59 @@ Plug 'posva/vim-vue'
 Plug 'wavded/vim-stylus'
 call plug#end()
 
+let s:font_default_columnspace = -1
+let s:font_default_linespace = 3
+let s:font_default_profile = "input"
+let s:font_profiles = {
+  \ "prag": "PragmataPro Mono:h18",
+  \ "fira": "Fira Code:h17",
+  \ "input": "Input Mono Narrow:h17",
+  \ "input-xs": ["Input Mono Narrow:h13", -1, -2],
+  \ "iosevka": "Iosevka Term:h18",
+\ }
+
+function! s:FontProfileCompl(ArgLead, CmdLine, CursorPos)
+  return keys(s:font_profiles)
+endfunction
+
+function! s:SwitchFontProfile(profile)
+  try
+    let l:profile = s:font_profiles[a:profile]
+    if type(l:profile) ==# v:t_list
+      let &guifont = l:profile[0]
+      let &columnspace = get(l:profile, 1, s:font_default_columnspace)
+      let &linespace = get(l:profile, 2, s:font_default_linespace)
+    else
+      let &guifont = l:profile
+      let &columnspace = s:font_default_columnspace
+      let &linespace = s:font_default_linespace
+    endif
+  catch E716
+    echoe "Font profile \"".a:profile."\" not found."
+  endtry
+endfunction
+command! -nargs=1 -complete=customlist,s:FontProfileCompl
+  \ Font call s:SwitchFontProfile(<f-args>)
+
+" --- gui
+if has("gui_macvim")
+  " hide scrollbars
+  set guioptions=
+
+  " character options/spacing
+  let &columnspace=s:font_default_columnspace
+  let &linespace=s:font_default_linespace
+  set macligatures
+
+  call s:SwitchFontProfile(s:font_default_profile)
+endif
+
 " --- colors
 if has('termguicolors')
   set termguicolors
 endif
 set background=dark
-colorscheme spring-night
+colorscheme seoul256
 
 " --- maps
 let g:mapleader = ' '
@@ -107,8 +159,10 @@ cnoreabbrev Wq wq
 cnoreabbrev Qa qa
 
 " --- autocmd
-autocmd BufNewFile,BufRead *.go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-autocmd BufNewFile,BufRead *.sass,*.scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd BufNewFile,BufRead *.go
+  \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+autocmd BufNewFile,BufRead *.sass,*.scss
+  \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType markdown,md,text call pencil#init()
 
 if has('nvim')

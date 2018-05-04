@@ -1,3 +1,4 @@
+BASE_MOUSE_SPEED = 6.0
 local wf = hs.window.filter
 local filter = wf.new(true)
 
@@ -9,7 +10,7 @@ filter:subscribe(wf.windowFocused, function(window)
   if is_osu_window(window:title()) then
     hs.mouse.trackingSpeed(-1)
   else
-    hs.mouse.trackingSpeed(7.0)
+    hs.mouse.trackingSpeed(BASE_MOUSE_SPEED)
   end
   print('window title:', window:title())
   print('tracking speed:', hs.mouse.trackingSpeed())
