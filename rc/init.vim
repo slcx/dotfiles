@@ -31,6 +31,7 @@ else
   set inccommand=nosplit
 endif
 
+set list
 set mouse=a
 set autowrite
 set noswapfile
@@ -85,9 +86,11 @@ call plug#end()
 
 let s:font_default_columnspace = -1
 let s:font_default_linespace = 3
-let s:font_default_profile = "input"
+let s:font_default_profile = "prag-s"
 let s:font_profiles = {
   \ "prag": "PragmataPro Mono:h18",
+  \ "prag-s": "PragmataPro Mono:h14",
+  \ "fira-s": "Fira Code:h13",
   \ "fira": "Fira Code:h17",
   \ "input": "Input Mono Narrow:h17",
   \ "input-xs": ["Input Mono Narrow:h13", -1, -2],
@@ -135,7 +138,11 @@ if has('termguicolors')
   set termguicolors
 endif
 set background=dark
-colorscheme seoul256
+try
+  colorscheme gruvbox
+catch E185
+  colorscheme desert
+endtry
 
 " --- maps
 let g:mapleader = ' '
