@@ -62,9 +62,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
-Plug 'reedes/vim-pencil'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 " linters
 Plug 'w0rp/ale'
 " colors
@@ -170,7 +168,6 @@ autocmd BufNewFile,BufRead *.go
   \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 autocmd BufNewFile,BufRead *.sass,*.scss
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-autocmd FileType markdown,md,text call pencil#init()
 
 if has('nvim')
   autocmd TermOpen * setlocal nonumber

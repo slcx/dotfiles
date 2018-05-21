@@ -7,4 +7,4 @@ signingkey = 1508C19D7436A26D
 gpgsign = true
 
 [push]
-default = matching
+default = current

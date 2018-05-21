@@ -11,7 +11,7 @@ files = {
         'exa_colors': '~/.exa_colors',
     },
     'rc': {
-        'eslintrc': '~/.eslintrc',
+        'eslintrc.js': '~/.eslintrc.js',
         'hammerspoon_init.lua': '~/.hammerspoon/init.lua',
         'init.vim': '~/.config/nvim/init.vim',
         'zshrc': '~/.zshrc',
