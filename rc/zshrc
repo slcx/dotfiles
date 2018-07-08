@@ -29,6 +29,7 @@ typeset -U path # enforce uniqueness
 path=(
   # langs
   ~/.npm/bin
+  ~/.yarn/bin
   $GOPATH/bin
 
   # bins
@@ -41,9 +42,15 @@ path=(
 
 [ -x "/usr/local/bin/hub" ] && alias git='hub'
 
+alias g='git'
+alias b='brew'
+
+alias dk='docker'
+alias dkc='docker-compose'
 alias inst='brew install'
 alias br='brew'
 alias gi='git init'
+alias grb='git rebase'
 alias gc='git commit -v'
 alias gco='git checkout'
 alias gr='git remote'
@@ -53,6 +60,7 @@ alias gp='git push'
 alias gpl='git pull'
 alias grh='git reset HEAD'
 alias gs='git show'
+alias gsh='git stash'
 alias gl="git log --graph --oneline --pretty='format:%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%Creset'"
 alias grm='git rm'
 alias gb='git branch'
@@ -65,10 +73,13 @@ alias la='ls -al'
 alias reload='source ~/.zshrc'
 alias usage='du -h -d 1 .'
 alias ydl='youtube-dl'
-alias ydle='ydl --extract-audio'
+alias ydle='ydl --extract-audio --audio-format mp3'
 alias md='mkdir'
 alias sc='sudo systemctl'
 alias se="sudo -E $EDITOR"
+alias irb='irb --simple-prompt'
+alias py='python3'
+alias kssh='kitty +kitten ssh'
 
 # quickly move file to current directory, and create link from file
 # in current dir to previous location

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source="$1"
+dest="$2"
+
+if [ "$2" == "" ]; then
+  dest="$(basename "$source")"
+fi
+
+filename=$(b2 upload-file slice-public "$source" "$dest" | head -n 1 | awk '{print $5}')
+
+echo "$filename"
+echo -n "$filename" | pbcopy

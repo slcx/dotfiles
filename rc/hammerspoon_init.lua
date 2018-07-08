@@ -3,7 +3,7 @@ local wf = hs.window.filter
 local filter = wf.new(true)
 
 function is_osu_window(title)
-  return title:match('^osu!cuttingedge b%d%d%d%d%d%d%d%d') ~= nil
+  return title:match('^osu!cuttingedge b%d%d%d%d%d%d%d%d') ~= nil or title == 'McOsu' or title:match('^osu!')
 end
 
 filter:subscribe(wf.windowFocused, function(window)

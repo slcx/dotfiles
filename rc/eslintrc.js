@@ -5,7 +5,7 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'script',
+    sourceType: 'module',
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
     },
@@ -13,6 +13,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    browser: true,
   },
   overrides: [
     {
@@ -38,6 +39,7 @@ module.exports = {
     },
   ],
   rules: {
+    'react/jsx-filename-extension': 'off',
     'strict': ['error', 'global'],
     'no-bitwise': 'off',
     'no-iterator': 'off',
@@ -52,6 +54,8 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-restricted-syntax': 'off',
     'no-plusplus': 'off',
+    'no-continue': 'off',
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'object-curly-newline': 'off',
     'prefer-const': ['error', { destructuring: 'all' }],
     'class-methods-use-this': 'off',

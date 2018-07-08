@@ -66,6 +66,8 @@ Plug 'godlygeek/tabular'
 " linters
 Plug 'w0rp/ale'
 " colors
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'twerth/ir_black'
 Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-color-spring-night'
 Plug 'junegunn/seoul256.vim'
@@ -137,7 +139,7 @@ if has('termguicolors')
 endif
 set background=dark
 try
-  colorscheme gruvbox
+  colorscheme moonfly
 catch E185
   colorscheme desert
 endtry
