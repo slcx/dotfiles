@@ -2,11 +2,20 @@
 # written by: slice
 #             april 21, 2018
 
-date=$(date "+%B %d, %Y %I:%M:%S %p")
+date=$(date "+%m-%d-%Y-%I-%M-%S-%p")
 destination="$HOME/Pictures/screenshots"
 file="$destination/$date.png"
 
-screencapture -ix "$file"
+if ! screencapture -ix "$file"; then
+  exit 1
+fi
+
+if [[ "$1" == "--upload" ]]; then
+  url=$("$HOME/binscripts/potion" "$file")
+  echo -n "$url" | pbcopy
+  osascript -e "display notification \"$url\" with title \"upload complete\""
+  exit 0
+fi
 
 osascript -e "on run args" \
   -e "set the clipboard to POSIX file (first item of args)" \

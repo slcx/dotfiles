@@ -21,6 +21,16 @@ zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
 PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} %% %{\x1b[0m%} '
 
+function status {
+  if [[ "$?" == "0" ]]; then
+    print -P "%F{green}%B^_^%f%b"
+  else
+    print -P "%F{red}%BO_O%f%b"
+  fi
+}
+
+# PROMPT=$'\n%B%n%b%F{black}@%m%f%b %F{red}%4~%f%{${vcs_info_msg_0_}%}\n%{$(status) \x1b[7m\x1b[38;2;255;65;255m %% \x1b[0m%} '
+
 export MAGICK_HOME='/usr/local/opt/imagemagick@6/'
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"
@@ -55,6 +65,8 @@ alias gc='git commit -v'
 alias gco='git checkout'
 alias gr='git remote'
 alias gd='git diff'
+alias gds='git diff --staged'
+alias gt='git tag'
 alias gst='git status -s'
 alias gp='git push'
 alias gpl='git pull'
@@ -80,6 +92,8 @@ alias se="sudo -E $EDITOR"
 alias irb='irb --simple-prompt'
 alias py='python3'
 alias kssh='kitty +kitten ssh'
+alias s='sudo salt'
+alias sa="sudo salt '*'"
 
 # quickly move file to current directory, and create link from file
 # in current dir to previous location

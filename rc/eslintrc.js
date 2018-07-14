@@ -7,7 +7,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
-      experimentalObjectRestSpread: true,
+      jsx: true,
     },
   },
   env: {
@@ -15,31 +15,7 @@ module.exports = {
     node: true,
     browser: true,
   },
-  overrides: [
-    {
-      files: ['*.jsx'],
-      parserOptions: {
-        sourceType: 'module',
-        ecmaFeatures: { jsx: true },
-      },
-    },
-    {
-      files: ['*.mjs'],
-      parserOptions: { sourceType: 'module' },
-      env: {
-        node: true,
-      },
-      rules: {
-        'no-restricted-globals': ['error', 'require'],
-      },
-    },
-    {
-      files: ['*.web.js'],
-      env: { browser: true },
-    },
-  ],
   rules: {
-    'react/jsx-filename-extension': 'off',
     'strict': ['error', 'global'],
     'no-bitwise': 'off',
     'no-iterator': 'off',
@@ -59,6 +35,15 @@ module.exports = {
     'object-curly-newline': 'off',
     'prefer-const': ['error', { destructuring: 'all' }],
     'class-methods-use-this': 'off',
+
+    'react/jsx-filename-extension': 'off',
+    'react/prop-types': 'warn',
+    'react/destructuring-assignment': 'off',
+    'react/jsx-one-expression-per-line': 'off',
+    'react/jsx-wrap-multilines': 'off',
+    'react/jsx-indent-props': ['warn', 'first'],
+    'react/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
+
     'import/no-dynamic-require': 'off',
     'import/no-extraneous-dependencies': ['error', {
       devDependencies: true,

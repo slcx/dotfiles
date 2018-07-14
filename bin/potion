@@ -1,0 +1,21 @@
+#!/bin/bash
+# written by: slice
+#             july 14, 2018
+
+if [[ "$#" == 0 ]] && [[ -t 0 ]]; then
+  echo "err: no filename provided"
+fi
+
+source="$1"
+token=$(cat "$HOME/.elixire-token")
+admin="?admin=true"
+
+if [[ -t 0 ]] && [[ "$#" == 0 ]]; then
+  form="@-"
+else
+  form="@$source"
+fi
+
+curl -s \
+  -X POST "https://elixi.re/api/upload$admin" -F "file=$form" \
+  -H "Authorization: $token" | /usr/local/bin/jq -r .url
