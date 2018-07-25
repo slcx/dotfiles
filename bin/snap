@@ -11,7 +11,7 @@ if ! screencapture -ix "$file"; then
 fi
 
 if [[ "$1" == "--upload" ]]; then
-  url=$("$HOME/binscripts/potion" "$file")
+  url=$("$HOME/Code/dotfiles/bin/potion" "$file")
   echo -n "$url" | pbcopy
   osascript -e "display notification \"$url\" with title \"upload complete\""
   exit 0

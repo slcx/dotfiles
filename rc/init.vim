@@ -71,6 +71,7 @@ Plug 'twerth/ir_black'
 Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-color-spring-night'
 Plug 'junegunn/seoul256.vim'
+Plug 'chriskempson/base16-vim'
 " language support
 Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'

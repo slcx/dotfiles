@@ -90,10 +90,17 @@ alias md='mkdir'
 alias sc='sudo systemctl'
 alias se="sudo -E $EDITOR"
 alias irb='irb --simple-prompt'
+alias ipy='ipython'
 alias py='python3'
 alias kssh='kitty +kitten ssh'
 alias s='sudo salt'
 alias sa="sudo salt '*'"
+
+gsu() {
+  [ ! -n "$1" ] && return
+  git remote add origin "$1"
+  git push -u origin master
+}
 
 # quickly move file to current directory, and create link from file
 # in current dir to previous location
@@ -112,7 +119,7 @@ prj() {
 }
 
 # exa
-[ -x "/usr/local/bin/exa" ] && source "$HOME/.exa_colors"
+[ -f "$HOME/.exa_colors" ] && source "$HOME/.exa_colors"
 
 # opam
 . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
