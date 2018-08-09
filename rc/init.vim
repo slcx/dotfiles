@@ -1,55 +1,26 @@
 " ryan's (neo)vimrc
 
-if !has('nvim')
-  " recreate neovim's sane defaults
-  set ruler
-  set autoindent
-  set autoread
-  set backspace=indent,eol,start
-  set complete-=i
-  set display=lastline
-  set encoding=utf-8
-  set formatoptions=tcqj
-  set history=10000
-  set hlsearch
-  set incsearch
-  set langnoremap
-  set laststatus=2
-  set listchars=tab:>\ ,trail:-,nbsp:+
-  set nrformats=bin,hex
-  set sessionoptions-=options
-  set smarttab
-  set tabpagemax=50
-  set tags=./tags;,tags
-  set ttyfast
-  set viminfo+=!
-  set wildmenu
-  set sessionoptions-=options
-  set belloff=all
-else
-  " neovim exclusives
-  set inccommand=nosplit
-endif
-
+set autochdir
+set autowrite
+set colorcolumn=80,120
+set expandtab
+set hidden
+set ignorecase
+set inccommand=nosplit
+set iskeyword-=_ " _ breaks words
 set list
 set mouse=a
-set autowrite
 set noswapfile
 set nowritebackup
-set hidden
 set number
-set colorcolumn=80,120
-set ignorecase
-set smartcase
-set expandtab
-set tabstop=2
 set shiftwidth=2
+set smartcase
 set softtabstop=2
-set undofile
+set tabstop=2
 set undodir=$HOME/.config/nvim/undo
+set undofile
 set undolevels=1000
 set undoreload=10000
-set iskeyword-=_ " _ breaks words
 
 " --- plugin config
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
@@ -85,60 +56,13 @@ Plug 'posva/vim-vue'
 Plug 'wavded/vim-stylus'
 call plug#end()
 
-let s:font_default_columnspace = -1
-let s:font_default_linespace = 3
-let s:font_default_profile = "prag-s"
-let s:font_profiles = {
-  \ "prag": "PragmataPro Mono:h18",
-  \ "prag-s": "PragmataPro Mono:h14",
-  \ "fira-s": "Fira Code:h13",
-  \ "fira": "Fira Code:h17",
-  \ "input": "Input Mono Narrow:h17",
-  \ "input-xs": ["Input Mono Narrow:h13", -1, -2],
-  \ "iosevka": "Iosevka Term:h18",
-\ }
-
-function! s:FontProfileCompl(ArgLead, CmdLine, CursorPos)
-  return keys(s:font_profiles)
-endfunction
-
-function! s:SwitchFontProfile(profile)
-  try
-    let l:profile = s:font_profiles[a:profile]
-    if type(l:profile) ==# v:t_list
-      let &guifont = l:profile[0]
-      let &columnspace = get(l:profile, 1, s:font_default_columnspace)
-      let &linespace = get(l:profile, 2, s:font_default_linespace)
-    else
-      let &guifont = l:profile
-      let &columnspace = s:font_default_columnspace
-      let &linespace = s:font_default_linespace
-    endif
-  catch E716
-    echoe "Font profile \"".a:profile."\" not found."
-  endtry
-endfunction
-command! -nargs=1 -complete=customlist,s:FontProfileCompl
-  \ Font call s:SwitchFontProfile(<f-args>)
-
-" --- gui
-if has("gui_macvim")
-  " hide scrollbars
-  set guioptions=
-
-  " character options/spacing
-  let &columnspace=s:font_default_columnspace
-  let &linespace=s:font_default_linespace
-  set macligatures
-
-  call s:SwitchFontProfile(s:font_default_profile)
-endif
-
 " --- colors
 if has('termguicolors')
   set termguicolors
 endif
+
 set background=dark
+
 try
   colorscheme moonfly
 catch E185
@@ -157,6 +81,7 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <silent> <C-L> :noh<CR>
 nnoremap <silent> <A-[> :bp<CR>
 nnoremap <silent> <A-]> :bn<CR>
+
 " macos's default keyboard layout's option key outputs special characters
 " when the option key is held, and macos's alt key is option -- account for
 " that here

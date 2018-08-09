@@ -3,12 +3,10 @@ module.exports = {
     'standard',
     'plugin:react/recommended',
     'plugin:jest/recommended',
+    'plugin:flowtype/recommended',
   ],
 
-  plugins: [
-    'react',
-    'jest',
-  ],
+  plugins: ['react', 'jest', 'flowtype'],
 
   parser: 'babel-eslint',
   parserOptions: {
@@ -32,12 +30,14 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-sequences': 'error',
 
-    'complexity': ['warn', 10],
+    'space-before-function-paren': 'off',
+    complexity: ['warn', 10],
     'comma-dangle': ['error', 'always-multiline'],
     'require-await': 'error',
     'arrow-parens': ['error', 'always'],
     'prefer-const': ['error', { destructuring: 'all' }],
 
+    'react/display-name': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'warn',
     'react/destructuring-assignment': 'off',
@@ -45,17 +45,15 @@ module.exports = {
     'react/jsx-indent-props': ['warn', 'first'],
     'react/jsx-wrap-multilines': 'warn',
     'react/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
-    'react/jsx-tag-spacing': ['warn', {
-      closingSlash: 'never',
-      beforeSelfClosing: 'never',
-      afterOpening: 'never',
-      beforeClosing: 'allow',
-    }],
+    'react/react-in-jsx-scope': 'off',
 
     'import/no-dynamic-require': 'off',
-    'import/no-extraneous-dependencies': ['error', {
-      devDependencies: true,
-    }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+      },
+    ],
     'import/extensions': 'off',
   },
   globals: {

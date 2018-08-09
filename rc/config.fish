@@ -29,6 +29,7 @@ alias dk 'docker'
 alias dc 'docker-compose'
 alias dkc 'docker-compose'
 
+alias git 'hub'
 alias g 'git'
 alias gi 'git init'
 alias gap 'git add -p'

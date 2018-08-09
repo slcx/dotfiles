@@ -7,7 +7,9 @@ signingkey = 1508C19D7436A26D
 gpgsign = true
 
 [format]
-pretty = format:"%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%Creset"
+pretty = format:"%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%C(green)%d%Creset"
 
 [push]
 default = current
+[core]
+	editor = nvim
