@@ -1,6 +1,5 @@
 " ryan's (neo)vimrc
 
-set autochdir
 set autowrite
 set colorcolumn=80,120
 set expandtab
@@ -54,6 +53,7 @@ Plug 'othree/es.next.syntax.vim'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'posva/vim-vue'
 Plug 'wavded/vim-stylus'
+Plug 'leafo/moonscript-vim'
 call plug#end()
 
 " --- colors
