@@ -14,37 +14,45 @@ autoload -U compinit && compinit
 autoload -U vcs_info
 zstyle ':completion:*' menu select
 zstyle ':completion:::::' completer _complete _approximate
-zstyle ':completion:*:approximate:*' max-errors 2
-zstyle ':vcs_info:*' formats '%F{3} %b%f'
+zstyle ':completion:*:approximate:*' max-errors 3
+zstyle ':vcs_info:*' formats '%F{3}  %b%f'
 zstyle ':vcs_info:*' actionformats '%F{1} %s:%b (%a)%f'
 zstyle ':vcs_info:*' enable git
 precmd() { vcs_info }
-PROMPT=$'%4~${vcs_info_msg_0_} %{\x1b[7m\x1b[38;2;255;95;255m%} %% %{\x1b[0m%} '
 
-function status {
+PROMPT='%4~${vcs_info_msg_0_} '
+if [[ -n "$SSH_CONNECTION" ]]; then
+  PROMPT+=$'%{\x1b[7m\x1b[38;2;95;255;255m%} '
+else
+  PROMPT+=$'%{\x1b[7m\x1b[38;2;255;95;255m%} '
+fi
+PROMPT+=$'%% %{\x1b[0m%} '
+
+function face {
   if [[ "$?" == "0" ]]; then
-    print -P "%F{green}%B^_^%f%b"
+    print -P "%{%F{green}%B^_^%f%b%}"
   else
-    print -P "%F{red}%BO_O%f%b"
+    print -P "%{%F{red}%BO_O%f%b%}"
   fi
 }
-
-# PROMPT=$'\n%B%n%b%F{black}@%m%f%b %F{red}%4~%f%{${vcs_info_msg_0_}%}\n%{$(status) \x1b[7m\x1b[38;2;255;65;255m %% \x1b[0m%} '
 
 export MAGICK_HOME='/usr/local/opt/imagemagick@6/'
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"
 
+# zsh-completions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 typeset -U path # enforce uniqueness
 path=(
   # langs
+  ~/Library/Haskell/bin
   ~/.npm/bin
   ~/.yarn/bin
   $GOPATH/bin
 
   # bins
-  $HOME/binscripts
-  $HOME/bin
+  $HOME/Code/dotfiles/bin
   /usr/local/bin
 
   $path
@@ -52,12 +60,8 @@ path=(
 
 [ -x "/usr/local/bin/hub" ] && alias git='hub'
 
-alias g='git'
-alias b='brew'
-
 alias dk='docker'
 alias dkc='docker-compose'
-alias inst='brew install'
 alias br='brew'
 alias gi='git init'
 alias grb='git rebase'
@@ -73,10 +77,11 @@ alias gpl='git pull'
 alias grh='git reset HEAD'
 alias gs='git show'
 alias gsh='git stash'
-alias gl="git log --graph --oneline --pretty='format:%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%Creset'"
+alias gl="git log --graph"
 alias grm='git rm'
 alias gb='git branch'
 alias ga='git add'
+alias gap='git add -p'
 alias gcl='git clone'
 alias e="$EDITOR"
 alias ls='ls -GFh'
@@ -114,12 +119,4 @@ lqk() {
   ln -vs "$(greadlink -f $dest)" "$1"
 }
 
-prj() {
-  cd "$HOME/src/prj/$1"
-}
-
-# exa
-[ -f "$HOME/.exa_colors" ] && source "$HOME/.exa_colors"
-
-# opam
-. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+eval $(opam config env)
