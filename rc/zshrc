@@ -10,38 +10,41 @@ setopt hist_reduce_blanks
 setopt correct
 setopt prompt_subst
 
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;9C" forward-word
+bindkey "^[[1;9D" backward-word
+
 autoload -U compinit && compinit
 autoload -U vcs_info
 zstyle ':completion:*' menu select
 zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 3
-zstyle ':vcs_info:*' formats '%F{3}  %b%f'
-zstyle ':vcs_info:*' actionformats '%F{1} %s:%b (%a)%f'
-zstyle ':vcs_info:*' enable git
-precmd() { vcs_info }
 
-PROMPT='%4~${vcs_info_msg_0_} '
-if [[ -n "$SSH_CONNECTION" ]]; then
-  PROMPT+=$'%{\x1b[7m\x1b[38;2;95;255;255m%} '
-else
-  PROMPT+=$'%{\x1b[7m\x1b[38;2;255;95;255m%} '
-fi
-PROMPT+=$'%% %{\x1b[0m%} '
+PURE_PROMPT_SYMBOL='🡂'
 
-function face {
-  if [[ "$?" == "0" ]]; then
-    print -P "%{%F{green}%B^_^%f%b%}"
-  else
-    print -P "%{%F{red}%BO_O%f%b%}"
+# --- zplug
+source ~/.zplug/init.zsh
+
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+if ! zplug check; then
+  printf "hi! install missing zplug plugins? [y/N]: "
+  if read -q; then
+    echo
+    zplug install
   fi
-}
+fi
+zplug load
 
+export FZF_DEFAULT_OPTS='--color=16'
 export MAGICK_HOME='/usr/local/opt/imagemagick@6/'
 export EDITOR='nvim'
 export GOPATH="$HOME/src/go"
 
 # zsh-completions
-fpath=(/usr/local/share/zsh-completions $fpath)
+[ -d /usr/local/share/zsh-completions ] && fpath=(/usr/local/share/zsh-completions $fpath)
 
 typeset -U path # enforce uniqueness
 path=(
@@ -50,11 +53,9 @@ path=(
   ~/.npm/bin
   ~/.yarn/bin
   $GOPATH/bin
-
-  # bins
+  $HOME/.local/bin
   $HOME/Code/dotfiles/bin
   /usr/local/bin
-
   $path
 )
 
@@ -97,7 +98,9 @@ alias se="sudo -E $EDITOR"
 alias irb='irb --simple-prompt'
 alias ipy='ipython'
 alias py='python3'
-alias kssh='kitty +kitten ssh'
+if type kitty &> /dev/null; then
+  alias ssh='kitty +kitten ssh'
+fi
 alias s='sudo salt'
 alias sa="sudo salt '*'"
 
@@ -119,4 +122,5 @@ lqk() {
   ln -vs "$(greadlink -f $dest)" "$1"
 }
 
-eval $(opam config env)
+[ -f /usr/local/bin/opam ] && eval $(opam config env)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

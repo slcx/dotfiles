@@ -32,17 +32,19 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
+
 " linters
 Plug 'w0rp/ale'
+
 " colors
-Plug 'bluz71/vim-moonfly-colors'
-Plug 'twerth/ir_black'
+Plug 'nightsense/snow'
 Plug 'morhetz/gruvbox'
-Plug 'rhysd/vim-color-spring-night'
 Plug 'junegunn/seoul256.vim'
-Plug 'chriskempson/base16-vim'
+
 " language support
+Plug 'rhysd/vim-crystal'
 Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
@@ -64,12 +66,12 @@ endif
 set background=dark
 
 try
-  colorscheme moonfly
+  colorscheme snow
 catch E185
   colorscheme desert
 endtry
 
-" --- maps
+" --- maps and abbrevs
 let g:mapleader = ' '
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>pi :PlugInstall<CR>
@@ -87,6 +89,7 @@ nnoremap <silent> <A-]> :bn<CR>
 " that here
 nnoremap <silent> ‘ :bn<CR>
 nnoremap <silent> “ :bp<CR>
+
 cnoreabbrev W w
 cnoreabbrev Wq wq
 cnoreabbrev Qa qa
@@ -97,6 +100,4 @@ autocmd BufNewFile,BufRead *.go
 autocmd BufNewFile,BufRead *.sass,*.scss
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
-if has('nvim')
-  autocmd TermOpen * setlocal nonumber
-endif
+autocmd TermOpen * setlocal nonumber
