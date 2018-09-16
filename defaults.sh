@@ -1,7 +1,7 @@
 #!/bin/bash
 
 w() {
-  echo ">> defaults write" "$@"
+  echo "> defaults write" "$@"
   defaults write "$@"
 }
 
@@ -9,7 +9,7 @@ w -g AppleFontSmoothing -int 1
 sudo defaults write -g AppleFontSmoothing -int 1
 
 # dock
-w com.apple.dock tilesize -int 36
+w com.apple.dock tilesize -int 50
 w com.apple.dock magnification -float 0
 w com.apple.dock mineffect -string "scale"
 
@@ -35,7 +35,7 @@ w -g com.apple.mouse.scaling -float 5.0
 
 # autohide
 w com.apple.dock autohide-delay -float 0
-w com.apple.dock autohide-time-modifier -float 0.8
+w com.apple.dock autohide-time-modifier -float 0.4
 w com.apple.dock autohide -bool true
 w com.apple.dock showhidden -bool true
 

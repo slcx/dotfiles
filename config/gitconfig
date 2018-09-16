@@ -11,5 +11,6 @@ pretty = format:"%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%C(green)%d%Creset"
 
 [push]
 default = current
+
 [core]
-	editor = nvim
+editor = nvim

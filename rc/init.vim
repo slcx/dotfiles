@@ -25,6 +25,9 @@ set undoreload=10000
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
 
+" source local config
+source ~/.config/nvim/local.vim
+
 " --- plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'justinmk/vim-dirvish'
@@ -34,6 +37,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
+Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 
 " linters
 Plug 'w0rp/ale'
