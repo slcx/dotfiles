@@ -14,3 +14,5 @@ default = current
 
 [core]
 editor = nvim
+[gpg]
+	program = /usr/local/bin/gpg

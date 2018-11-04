@@ -12,6 +12,7 @@ set mouse=a
 set noswapfile
 set nowritebackup
 set number
+set scrolloff=3
 set shiftwidth=2
 set smartcase
 set softtabstop=2
@@ -37,7 +38,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
-Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
+" Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 
 " linters
 Plug 'w0rp/ale'
@@ -46,6 +47,8 @@ Plug 'w0rp/ale'
 Plug 'nightsense/snow'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
+Plug 'owickstrom/vim-colors-paramount'
+Plug 'robertmeta/nofrils'
 
 " language support
 Plug 'rhysd/vim-crystal'
@@ -70,7 +73,7 @@ endif
 set background=dark
 
 try
-  colorscheme snow
+  colorscheme paramount
 catch E185
   colorscheme desert
 endtry
