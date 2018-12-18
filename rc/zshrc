@@ -10,18 +10,20 @@ setopt hist_reduce_blanks
 setopt correct
 setopt prompt_subst
 
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;3D" backward-word
-bindkey "^[[1;9C" forward-word
-bindkey "^[[1;9D" backward-word
+# Terminal.app key events in iTerm2.app
+# Opt+Left/Right moves between words
+# Opt+Shift+Left/Right moves to beginning/end of line
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+bindkey "^[[1;10D" beginning-of-line
+bindkey "^[[1;10C" end-of-line
 
 autoload -U compinit && compinit
-autoload -U vcs_info
 zstyle ':completion:*' menu select
 zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 3
 
-PURE_PROMPT_SYMBOL='🡂'
+PURE_PROMPT_SYMBOL='↪'
 
 # --- zplug
 source ~/.zplug/init.zsh
@@ -46,9 +48,9 @@ export GOPATH="$HOME/Code/go"
 typeset -U path # enforce uniqueness
 path=(
   # langs
-  ~/Library/Haskell/bin
-  ~/.yarn/bin
   ~/.npm/bin
+  ~/.yarn/bin
+  ~/Library/Haskell/bin
   $GOPATH/bin
   $HOME/.local/bin
   $HOME/Code/dotfiles/bin
@@ -110,18 +112,13 @@ gsu() {
   git push -u origin master
 }
 
-# quickly move file to current directory, and create link from file
-# in current dir to previous location
-lqk() {
-  if [ -n "$2" ]; then
-    dest="$2"
-  else
-    dest=$(basename $1)
-  fi
-  mv -v "$1" "$dest"
-  ln -vs "$(greadlink -f $dest)" "$1"
-}
-
+# -----------------------------------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export PATH="$PATH:$HOME/.rvm/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 test -r /Users/slice/.opam/opam-init/init.zsh && . /Users/slice/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

@@ -12,10 +12,12 @@ admin="?admin=true"
 
 if [[ -t 0 ]] && [[ "$#" == 0 ]]; then
   form="@-"
+  mime=""
 else
   form="@$source"
+  mime=";type=$(file --mime-type -b "$source")"
 fi
 
-curl -s \
-  -X POST "https://elixi.re/api/upload$admin" -F "file=$form" \
-  -H "Authorization: $token" | /usr/local/bin/jq -r .url
+curl -s -X POST "https://elixi.re/api/upload$admin" \
+  -H "Authorization: $token" \
+  -F "file=$form$mime" | /usr/local/bin/jq -r .url

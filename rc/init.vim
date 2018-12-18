@@ -47,8 +47,6 @@ Plug 'w0rp/ale'
 Plug 'nightsense/snow'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
-Plug 'owickstrom/vim-colors-paramount'
-Plug 'robertmeta/nofrils'
 
 " language support
 Plug 'rhysd/vim-crystal'
@@ -59,10 +57,6 @@ Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
 Plug 'mxw/vim-jsx'
 Plug 'othree/es.next.syntax.vim'
-Plug 'reasonml-editor/vim-reason-plus'
-Plug 'posva/vim-vue'
-Plug 'wavded/vim-stylus'
-Plug 'leafo/moonscript-vim'
 call plug#end()
 
 " --- colors
@@ -73,7 +67,7 @@ endif
 set background=dark
 
 try
-  colorscheme paramount
+  colorscheme snow
 catch E185
   colorscheme desert
 endtry
@@ -92,8 +86,7 @@ nnoremap <silent> <A-[> :bp<CR>
 nnoremap <silent> <A-]> :bn<CR>
 
 " macos's default keyboard layout's option key outputs special characters
-" when the option key is held, and macos's alt key is option -- account for
-" that here
+" when the option key is held, and macos's alt key is option
 nnoremap <silent> ‘ :bn<CR>
 nnoremap <silent> “ :bp<CR>
 
