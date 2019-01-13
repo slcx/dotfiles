@@ -1,6 +1,6 @@
-const OFF = 0;
-const WARN = 1;
-const ERROR = 2;
+const OFF = 0
+const WARN = 1
+const ERROR = 2
 
 module.exports = {
   extends: [
@@ -38,7 +38,7 @@ module.exports = {
     'no-template-curly-in-string': WARN,
     'require-atomic-updates': ERROR,
     'valid-jsdoc': WARN,
-    'accessor-pairs': [WARN, {setWithoutGet: true}],
+    'accessor-pairs': [WARN, { setWithoutGet: true }],
     'array-callback-return': ERROR,
     complexity: WARN,
     'consistent-return': ERROR,
@@ -67,8 +67,11 @@ module.exports = {
     'no-labels': OFF,
     'no-lone-blocks': OFF,
     'no-loop-func': WARN,
-    'no-magic-numbers': [WARN, {ignoreArrayIndexes: true, enforceConst: true}],
-    'no-multi-spaces': [WARN, {ignoreEOLComments: true}],
+    'no-magic-numbers': [
+      WARN,
+      { ignoreArrayIndexes: true, enforceConst: true, ignore: [1] },
+    ],
+    'no-multi-spaces': [WARN, { ignoreEOLComments: true }],
     'no-multi-str': ERROR,
     'no-new': OFF,
     'no-new-func': OFF,
@@ -112,4 +115,4 @@ module.exports = {
     Atomics: false,
     SharedArrayBuffer: false,
   },
-};
+}

@@ -6,10 +6,10 @@ set expandtab
 set hidden
 set ignorecase
 set inccommand=nosplit
-set iskeyword-=_ " _ breaks words
 set list
 set mouse=a
 set noswapfile
+set nowrap
 set nowritebackup
 set number
 set scrolloff=3
@@ -26,19 +26,44 @@ set undoreload=10000
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
 
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " source local config
-source ~/.config/nvim/local.vim
+if filereadable(expand('~/.config/nvim/local.nvim'))
+  source ~/.config/nvim/local.vim
+endif
 
 " --- plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
+Plug 'sbdchd/neoformat'
+" Plug 'tpope/vim-vinegar'
 " Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
+
+if isdirectory("/usr/local/opt/fzf")
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+endif
 
 " linters
 Plug 'w0rp/ale'
@@ -96,7 +121,7 @@ cnoreabbrev Qa qa
 
 " --- autocmd
 autocmd BufNewFile,BufRead *.go
-  \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+  \ setlocal tabstop=4 softtabstop=5 shiftwidth=4 noexpandtab
 autocmd BufNewFile,BufRead *.sass,*.scss
   \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
