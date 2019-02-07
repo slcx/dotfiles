@@ -24,7 +24,7 @@ zstyle ':completion:::::' completer _complete _approximate
 zstyle ':completion:*:approximate:*' max-errors 3
 
 export HOMEBREW_INSTALL_CLEANUP=1
-PURE_PROMPT_SYMBOL='↪'
+PURE_PROMPT_SYMBOL=')'
 
 # --- zplug
 source ~/.zplug/init.zsh
@@ -117,12 +117,12 @@ gsu() {
 # -----------------------------------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-test -r /Users/slice/.opam/opam-init/init.zsh && . /Users/slice/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# test -r /Users/slice/.opam/opam-init/init.zsh && . /Users/slice/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 [ -d "/usr/local/share/zsh-completions" ] && fpath=(/usr/local/share/zsh-completions $fpath)
