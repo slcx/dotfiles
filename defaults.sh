@@ -31,9 +31,6 @@ w -g InitialKeyRepeat -int 20
 # keyboard
 w -g AppleKeyboardUIMode -int 2 # fka
 
-# mouse
-w -g com.apple.mouse.scaling -float 5.0
-
 # autohide
 w com.apple.dock autohide-delay -float 0
 w com.apple.dock autohide-time-modifier -float 0.4
