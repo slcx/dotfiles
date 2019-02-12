@@ -10,6 +10,7 @@ sudo defaults write -g AppleFontSmoothing -int 1
 
 # dock
 w com.apple.dock tilesize -int 50
+w com.apple.dock size-immutable -bool yes
 w com.apple.dock magnification -float 0
 w com.apple.dock mineffect -string "scale"
 
