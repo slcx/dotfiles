@@ -1,4 +1,5 @@
-# ~/.zshrc
+# slice's ~/.zshrc
+# (^_^)>
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000

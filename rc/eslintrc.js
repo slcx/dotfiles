@@ -6,11 +6,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'airbnb',
-    'plugin:jest/recommended',
-    'plugin:flowtype/recommended',
   ],
-
-  plugins: ['jest', 'flowtype'],
 
   parser: 'babel-eslint',
   parserOptions: {
@@ -25,7 +21,6 @@ module.exports = {
     es6: true,
     node: true,
     browser: true,
-    'jest/globals': true,
   },
 
   rules: {
@@ -98,7 +93,7 @@ module.exports = {
     'padding-line-between-statements': OFF,
     'prefer-object-spread': WARN,
     'quote-props': [WARN, 'as-needed'],
-    quotes: [WARN, 'single'],
+    quotes: [WARN, 'single', { avoidEscape: true }],
     'no-useless-computed-key': WARN,
     'react/jsx-filename-extension': OFF,
     'react/react-in-jsx-scope': OFF,

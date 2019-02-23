@@ -1,14 +1,36 @@
 [user]
 name = slice
 email = ryaneft@gmail.com
-#signingkey = 1508C19D7436A26D
+signingkey = 1508C19D7436A26D
+
 [commit]
-#gpgsign = true
+gpgsign = true
+
 [format]
 pretty = format:"%C(yellow)%h%Creset %s %C(bold)(%an, %cr)%C(green)%d%Creset"
+
 [push]
 default = current
+
 [core]
 editor = nvim
+
 [gpg]
 program = /usr/local/bin/gpg
+
+[color]
+ui = true
+
+[color "diff-highlight"]
+oldNormal = red bold
+oldHighlight = red bold 52
+newNormal = green bold
+newHighlight = green bold 22
+
+[color "diff"]
+meta = yellow
+frag = magenta bold
+commit = yellow bold
+old = red bold
+new = green bold
+whitespace = red reverse
