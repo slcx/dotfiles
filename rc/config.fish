@@ -1,6 +1,6 @@
 if status is-interactive
-  alias e "$EDITOR"
-  alias se "sudo -E $EDITOR"
+  abbr -a -g e "$EDITOR"
+  abbr -a -g se "sudo -E $EDITOR"
   alias ls 'ls -GFh'
   alias ll 'ls -l'
   alias la 'ls -al'
@@ -9,6 +9,7 @@ if status is-interactive
 
   abbr -a -g md 'mkdir'
   abbr -a -g sc 'sudo systemctl'
+  abbr -a -g sj 'sudo journalctl'
   abbr -a -g ipy 'ipython'
   abbr -a -g py 'python3'
 
