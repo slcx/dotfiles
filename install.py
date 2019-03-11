@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import os
 import os.path
 import sys
@@ -8,11 +9,11 @@ files = {
         'gitconfig': '~/.gitconfig',
         'gpg-agent.conf': '~/.gnupg/gpg-agent.conf',
         'kitty.conf': '~/Library/Preferences/kitty/kitty.conf',
-        'exa_colors': '~/.exa_colors',
     },
     'rc': {
         'eslintrc.js': '~/.eslintrc.js',
         'hammerspoon_init.lua': '~/.hammerspoon/init.lua',
+        'config.fish': '~/.config/fish/config.fish',
         'init.vim': '~/.config/nvim/init.vim',
         'zshrc': '~/.zshrc',
     },

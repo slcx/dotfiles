@@ -25,6 +25,7 @@ set undoreload=10000
 " --- plugin config
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
+let g:seoul256_background = 236
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -69,8 +70,6 @@ endif
 Plug 'w0rp/ale'
 
 " colors
-Plug 'nightsense/snow'
-Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 
 " language support
@@ -92,7 +91,7 @@ endif
 set background=dark
 
 try
-  colorscheme snow
+  colorscheme seoul256
 catch E185
   colorscheme desert
 endtry
