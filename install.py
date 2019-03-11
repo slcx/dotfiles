@@ -9,6 +9,7 @@ files = {
         'gitconfig': '~/.gitconfig',
         'gpg-agent.conf': '~/.gnupg/gpg-agent.conf',
         'kitty.conf': '~/Library/Preferences/kitty/kitty.conf',
+        'fish_functions': '~/.config/fish/functions',
     },
     'rc': {
         'eslintrc.js': '~/.eslintrc.js',
