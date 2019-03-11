@@ -1,7 +1,4 @@
 function fish_right_prompt
-  set -l seconds (math -s0 "$CMD_DURATION / 1000")
-  set -l hours (math "$seconds / (60 * 60)")
-
   command_duration
 
   if test "$status" -eq 0
