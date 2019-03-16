@@ -1,6 +1,6 @@
 if status is-interactive
-  abbr -a -g e "$EDITOR"
-  abbr -a -g se "sudo -E $EDITOR"
+  alias e "$EDITOR"
+  alias se "sudo -E $EDITOR"
   alias ls 'ls -GFh'
   alias ll 'ls -l'
   alias la 'ls -al'

@@ -2,25 +2,27 @@
 
 set autowrite
 set colorcolumn=80,120
-set expandtab
 set hidden
 set ignorecase
 set inccommand=nosplit
 set list
+set listchars=tab:▸\ ,eol:\ ,trail:.,nbsp:+
 set mouse=a
 set noswapfile
 set nowrap
 set nowritebackup
 set number
 set scrolloff=3
-set shiftwidth=2
 set smartcase
-set softtabstop=2
-set tabstop=2
 set undodir=$HOME/.config/nvim/undo
 set undofile
 set undolevels=1000
 set undoreload=10000
+
+set expandtab
+set tabstop=8
+set softtabstop=2
+set shiftwidth=2
 
 " --- plugin config
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')

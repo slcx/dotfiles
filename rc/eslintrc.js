@@ -3,10 +3,7 @@ const WARN = 1
 const ERROR = 2
 
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'airbnb',
-  ],
+  extends: ['eslint:recommended'],
 
   parser: 'babel-eslint',
   parserOptions: {
@@ -41,7 +38,7 @@ module.exports = {
     'default-case': WARN,
     'dot-location': [WARN, 'property'],
     'dot-notation': WARN,
-    eqeqeq: ERROR,
+    eqeqeq: [ERROR, 'smart'],
     'guard-for-in': WARN,
     'max-classes-per-file': [WARN, 3],
     'no-alert': OFF,
@@ -62,10 +59,6 @@ module.exports = {
     'no-labels': OFF,
     'no-lone-blocks': OFF,
     'no-loop-func': WARN,
-    'no-magic-numbers': [
-      WARN,
-      { ignoreArrayIndexes: true, enforceConst: true, ignore: [1] },
-    ],
     'no-multi-spaces': [WARN, { ignoreEOLComments: true }],
     'no-multi-str': ERROR,
     'no-new': OFF,
