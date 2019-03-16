@@ -21,7 +21,10 @@ if status is-interactive
   abbr -a -g dk 'docker'
   abbr -a -g dkc 'docker-compose'
 
-  alias git 'hub'
+  if type -q hub
+    alias git 'hub'
+  end
+
   abbr -a -g g 'git'
   abbr -a -g gi 'git init'
   abbr -a -g gap 'git add -p'
