@@ -63,7 +63,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     print(f'{ANSI[35]}Total tracks:{RESET} {len(library["Tracks"])}')
-    total_library_duration = sum(track["Total Time"] / 1000 for track in library["Tracks"].values())
+    total_library_duration = sum(track['Total Time'] / 1000 for track in library["Tracks"].values() if 'Total Time' in track)
     print(f'{ANSI[35]}Total library duration:{RESET} {humanize(total_library_duration)}')
     print()
 

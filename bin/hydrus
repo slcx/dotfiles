@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""hydrus stuff"""
+
+import os
+import re
+from pathlib import Path
+
+import click
+import requests
+
+
+def run(cmd):
+    print(f'$ {cmd}')
+    os.system(cmd)
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.group()
+def release():
+    """manage releases"""
+
+
+@release.command()
+@click.argument('version', type=click.IntRange(min=0))
+def download(version):
+    """download a release"""
+    releases = requests.get(
+        'https://api.github.com/repos/hydrusnetwork/hydrus/releases', headers={'User-Agent': 'hydrus-script'}).json()
+
+    try:
+        release = next(r for r in releases if r['tag_name'] == f'v{version}')
+        asset = next(a for a in release['assets'] if a['name'].endswith('dmg'))
+        command = f'curl -L {asset["browser_download_url"]} -o hn-v{version}.dmg'
+        run(command)
+    except StopIteration:
+        click.echo(click.style(f'v{version} not found', fg='red'))
+
+
+@cli.command()
+@click.argument('dmg', type=click.Path(exists=True, dir_okay=False))
+def extract(dmg):
+    """extract dmg"""
+    result = re.search(r'v(\d+)', dmg)
+    if result is None:
+        click.echo(click.style("can't match version number from dmg filename", fg='red'))
+        return
+    version_number = result.group(1)
+
+    run(f"hdiutil mount '{dmg}'")
+    run(f"cp -r '/Volumes/Hydrus Network - OS X - App/Hydrus Network.app/' 'hn-v{version_number}.app'")
+    run(f"hdiutil unmount '/Volumes/Hydrus Network - OS X - App/'")
+
+
+@cli.command()
+@click.argument('app', type=click.Path(exists=True, file_okay=False))
+def patch(app):
+    """remove high resolution capable flag"""
+    info_plist = Path(app) / 'Contents' / 'Info.plist'
+
+    content = info_plist.read_text()
+    replaced = content.replace("""\t<key>NSHighResolutionCapable</key>
+\t<string>True</string>""", '')
+
+    if content == replaced:
+        click.echo(click.style('already patched', fg='yellow'))
+        return
+
+    info_plist.write_text(replaced)
+    click.echo(click.style('patched', fg='green'))
+
+
+if __name__ == '__main__':
+    cli()

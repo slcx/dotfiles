@@ -3,7 +3,7 @@ const WARN = 1
 const ERROR = 2
 
 module.exports = {
-  extends: ['eslint:recommended'],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
 
   parser: 'babel-eslint',
   parserOptions: {
@@ -88,10 +88,12 @@ module.exports = {
     'quote-props': [WARN, 'as-needed'],
     quotes: [WARN, 'single', { avoidEscape: true }],
     'no-useless-computed-key': WARN,
+
     'react/jsx-filename-extension': OFF,
     'react/react-in-jsx-scope': OFF,
     'react/jsx-one-expression-per-line': OFF,
     'react/jsx-closing-tag-location': OFF,
+    'react/prop-types': WARN,
     'react/forbid-prop-types': OFF,
     'jsx-a11y/anchor-is-valid': OFF,
   },

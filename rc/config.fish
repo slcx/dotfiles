@@ -48,3 +48,6 @@ if status is-interactive
   abbr -a -g gb 'git branch'
   abbr -a -g gcl 'git clone'
 end
+
+# fnm
+# fnm env --multi | source
