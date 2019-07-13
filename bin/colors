@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+
+ESC = '\x1b'
+RESET = f'{ESC}[0m'
+NAMES = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
+
+print(f'normal\t\t\t\t\t{ESC}[7mreverse{RESET}')
+
+for n in range(0, 8):
+    name = NAMES[n]
+
+    fg_normal = 30 + n
+    fg_bright = 90 + n
+    bg_normal = 40 + n
+    bg_bright = 100 + n
+
+    print(f'{RESET}\t\t'.join([
+        # foreground
+        f'{ESC}[1;{fg_normal}m' + name,
+        f'{ESC}[1;{fg_bright}m' + f'bright {name}',
+
+        # background
+        f'{ESC}[1;{bg_normal}m' + f'bg {name}' + f'{RESET}  ',
+        f'{ESC}[1;{bg_bright}m' + f'bg bright {name}',
+
+        # reset
+        RESET,
+    ]))

@@ -1,25 +1,40 @@
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
+end
+
 if status is-interactive
+  # editor
   alias e "$EDITOR"
   alias se "sudo -E $EDITOR"
+
+  # ls
   alias ls 'ls -GFh'
   alias ll 'ls -l'
   alias la 'ls -al'
-  alias usage 'du -h -d 1 .'
-  alias irb 'irb --simple-prompt'
 
-  abbr -a -g md 'mkdir'
+  # systemd
   abbr -a -g sc 'sudo systemctl'
   abbr -a -g sj 'sudo journalctl'
-  abbr -a -g ipy 'ipython'
-  abbr -a -g py 'python3'
 
-  abbr -a -g ydl 'youtube-dl'
-  alias ydle 'youtube-dl --extract-audio --audio-format mp3'
-
-  abbr -a -g br 'brew'
-
+  # docker
   abbr -a -g dk 'docker'
   abbr -a -g dkc 'docker-compose'
+
+  # langs
+  abbr -a -g ipy 'ipython'
+  abbr -a -g py 'python3'
+  alias irb 'irb --simple-prompt'
+
+  # shorthands
+  abbr -a -g md 'mkdir'
+  abbr -a -g ydl 'youtube-dl'
+  abbr -a -g br 'brew'
+
+  # shorthands for long commands
+  alias ydle 'youtube-dl --extract-audio --audio-format mp3'
+  alias usage 'du -h -d 1 .'
 
   if type -q hub
     alias git 'hub'

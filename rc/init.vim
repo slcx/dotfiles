@@ -1,4 +1,4 @@
-" ryan's neovimrc
+" slice's neovim config
 
 set autowrite
 set colorcolumn=80,120
@@ -6,7 +6,7 @@ set hidden
 set ignorecase
 set inccommand=nosplit
 set list
-set listchars=tab:▸\ ,eol:\ ,trail:·,nbsp:+
+set listchars=tab:→\ ,eol:\ ,trail:·,nbsp:+
 set mouse=a
 set noswapfile
 set nowrap
@@ -16,6 +16,7 @@ set scrolloff=3
 set smartcase
 set undodir=$HOME/.local/share/nvim/undo
 set undofile
+set pumblend=15
 
 set expandtab
 set tabstop=8
@@ -27,6 +28,7 @@ let g:ale_echo_msg_format = '%linter%(%severity%): %[code] %%s'
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
 let g:seoul256_background = 236
+let g:scala_scaladoc_indent = 1
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -68,11 +70,11 @@ Plug 'w0rp/ale'
 " colors
 Plug 'junegunn/seoul256.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'sjl/badwolf'
 Plug 'romainl/Apprentice'
-Plug 'jnurmine/Zenburn'
+Plug 'nanotech/jellybeans.vim'
 
 " language support
+Plug 'derekwyatt/vim-scala'
 Plug 'rhysd/vim-crystal'
 Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'
@@ -81,6 +83,7 @@ Plug 'fatih/vim-go'
 Plug 'othree/yajs.vim'
 Plug 'mxw/vim-jsx'
 Plug 'othree/es.next.syntax.vim'
+
 call plug#end()
 
 " source local config
@@ -129,9 +132,11 @@ cnoreabbrev Qa qa
 augroup language_settings
   autocmd!
   autocmd BufNewFile,BufRead *.go
-    \ setlocal tabstop=4 softtabstop=5 shiftwidth=4 noexpandtab
+    \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
   autocmd BufNewFile,BufRead *.sass,*.scss
-    \ setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+    \ setlocal softtabstop=2 shiftwidth=2 expandtab
+  autocmd BufNewFile,BufRead *.sc,*.sbt
+    \ setlocal filetype=scala
 augroup END
 
 augroup terminal_numbers
