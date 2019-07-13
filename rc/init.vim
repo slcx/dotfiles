@@ -56,6 +56,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'sbdchd/neoformat'
+Plug 'junegunn/vim-peekaboo'
 " Plug 'tpope/vim-vinegar'
 " Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 
@@ -106,29 +107,43 @@ endtry
 
 " --- maps and abbrevs
 let g:mapleader = ' '
-nnoremap <silent> <leader>o :Files<CR>
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-nnoremap <silent> <leader>pi :PlugInstall<CR>
-nnoremap <silent> <leader>pu :PlugUpdate<CR>
-nnoremap <silent> <leader>pg :PlugUpgrade<CR>
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+
+" fzf
+nmap <silent> <leader>o :Files<CR>
+nmap <silent> <leader>b :Buffers<CR>
+
+" vimrc
+nmap <silent> <leader>ev :edit $MYVIMRC<CR>
+nmap <silent> <leader>sv :source $MYVIMRC<CR>
+
+" plug
+nmap <silent> <leader>pi :PlugInstall<CR>
+nmap <silent> <leader>pu :PlugUpdate<CR>
+nmap <silent> <leader>pg :PlugUpgrade<CR>
+
+" plugins
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-nnoremap <silent> <C-L> :noh<CR>
-nnoremap <silent> <A-[> :bp<CR>
-nnoremap <silent> <A-]> :bn<CR>
+
+" buffers, etc.
+nmap <silent> <C-L> :nohlsearch<CR>
+nmap <silent> <A-[> :bprevious<CR>
+nmap <silent> <A-]> :bnext<CR>
 " the option key on the default keyboard layout of macos acts as a compose key
 " for certain symbols, so let's add these as mappings in case the terminal
 " can't resolve them correctly
-nnoremap <silent> ‘ :bn<CR>
-nnoremap <silent> “ :bp<CR>
+nmap <silent> ‘ :bnext<CR>
+nmap <silent> “ :bprevious<CR>
 
-cnoreabbrev W w
-cnoreabbrev Wq wq
-cnoreabbrev Qa qa
+" a neat trick to write files with sudo
+cnoremap w!! write !sudo tee % >/dev/null
+
+" sometimes i hold shift down for too long
+cabbrev W w
+cabbrev Wq wq
+cabbrev Qa qa
 
 " --- autocmd
-
 augroup language_settings
   autocmd!
   autocmd BufNewFile,BufRead *.go

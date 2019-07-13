@@ -1,3 +1,5 @@
+# slice's config.fish
+
 if not functions -q fisher
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
@@ -5,18 +7,26 @@ if not functions -q fisher
 end
 
 if status is-interactive
+  set -l platform (uname)
+
   # editor
   alias e "$EDITOR"
   alias se "sudo -E $EDITOR"
 
+  switch $platform
+    case Darwin
+      alias ls 'ls -GFh'
+    case Linux
+      alias ls 'ls -Fh --color=auto'
+
+      # systemd
+      abbr -a -g sc 'sudo systemctl'
+      abbr -a -g sj 'sudo journalctl'
+  end
+
   # ls
-  alias ls 'ls -GFh'
   alias ll 'ls -l'
   alias la 'ls -al'
-
-  # systemd
-  abbr -a -g sc 'sudo systemctl'
-  abbr -a -g sj 'sudo journalctl'
 
   # docker
   abbr -a -g dk 'docker'
