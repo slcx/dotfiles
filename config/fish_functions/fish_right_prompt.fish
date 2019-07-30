@@ -1,9 +1,7 @@
 function fish_right_prompt
-  set -l command_status "$status"
-
   command_duration
 
-  if test "$command_status" -eq 0
+  if test "$status" -eq 0
     printf '%s^_^%s' (set_color green) (set_color normal)
   else
     # set -l face (random choice 'O_O' 'O_o' '>_>' 'v_v' ';_;')
