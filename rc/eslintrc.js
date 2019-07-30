@@ -1,6 +1,6 @@
-const OFF = 0
-const WARN = 1
-const ERROR = 2
+const OFF = 0;
+const WARN = 1;
+const ERROR = 2;
 
 module.exports = {
   extends: ['eslint:recommended', 'plugin:react/recommended'],
@@ -74,7 +74,7 @@ module.exports = {
     radix: WARN,
     'require-await': WARN,
     yoda: WARN,
-    semi: [WARN, 'never'],
+    semi: WARN,
     'no-shadow': WARN,
     'no-shadow-restricted-names': WARN,
     'no-use-before-define': WARN,
@@ -89,6 +89,7 @@ module.exports = {
     quotes: [WARN, 'single', { avoidEscape: true }],
     'no-useless-computed-key': WARN,
 
+    'react/display-name': OFF,
     'react/jsx-filename-extension': OFF,
     'react/react-in-jsx-scope': OFF,
     'react/jsx-one-expression-per-line': OFF,
@@ -105,4 +106,4 @@ module.exports = {
     Atomics: false,
     SharedArrayBuffer: false,
   },
-}
+};
