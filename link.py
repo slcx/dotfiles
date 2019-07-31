@@ -69,19 +69,14 @@ def link(source: Path, target: Path) -> None:
     target.symlink_to(source.resolve())
 
 
-def link_paths(links_root: Path, links: dict) -> None:
-    for source, target in links.items():
-        if isinstance(target, dict):
-            try:
-                target = target[sys.platform]
-            except KeyError:
-                print(f"ERROR\t Cannot resolve destination for {source} for "
-                      f"platform '{sys.platform}'.", file=sys.stderr)
-                sys.exit(1)
-
-        source = Path(links_root / source).expanduser()
-        target = Path(target).expanduser()
-        link(source, target)
+def resolve_target(source: dict, target: dict) -> str:
+    if isinstance(target, dict):
+        try:
+            return target[sys.platform]
+        except KeyError:
+            print(f"ERROR\t Cannot resolve destination for {source} for "
+                  f"platform '{sys.platform}'.", file=sys.stderr)
+            sys.exit(1)
 
 
 def is_valid_target(value) -> bool:
@@ -95,17 +90,25 @@ def is_valid_target(value) -> bool:
 
 
 def traverse_tree(path: Path, tree: dict) -> None:
-    if not path.is_dir():
-        print(f"ERROR\t Failed to locate '{path}'.", file=sys.stderr)
-        sys.exit(1)
-
-    if all(is_valid_target(value) for value in tree.values()):
-        # we have reached a valid mapping of filenames!
-        link_paths(path, tree)
-        return
-
     for key, value in tree.items():
-        traverse_tree(path / key, value)
+        if is_valid_target(value):
+            # if the value is a valid target and not another subtree to go
+            # deeper into the filesystem, link
+            source = Path(path / key).expanduser()
+            if isinstance(value, dict):
+                target = Path(resolve_target(key, value)).expanduser()
+            else:
+                target = Path(value).expanduser()
+
+            link(source, target)
+        else:
+            # continue deeper into the subtree, following the filesystem as we
+            # go along
+            if not path.is_dir():
+                print(f"ERROR\t Failed to locate '{path.resolve()}'.", file=sys.stderr)
+                sys.exit(1)
+
+            traverse_tree(path / key, value)
 
 
 if __name__ == '__main__':
