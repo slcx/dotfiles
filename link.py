@@ -69,7 +69,7 @@ def link(source: Path, target: Path) -> None:
     target.symlink_to(source.resolve())
 
 
-def link_category(category: Path, links: dict) -> None:
+def link_paths(links_root: Path, links: dict) -> None:
     for source, target in links.items():
         if isinstance(target, dict):
             try:
@@ -79,9 +79,33 @@ def link_category(category: Path, links: dict) -> None:
                       f"platform '{sys.platform}'.", file=sys.stderr)
                 sys.exit(1)
 
-        source = Path(category / source).expanduser()
+        source = Path(links_root / source).expanduser()
         target = Path(target).expanduser()
         link(source, target)
+
+
+def is_valid_target(value) -> bool:
+    valid_platforms = {'linux', 'win32', 'cygwin', 'darwin'}
+    valid_platform_mapping = (
+        isinstance(value, dict)
+        and all(key in valid_platforms for key in value.keys())
+    )
+
+    return isinstance(value, str) or valid_platform_mapping
+
+
+def traverse_tree(path: Path, tree: dict) -> None:
+    if not path.is_dir():
+        print(f"ERROR\t Failed to locate '{path}'.", file=sys.stderr)
+        sys.exit(1)
+
+    if all(is_valid_target(value) for value in tree.values()):
+        # we have reached a valid mapping of filenames!
+        link_paths(path, tree)
+        return
+
+    for key, value in tree.items():
+        traverse_tree(path / key, value)
 
 
 if __name__ == '__main__':
@@ -97,12 +121,4 @@ if __name__ == '__main__':
     tree = parse_pathsfile(paths_text)
     # __import__('pprint').pprint(parse_pathsfile(paths_text), compact=False)
 
-    for category, links in tree.items():
-        category = Path(dotfiles / category)
-
-        if not category.is_dir():
-            print(f"ERROR\t Category '{category}' doesn't exist.",
-                  file=sys.stderr)
-            sys.exit(1)
-
-        link_category(category, links)
+    traverse_tree(dotfiles, tree)
