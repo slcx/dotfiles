@@ -54,16 +54,19 @@ def link(source: Path, target: Path) -> None:
 
     target.parent.mkdir(exist_ok=True)
 
-    if target.exists():
-        if not target.is_symlink():
-            print(f"WARNING\t {target} exists and it's not a symlink. ignoring",
-                  file=sys.stderr)
-            return
-
+    if target.is_symlink():
         points_to = target.resolve()
-        print(f"WARNING\t {target} already points to {points_to}, overriding",
-              file=sys.stderr)
+        if target.exists():
+            print(f"WARNING\t {target} already points to {points_to}, "
+                  f"overriding", file=sys.stderr)
+        else:
+            print(f"WARNING\t {target} is a broken link to {points_to}, "
+                  "overriding", file=sys.stderr)
         target.unlink()
+    elif target.exists():
+        print(f"WARNING\t {target} exists and it's not a symlink. ignoring",
+              file=sys.stderr)
+        return
 
     print(f"LINK\t {target} \N{rightwards arrow} {source}")
     target.symlink_to(source.resolve())
