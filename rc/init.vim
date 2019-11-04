@@ -27,8 +27,8 @@ set tabstop=8
 set softtabstop=2
 set shiftwidth=2
 
-set guifont=PragmataPro\ Mono:h16
-set linespace=2
+set guifont=PragmataPro\ Mono:h14
+set linespace=3
 
 " --- plugin config
 let g:ale_echo_msg_format = '%linter%(%severity%): %[code] %%s'
@@ -79,6 +79,7 @@ Plug 'w0rp/ale'
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'nanotech/jellybeans.vim'
+Plug 'jnurmine/Zenburn'
 
 " language support
 Plug 'derekwyatt/vim-scala'
@@ -87,8 +88,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'othree/yajs.vim'
-Plug 'mxw/vim-jsx'
 Plug 'othree/es.next.syntax.vim'
 
 call plug#end()
@@ -106,7 +107,7 @@ endif
 set background=dark
 
 try
-  colorscheme apprentice
+  colorscheme zenburn
 catch E185
   colorscheme desert
 endtry

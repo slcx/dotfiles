@@ -1,9 +1,9 @@
 # slice's config.fish
 
 if not functions -q fisher
-    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-    fish -c fisher
+  set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+  curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+  fish -c fisher
 end
 
 if status is-interactive
@@ -40,7 +40,12 @@ if status is-interactive
   # shorthands
   abbr -a -g md 'mkdir'
   abbr -a -g ydl 'youtube-dl'
+
   abbr -a -g br 'brew'
+  abbr -a -g bri 'brew install'
+  abbr -a -g bru 'brew uninstall'
+  abbr -a -g brup 'brew up && brew upgrade'
+  abbr -a -g brcl 'brew cleanup'
 
   # shorthands for long commands
   alias ydle 'youtube-dl --extract-audio --audio-format mp3'
