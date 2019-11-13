@@ -88,9 +88,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
 
 call plug#end()
 
