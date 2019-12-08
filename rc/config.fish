@@ -50,6 +50,7 @@ if status is-interactive
   # shorthands for long commands
   alias ydle 'youtube-dl --extract-audio --audio-format mp3'
   alias usage 'du -h -d 1 .'
+  abbr -a -g lfs 'python3 -m lifesaver.cli'
 
   if type -q hub
     alias git 'hub'
