@@ -27,8 +27,12 @@ set tabstop=8
 set softtabstop=2
 set shiftwidth=2
 
+if exists('neovim_dot_app') " rogual/neovim-dot-app
+  call MacSetFont('PragmataPro Mono', 14)
+endif
+
 set guifont=PragmataPro\ Mono:h14
-set linespace=3
+set linespace=2
 
 " --- plugin config
 let g:ale_echo_msg_format = '%linter%(%severity%): %[code] %%s'
@@ -36,6 +40,11 @@ let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
 let g:seoul256_background = 236
 let g:scala_scaladoc_indent = 1
+let g:neoformat_enabled_python = ['black']
+let g:neoformat_python_black =
+\ { 'exe': 'black',
+  \ 'stdin': 1,
+  \ 'args': ['-t', 'py37', '-q', '-'] }
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -55,6 +64,7 @@ let g:fzf_colors =
 " --- plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'justinmk/vim-dirvish'
+Plug 'justinmk/vim-gtfo'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-eunuch'
@@ -107,10 +117,29 @@ endif
 set background=dark
 
 try
-  colorscheme zenburn
+  colorscheme apprentice
 catch E185
   colorscheme desert
 endtry
+
+if g:colors_name ==? "apprentice" && has("nvim") && exists("&termguicolors") && &termguicolors
+  let g:terminal_color_0    = "#1C1C1C"
+  let g:terminal_color_8    = "#444444"
+  let g:terminal_color_1    = "#AF5F5F"
+  let g:terminal_color_9    = "#FF8700"
+  let g:terminal_color_2    = "#5F875F"
+  let g:terminal_color_10   = "#87AF87"
+  let g:terminal_color_3    = "#87875F"
+  let g:terminal_color_11   = "#FFFFAF"
+  let g:terminal_color_4    = "#5F87AF"
+  let g:terminal_color_12   = "#8FAFD7"
+  let g:terminal_color_5    = "#5F5F87"
+  let g:terminal_color_13   = "#8787AF"
+  let g:terminal_color_6    = "#5F8787"
+  let g:terminal_color_14   = "#5FAFAF"
+  let g:terminal_color_7    = "#6C6C6C"
+  let g:terminal_color_15   = "#FFFFFF"
+endif
 
 " --- maps and abbrevs
 let g:mapleader = ' '
@@ -164,4 +193,9 @@ augroup END
 augroup terminal_numbers
   autocmd!
   autocmd TermOpen * setlocal nonumber
+augroup END
+
+augroup autoformatting
+  autocmd!
+  autocmd BufWritePre *.js,*.py,*.md,*.css,*.html,*.yml undojoin | Neoformat
 augroup END
