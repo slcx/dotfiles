@@ -1,5 +1,6 @@
-# dotfiles!
+# dotfiles
 
-- use link.py to create symlinks (python3.6+ required)
-  - does not overwrite existing files, but it does overwrite links
-- `defaults.sh`: mac defaults
+* to install, `./link.py`
+  * python 3.6 or higher required
+  * doesn't overwrite existing files, but it does overwrite links
+* for macOS defaults, `./defaults.sh`
