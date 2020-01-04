@@ -6,6 +6,7 @@ config:
     linux: ~/.config/kitty/kitty.conf
   fish_functions: ~/.config/fish/functions
 rc:
+  stylelintrc: ~/.stylelintrc
   eslintrc.js: ~/.eslintrc.js
   hammerspoon_init.lua: ~/.hammerspoon/init.lua
   config.fish: ~/.config/fish/config.fish
