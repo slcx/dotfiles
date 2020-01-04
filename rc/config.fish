@@ -78,6 +78,7 @@ if status is-interactive
   abbr -a -g grm 'git rm'
   abbr -a -g gb 'git branch'
   abbr -a -g gcl 'git clone'
+  abbr -a -g grs 'git restore'
 end
 
 # fnm
