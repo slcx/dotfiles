@@ -123,7 +123,11 @@ set background=dark
 try
   colorscheme slice
 catch E185
-  colorscheme desert
+  try
+    colorscheme apprentice
+  catch E185
+    colorscheme desert
+  endtry
 endtry
 
 if g:colors_name ==? "apprentice" && has("nvim") && exists("&termguicolors") && &termguicolors
