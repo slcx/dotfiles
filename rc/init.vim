@@ -2,24 +2,26 @@
 
 set autowrite
 set colorcolumn=80,120
+set cursorline
 set hidden
 set ignorecase
 set inccommand=nosplit
 set list
-set listchars=tab:→\ ,eol:\ ,trail:·,nbsp:+
-set mouse=a
+set listchars=tab:→\ ,trail:·,nbsp:+
 set modeline
+set mouse=a
 set noswapfile
 set nowrap
 set nowritebackup
 set number
 set scrolloff=3
 set smartcase
+set statusline=%f\ %r\ %m%=%l/%L,%c\ (%P)
 set undodir=$HOME/.local/share/nvim/undo
 set undofile
 
-if has('pumblend')
-  set pumblend=15
+if exists('&pumblend')
+  set pumblend=5
 endif
 
 set expandtab
@@ -38,6 +40,7 @@ set linespace=2
 let g:ale_echo_msg_format = '%linter%(%severity%): %[code] %%s'
 let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
 let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
+let g:ale_linters = { 'scss': ['stylelint'], 'sass': ['stylelint'] }
 let g:seoul256_background = 236
 let g:scala_scaladoc_indent = 1
 let g:neoformat_enabled_python = ['black']
@@ -67,6 +70,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'justinmk/vim-gtfo'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
+Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
@@ -117,28 +121,28 @@ endif
 set background=dark
 
 try
-  colorscheme apprentice
+  colorscheme slice
 catch E185
   colorscheme desert
 endtry
 
 if g:colors_name ==? "apprentice" && has("nvim") && exists("&termguicolors") && &termguicolors
-  let g:terminal_color_0    = "#1C1C1C"
-  let g:terminal_color_8    = "#444444"
-  let g:terminal_color_1    = "#AF5F5F"
-  let g:terminal_color_9    = "#FF8700"
-  let g:terminal_color_2    = "#5F875F"
-  let g:terminal_color_10   = "#87AF87"
-  let g:terminal_color_3    = "#87875F"
-  let g:terminal_color_11   = "#FFFFAF"
-  let g:terminal_color_4    = "#5F87AF"
-  let g:terminal_color_12   = "#8FAFD7"
-  let g:terminal_color_5    = "#5F5F87"
-  let g:terminal_color_13   = "#8787AF"
-  let g:terminal_color_6    = "#5F8787"
-  let g:terminal_color_14   = "#5FAFAF"
-  let g:terminal_color_7    = "#6C6C6C"
-  let g:terminal_color_15   = "#FFFFFF"
+  let g:terminal_color_0  = "#1C1C1C"
+  let g:terminal_color_8  = "#444444"
+  let g:terminal_color_1  = "#AF5F5F"
+  let g:terminal_color_9  = "#FF8700"
+  let g:terminal_color_2  = "#5F875F"
+  let g:terminal_color_10 = "#87AF87"
+  let g:terminal_color_3  = "#87875F"
+  let g:terminal_color_11 = "#FFFFAF"
+  let g:terminal_color_4  = "#5F87AF"
+  let g:terminal_color_12 = "#8FAFD7"
+  let g:terminal_color_5  = "#5F5F87"
+  let g:terminal_color_13 = "#8787AF"
+  let g:terminal_color_6  = "#5F8787"
+  let g:terminal_color_14 = "#5FAFAF"
+  let g:terminal_color_7  = "#6C6C6C"
+  let g:terminal_color_15 = "#FFFFFF"
 endif
 
 " --- maps and abbrevs
@@ -197,5 +201,5 @@ augroup END
 
 augroup autoformatting
   autocmd!
-  autocmd BufWritePre *.js,*.py,*.md,*.css,*.html,*.yml undojoin | Neoformat
+  autocmd BufWritePre *.js,*.py,*.md,*.css,*.html,*.yml silent! undojoin | Neoformat
 augroup END
