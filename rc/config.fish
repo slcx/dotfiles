@@ -11,7 +11,7 @@ if status is-interactive
 
   # editor
   alias e "$EDITOR"
-  alias se "sudo -E $EDITOR"
+  alias se "sudo $EDITOR"
 
   switch $platform
     case Darwin
