@@ -22,6 +22,15 @@ if status is-interactive
       # systemd
       abbr -a -g sc 'sudo systemctl'
       abbr -a -g sj 'sudo journalctl'
+
+      # apt
+      abbr -a -g ai 'sudo apt install'
+      abbr -a -g au 'sudo apt update'
+      abbr -a -g ag 'sudo apt upgrade'
+      abbr -a -g arm 'sudo apt remove'
+      abbr -a -g ase 'sudo apt search'
+      abbr -a -g ash 'sudo apt show'
+      abbr -a -g apu 'sudo apt purge'
   end
 
   # ls
