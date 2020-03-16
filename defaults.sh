@@ -5,17 +5,31 @@ w() {
   defaults write "$@"
 }
 
+sw() {
+  echo "> sudo defaults write" "$@"
+  sudo defaults write "$@"
+}
+
 w -g AppleFontSmoothing -int 1
-sudo defaults write -g AppleFontSmoothing -int 1
+sw -g AppleFontSmoothing -int 1
 
 # dock
 w com.apple.dock tilesize -int 50
 w com.apple.dock size-immutable -bool yes
+w com.apple.dock show-recents -bool no
 w com.apple.dock magnification -float 0
 w com.apple.dock mineffect -string "scale"
 
+# look up
+w com.apple.lookup.shared LookupSuggestionsDisabled -bool yes
+
 # finder
+w com.apple.finder _FXSortFoldersFirst -bool true
 w com.apple.finder FXEnableExtensionChangeWarning -bool false
+w com.apple.finder FXDefaultSearchScope -string SCcf
+w com.apple.finder NewWindowTarget -string PfHm
+w com.apple.finder NewWindowPath -string "file:///Users/$(whoami)/"
+w com.apple.finder ShowRecentTags -bool false
 
 # spaces
 w com.apple.dock mru-spaces -bool false
@@ -29,7 +43,14 @@ w -g KeyRepeat -int 1
 w -g InitialKeyRepeat -int 20
 
 # keyboard
-w -g AppleKeyboardUIMode -int 2 # fka
+w -g AppleKeyboardUIMode -int 2 # full keyboard access
+w -g NSAutomaticQuoteSubstitutionEnabled -bool false
+w -g NSAutomaticCapitalizationEnabled -bool false
+w -g NSAutomaticDashSubstitutionEnabled -bool false
+w -g NSAutomaticPeriodSubstitutionEnabled -bool false
+w -g NSAutomaticSpellingCorrectionEnabled -bool false
+w -g NSAutomaticTextCompletionEnabled -bool false # touch bar typing suggestions
+w -g NSUserDictionaryReplacementItems -array
 
 # autohide
 w com.apple.dock autohide-delay -float 0
@@ -55,4 +76,4 @@ w com.googlecode.iterm2 HideTabNumber -bool true
 w com.apple.terminal SecureKeyboardEntry -bool true
 
 # accessibility
-w com.apple.universalaccess reduceMotion -bool true
+sw com.apple.universalaccess reduceMotion -bool true

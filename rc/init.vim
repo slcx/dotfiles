@@ -2,7 +2,6 @@
 
 set autowrite
 set colorcolumn=80,120
-set cursorline
 set hidden
 set ignorecase
 set inccommand=nosplit
@@ -15,6 +14,7 @@ set nowrap
 set nowritebackup
 set number
 set scrolloff=3
+set shortmess+=I
 set smartcase
 set statusline=%f\ %r\ %m%=%l/%L,%c\ (%P)
 set undodir=$HOME/.local/share/nvim/undo
@@ -82,10 +82,8 @@ Plug 'sbdchd/neoformat'
 " Plug 'tpope/vim-vinegar'
 " Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 
-if isdirectory("/usr/local/opt/fzf")
-  Plug '/usr/local/opt/fzf'
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'junegunn/fzf', { 'tag': 'master', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " linters
 Plug 'w0rp/ale'
@@ -121,13 +119,9 @@ endif
 set background=dark
 
 try
-  colorscheme slice
+  colorscheme apprentice
 catch E185
-  try
-    colorscheme apprentice
-  catch E185
-    colorscheme desert
-  endtry
+  colorscheme desert
 endtry
 
 if g:colors_name ==? "apprentice" && has("nvim") && exists("&termguicolors") && &termguicolors
@@ -205,5 +199,5 @@ augroup END
 
 augroup autoformatting
   autocmd!
-  autocmd BufWritePre *.js,*.py,*.md,*.css,*.html,*.yml silent! undojoin | Neoformat
+  autocmd BufWritePre *.js,*.py,*.css,*.html,*.yml silent! undojoin | Neoformat
 augroup END

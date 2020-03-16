@@ -45,6 +45,7 @@ if status is-interactive
   abbr -a -g ipy 'ipython'
   abbr -a -g py 'python3'
   alias irb 'irb --simple-prompt'
+  abbr -a -g bl 'bloop'
 
   # shorthands
   abbr -a -g md 'mkdir'
@@ -58,7 +59,8 @@ if status is-interactive
 
   # shorthands for long commands
   alias ydle 'youtube-dl --extract-audio --audio-format mp3'
-  alias usage 'du -h -d 1 .'
+  # alias usage 'du -h -d 1 .'
+  alias usage 'sn sort -d 1'
   abbr -a -g lfs 'python3 -m lifesaver.cli'
 
   if type -q hub
@@ -79,6 +81,7 @@ if status is-interactive
   abbr -a -g gt 'git tag'
   abbr -a -g gst 'git status'
   abbr -a -g gp 'git push'
+  abbr -a -g gpf 'git push --force'
   abbr -a -g gpl 'git pull'
   abbr -a -g grh 'git reset HEAD'
   abbr -a -g gs 'git show'
@@ -117,3 +120,6 @@ end
 
 # fnm
 # fnm env --multi | source
+
+# pyenv
+# pyenv init - | source
