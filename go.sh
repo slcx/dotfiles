@@ -8,37 +8,37 @@
 
 # --
 
-function msg() {
-  printf "\033[0;32m[go!]\033[0m $@\n"
+msg() {
+  printf "\033[0;32m[go!]\033[0m %s\n" "$@"
 }
 
-function err() {
-  printf "\033[0;31m[error]\033[0m $@\n"
+err() {
+  printf "\033[0;31m[error]\033[0m %s\n" "$@"
 }
 
-function installed() {
-  [ -x "$(command -v $1)" ]
+installed() {
+  [ -x "$(command -v "$1")" ]
 }
 
-function is_tapped() {
+is_tapped() {
   [ -d "/usr/local/Homebrew/Library/Taps/$1" ]
 }
 
-function pause() {
+pause() {
   msg "press enter to proceed"
-  read -s
+  read -r
 }
 
-function die() {
-  err "uh oh. dying: $@"
+die() {
+  err "uh oh. dying: $*"
   exit 1
 }
 
-function beep() {
+beep() {
   printf "\a"
 }
 
-function brew_install() {
+brew_install() {
   if ! installed "${2:-$1}"; then
     brew install "$1" || die "failed to install: $1"
   else
@@ -46,7 +46,7 @@ function brew_install() {
   fi
 }
 
-function cask_install() {
+cask_install() {
   if ! [ -d "/Applications/$2" ]; then
     brew cask install "$1" || die "failed to install cask: $1"
   else
@@ -128,9 +128,10 @@ msg "finished installed packages"
 
 if hostname | grep -q "Mac"; then
   msg "would you like a new hostname? press enter to keep the default"
-  read -p "? " new_hostname
+  printf "? "
+  read -r new_hostname
 
-  if ! [ -z "$new_hostname" ]; then
+  if [ -n "$new_hostname" ]; then
     # sudo scutil --set HostName "$new_hostname"
     sudo scutil --set LocalHostName "$new_hostname"
     sudo scutil --set ComputerName "$new_hostname"
