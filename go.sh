@@ -177,6 +177,10 @@ if ! [ -d ~/code/dotfiles ]; then
     || die "failed to clone dotfiles"
 fi
 
+msg "creating links"
+~/code/dotfiles/link.py || die "failed to create links"
+msg "created links"
+
 msg "applying defaults"
 ~/code/dotfiles/defaults.sh || die "failed to apply defaults"
 msg "applied defaults"
