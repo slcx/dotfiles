@@ -13,3 +13,4 @@ rc:
   config.fish: ~/.config/fish/config.fish
   init.vim: ~/.config/nvim/init.vim
   zshrc: ~/.zshrc
+  kakrc: ~/.config/kak/kakrc
