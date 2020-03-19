@@ -90,6 +90,7 @@ brew_install gnupg gpg
 brew_install tree
 brew_install fzf
 brew_install pinentry-mac
+brew_install tmux
 
 # programming languages & package managers
 brew_install python
@@ -97,6 +98,7 @@ brew_install node
 brew_install go
 brew_install yarn
 brew_install ruby
+brew_install sbt # scala build tool
 
 # editors
 brew_install neovim nvim
