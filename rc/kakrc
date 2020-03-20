@@ -1,5 +1,9 @@
 colorscheme zenburn
 
+map global user f ': format<ret>'
+map global user r ': source ~/.config/kak/kakrc<ret>'
+map global user e ': edit ~/.config/kak/kakrc<ret>'
+
 set-option global indentwidth 2
 set-option global scrolloff 5,0
 
@@ -14,3 +18,23 @@ hook global InsertChar \t %{ try %{
 hook global InsertDelete ' ' %{ try %{
     execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
 }}
+
+# 4 spaces for certain languages
+hook global WinSetOption filetype=(python|rust) %{
+  set-option window indentwidth 4
+}
+
+define-command prettier-hook -params 2 %{
+  hook global WinSetOption "filetype=%arg{1}" \
+    "set-option window formatcmd ""prettier --parser %arg{2}"""
+}
+
+# prettier
+prettier-hook (css|scss) scss
+prettier-hook typescript typescript
+prettier-hook javascript babel
+prettier-hook json json5
+prettier-hook yaml yaml
+prettier-hook html html
+prettier-hook markdown markdown
+prettier-hook less less
