@@ -122,6 +122,7 @@ cask_install iterm2 "iTerm.app"
 cask_install sublime-text "Sublime Text.app"
 cask_install 1password "1Password 7.app"
 cask_install discord "Discord.app"
+cask_install qbittorrent "qBittorrent.app"
 
 beep
 msg "finished installed packages"
