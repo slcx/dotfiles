@@ -91,6 +91,7 @@ brew_install tree
 brew_install fzf
 brew_install pinentry-mac
 brew_install tmux
+brew_install p7zip
 
 # programming languages & package managers
 brew_install python
@@ -102,7 +103,6 @@ brew_install sbt # scala build tool
 
 # editors
 brew_install neovim nvim
-brew_install kakoune kak
 
 # databases & services
 brew_install postgresql psql

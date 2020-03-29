@@ -5,6 +5,7 @@ config:
     darwin: ~/Library/Preferences/kitty/kitty.conf
     linux: ~/.config/kitty/kitty.conf
   fish_functions: ~/.config/fish/functions
+  fishfile: ~/.config/fish/fishfile
   tmux.conf: ~/.tmux.conf
 rc:
   predef.sc: ~/.ammonite/predef.sc

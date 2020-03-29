@@ -1,3 +1,5 @@
+config/fish_functions/__*
+config/fish_functions/fisher.fish
 .mypy_cache
 .tup
 .DS_Store

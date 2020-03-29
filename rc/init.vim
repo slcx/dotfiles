@@ -15,13 +15,14 @@ set nowritebackup
 set number
 set scrolloff=3
 set shortmess+=I
+set signcolumn=yes
 set smartcase
 set statusline=%f\ %r\ %m%=%l/%L,%c\ (%P)
 set undodir=$HOME/.local/share/nvim/undo
 set undofile
 
 if exists('&pumblend')
-  set pumblend=5
+  set pumblend=10
 endif
 
 set expandtab
@@ -85,8 +86,9 @@ Plug 'sbdchd/neoformat'
 Plug 'junegunn/fzf', { 'tag': 'master', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-" linters
+" linters, lsp, etc.
 Plug 'w0rp/ale'
+Plug 'neovim/nvim-lsp'
 
 " colors
 Plug 'junegunn/seoul256.vim'
@@ -119,7 +121,7 @@ endif
 set background=dark
 
 try
-  colorscheme apprentice
+  colorscheme seoul256
 catch E185
   colorscheme desert
 endtry
@@ -147,31 +149,35 @@ endif
 let g:mapleader = ' '
 
 " fzf
-nmap <silent> <leader>o :Files<CR>
-nmap <silent> <leader>b :Buffers<CR>
+nmap <silent> <leader>o <cmd>Files<CR>
+nmap <silent> <leader>b <cmd>Buffers<CR>
 
 " vimrc
-nmap <silent> <leader>ev :edit $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>
+nmap <silent> <leader>ev <cmd>edit $MYVIMRC<CR>
+nmap <silent> <leader>sv <cmd>source $MYVIMRC<CR>
 
 " plug
-nmap <silent> <leader>pi :PlugInstall<CR>
-nmap <silent> <leader>pu :PlugUpdate<CR>
-nmap <silent> <leader>pg :PlugUpgrade<CR>
+nmap <silent> <leader>pi <cmd>PlugInstall<CR>
+nmap <silent> <leader>pu <cmd>PlugUpdate<CR>
+nmap <silent> <leader>pg <cmd>PlugUpgrade<CR>
 
 " plugins
+nmap <silent> <leader>f <cmd>Neoformat<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " buffers, etc.
-nmap <silent> <C-L> :nohlsearch<CR>
-nmap <silent> <A-[> :bprevious<CR>
-nmap <silent> <A-]> :bnext<CR>
+nmap <silent> <C-L> <cmd>nohlsearch<CR>
+nmap <silent> <A-[> <cmd>bprevious<CR>
+nmap <silent> <A-]> <cmd>bnext<CR>
 " the option key on the default keyboard layout of macos acts as a compose key
 " for certain symbols, so let's add these as mappings in case the terminal
 " can't resolve them correctly
-nmap <silent> ‘ :bnext<CR>
-nmap <silent> “ :bprevious<CR>
+nmap <silent> ‘ <cmd>bnext<CR>
+nmap <silent> “ <cmd>bprevious<CR>
+
+" Q enters ex mode by default, let's bind it to gq so it's more useful
+noremap Q gq
 
 " a neat trick to write files with sudo
 cnoremap w!! write !sudo tee % >/dev/null
@@ -184,11 +190,11 @@ cabbrev Qa qa
 " --- autocmd
 augroup language_settings
   autocmd!
-  autocmd BufNewFile,BufRead *.go
+  autocmd BufNewFile,BufReadPre *.go
     \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-  autocmd BufNewFile,BufRead *.sass,*.scss
+  autocmd BufNewFile,BufReadPre *.sass,*.scss
     \ setlocal softtabstop=2 shiftwidth=2 expandtab
-  autocmd BufNewFile,BufRead *.sc,*.sbt
+  autocmd BufNewFile,BufReadPre *.sc,*.sbt
     \ setlocal filetype=scala
 augroup END
 
@@ -201,3 +207,9 @@ augroup autoformatting
   autocmd!
   autocmd BufWritePre *.js,*.py,*.css,*.html,*.yml silent! undojoin | Neoformat
 augroup END
+
+" --- lua
+
+lua << EOF
+require'nvim_lsp'.metals.setup{}
+EOF

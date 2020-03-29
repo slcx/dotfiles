@@ -40,6 +40,8 @@ implicit val contextShiftIO: ContextShift[IO] =
   IO.contextShift(ExecutionContext.global)
 implicit val timerIO: Timer[IO] =
   IO.timer(ExecutionContext.global)
+implicit val blockerIO: Blocker =
+  Blocker.liftExecutionContext(ExecutionContext.global)
 
 // shortcuts
 implicit class IOOps[F](io: IO[F]) {

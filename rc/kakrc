@@ -1,35 +1,41 @@
 colorscheme zenburn
 
-map global user f ': format<ret>'
-map global user r ': source ~/.config/kak/kakrc<ret>'
-map global user e ': edit ~/.config/kak/kakrc<ret>'
+map -docstring 'formats the buffer' global user f ': format<ret>'
+map -docstring 'sources the kakrc' global user r ': source ~/.config/kak/kakrc<ret>'
+map -docstring 'edits the kakrc' global user e ': edit ~/.config/kak/kakrc<ret>'
 
 set-option global indentwidth 2
 set-option global scrolloff 5,0
 
+add-highlighter global/ column 80 'rgb:cfcfcf,rgb:343434'
 add-highlighter global/ number-lines
+add-highlighter global/ show-matching
 
-# soft tabs (insertion)
+# indentation
+
 hook global InsertChar \t %{ try %{
     execute-keys -draft "h<a-h><a-k>\A\h+\z<ret><a-;>;%opt{indentwidth}@"
 }}
 
-# soft tabs (deletion)
 hook global InsertDelete ' ' %{ try %{
     execute-keys -draft 'h<a-h><a-k>\A\h+\z<ret>i<space><esc><lt>'
 }}
 
-# 4 spaces for certain languages
 hook global WinSetOption filetype=(python|rust) %{
   set-option window indentwidth 4
 }
+
+hook global WinSetOption filetype=scala %{
+  set-option window formatcmd 'scalafmt --stdin'
+}
+
+# prettier
 
 define-command prettier-hook -params 2 %{
   hook global WinSetOption "filetype=%arg{1}" \
     "set-option window formatcmd ""prettier --parser %arg{2}"""
 }
 
-# prettier
 prettier-hook (css|scss) scss
 prettier-hook typescript typescript
 prettier-hook javascript babel
@@ -38,3 +44,23 @@ prettier-hook yaml yaml
 prettier-hook html html
 prettier-hook markdown markdown
 prettier-hook less less
+
+# plugins
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+
+plug "andreyorst/fzf.kak" config %{
+  map -docstring 'open file in fzf mode' global user o ': fzf-mode<ret>f'
+} defer fzf %{
+  set-option global fzf_file_command %sh{
+    if [ -n "$(command -v fd)" ]; then
+      echo 'fd --type file'
+    else
+      echo 'find . \( -path "*/.git*" -o -path "*/.idea*" \) -prune -o -type f -print'
+    fi
+  }
+}
+
+plug "ul/kak-lsp" do %{
+  cargo install --locked --force --path .
+}
