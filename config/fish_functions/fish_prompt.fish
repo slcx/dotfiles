@@ -2,9 +2,9 @@ function fish_prompt
   # if we're in ssh, show username and hostname
   if set -q SSH_CONNECTION
     printf '%s%s%s@%s%s ' \
-      (set_color blue) \
+      (set_color yellow) \
       "$USER" \
-      (set_color -o blue) \
+      (set_color -o yellow) \
       (hostname -s) \
       (set_color normal)
   end
