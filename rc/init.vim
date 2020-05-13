@@ -2,6 +2,7 @@
 
 set autowrite
 set colorcolumn=80,120
+set cursorline
 set hidden
 set ignorecase
 set inccommand=nosplit
@@ -38,17 +39,13 @@ set guifont=PragmataPro\ Mono:h14
 set linespace=2
 
 " --- plugin config
-let g:ale_echo_msg_format = '%linter%(%severity%): %[code] %%s'
-let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
-let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
-let g:ale_linters = { 'scss': ['stylelint'], 'sass': ['stylelint'] }
 let g:seoul256_background = 236
 let g:scala_scaladoc_indent = 1
 let g:neoformat_enabled_python = ['black']
 let g:neoformat_python_black =
 \ { 'exe': 'black',
   \ 'stdin': 1,
-  \ 'args': ['-t', 'py37', '-q', '-'] }
+  \ 'args': ['--fast', '--target-version', 'py38', '-q', '-'] }
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -70,13 +67,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'justinmk/vim-dirvish'
 Plug 'justinmk/vim-gtfo'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-slash'
+" Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
 Plug 'sbdchd/neoformat'
 " Plug 'junegunn/vim-peekaboo'
@@ -86,17 +84,29 @@ Plug 'sbdchd/neoformat'
 Plug 'junegunn/fzf', { 'tag': 'master', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
+" quality of life improvements
+Plug 'cohama/lexima.vim'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+
 " linters, lsp, etc.
 Plug 'w0rp/ale'
 Plug 'neovim/nvim-lsp'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 
 " colors
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'nanotech/jellybeans.vim'
 Plug 'jnurmine/Zenburn'
+Plug 'wadackel/vim-dogrun'
+Plug 'bluz71/vim-moonfly-colors'
 
 " language support
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'ziglang/zig.vim'
 Plug 'derekwyatt/vim-scala'
 Plug 'rhysd/vim-crystal'
 Plug 'leafgarland/typescript-vim'
@@ -121,7 +131,7 @@ endif
 set background=dark
 
 try
-  colorscheme seoul256
+  colorscheme moonfly
 catch E185
   colorscheme desert
 endtry
@@ -148,6 +158,9 @@ endif
 " --- maps and abbrevs
 let g:mapleader = ' '
 
+" use shift+tab to go back; complements tab
+nnoremap <S-Tab> <C-O>
+
 " fzf
 nmap <silent> <leader>o <cmd>Files<CR>
 nmap <silent> <leader>b <cmd>Buffers<CR>
@@ -162,7 +175,7 @@ nmap <silent> <leader>pu <cmd>PlugUpdate<CR>
 nmap <silent> <leader>pg <cmd>PlugUpgrade<CR>
 
 " plugins
-nmap <silent> <leader>f <cmd>Neoformat<CR>
+nmap <silent> <leader>nf <cmd>Neoformat<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
@@ -179,6 +192,9 @@ nmap <silent> “ <cmd>bprevious<CR>
 " Q enters ex mode by default, let's bind it to gq so it's more useful
 noremap Q gq
 
+" use sayonara
+cnoremap bd Sayonara!
+
 " a neat trick to write files with sudo
 cnoremap w!! write !sudo tee % >/dev/null
 
@@ -186,6 +202,11 @@ cnoremap w!! write !sudo tee % >/dev/null
 cabbrev W w
 cabbrev Wq wq
 cabbrev Qa qa
+cabbrev Bd bd
+
+" allow using :diffput and :diffget in visual mode
+" vnoremap dp :'<,'>diffput<CR>
+" vnoremap do :'<,'>diffget<CR>
 
 " --- autocmd
 augroup language_settings
@@ -205,11 +226,70 @@ augroup END
 
 augroup autoformatting
   autocmd!
-  autocmd BufWritePre *.js,*.py,*.css,*.html,*.yml silent! undojoin | Neoformat
+  autocmd BufWritePre *.js,*.css,*.html,*.yml silent! undojoin | Neoformat
 augroup END
 
-" --- lua
+" --- linting and lsp config
+hi ALEVirtualTextError guibg=#aa0000 guifg=#ffffff
+let g:ale_set_quickfix = 1
+let g:ale_echo_msg_format = '%linter%(%severity%): %[code] %%s'
+let g:ale_javascript_eslint_executable = expand('~/.npm/bin/eslint')
+let g:ale_typescript_tslint_executable = expand('~/.npm/bin/tslint')
+let g:ale_virtualtext_cursor = 1
+let g:ale_linters = {
+  \ 'scss': ['stylelint'],
+  \ 'sass': ['stylelint'],
+  \ 'python': ['flake8', 'mypy', 'pydocstyle'],
+  \ }
+
+" let g:LanguageClient_settingsPath = expand('~/.config/nvim/lsp-settings.json')
+" let g:LanguageClient_loggingFile = expand('~/.local/share/nvim/lsp.log')
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rust-analyzer'],
+"     \ 'python': ['/usr/local/bin/pyls'],
+"     \ }
+
+" nmap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
+" nnoremap <silent> <leader>f <cmd>call LanguageClient#textDocument_formatting_sync()
+
+nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
+
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" map <silent> K  <cmd>call LanguageClient#textDocument_hover()<CR>
+" map <silent> gd <cmd>call LanguageClient#textDocument_definition()<CR>
+" map <silent> gr <cmd>call LanguageClient#textDocument_rename()<CR>
+
+augroup lsp
+  autocmd!
+  " autocmd Filetype python,rust setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+  autocmd Filetype python,rust,scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  " autocmd BufWritePre *.py,*.rs,*.scala lua vim.lsp.buf.formatting()
+  " autocmd BufWritePre *.py,*.rs call LanguageClient#textDocument_formatting_sync()
+  autocmd BufWritePre *.py,*.rs Neoformat
+augroup END
+
+let g:metals_server_version = '0.8.4+140-a39ac728-SNAPSHOT'
 
 lua << EOF
-require'nvim_lsp'.metals.setup{}
+local lsp = require'nvim_lsp'
+
+lsp.metals.setup{
+  cmd = {'/Users/slice/.coursier-bin/metals'}
+}
+-- lsp.rust_analyzer.setup{}
+lsp.pyls.setup{
+  root_dir = lsp.util.root_pattern('setup.py', 'requirements.txt'),
+  settings = {
+    pyls = { plugins = {
+      pydocstyle = { enabled = false },
+      pycodestyle = { enabled = false },
+      pyflakes = { enabled = false },
+      pyls_mypy = { enabled = false, live_mode = false }
+    } }
+  }
+}
 EOF

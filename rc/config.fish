@@ -62,7 +62,7 @@ if status is-interactive
   abbr -a -g brcl 'brew cleanup'
 
   # shorthands for long commands
-  alias ydle 'youtube-dl --extract-audio --audio-format mp3'
+  alias ydle 'youtube-dl -f bestaudio --audio-format mp3 --extract-audio'
   # alias usage 'du -h -d 1 .'
   alias usage 'sn sort -d 1'
   abbr -a -g lfs 'python3 -m lifesaver.cli'

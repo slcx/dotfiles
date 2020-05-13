@@ -9,7 +9,7 @@ function fish_prompt
       (set_color normal)
   end
 
-  set prompt_character '$'
+  set prompt_character 'λ'
   set prompt_color '-o'
 
   if test "$USER" = "root"

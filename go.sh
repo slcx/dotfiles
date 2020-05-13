@@ -92,6 +92,8 @@ brew_install fzf
 brew_install pinentry-mac
 brew_install tmux
 brew_install p7zip
+brew_install aria2
+brew_install hub
 
 # programming languages & package managers
 brew_install python
