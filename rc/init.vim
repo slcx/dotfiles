@@ -130,7 +130,8 @@ Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'       " javascript
-Plug 'leafgarland/typescript-vim'    " typescript
+" Plug 'leafgarland/typescript-vim'  " typescript (this one is a bit weird)
+Plug 'HerringtonDarkholme/yats.vim'  " typescript
 Plug 'MaxMEllon/vim-jsx-pretty'      " jsx/tsx
 Plug 'neovimhaskell/haskell-vim'
 Plug 'keith/swift.vim'
@@ -175,7 +176,7 @@ nnoremap <silent> <leader>o <cmd>Files<CR>
 nnoremap <silent> <leader>b <cmd>Buffers<CR>
 
 " vimrc; https://learnvimscriptthehardway.stevelosh.com/chapters/07.html
-nnoremap <silent> <leader>ev <cmd>vsplit $MYVIMRC<CR>
+nnoremap <silent> <leader>ev <cmd>edit $MYVIMRC<CR>
 nnoremap <silent> <leader>sv <cmd>source $MYVIMRC<CR>
 
 " plug
@@ -232,13 +233,16 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 
 augroup language_settings
   autocmd!
-  autocmd BufNewFile,BufReadPre *.go
+  autocmd FileType go
     \ setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-  autocmd BufNewFile,BufReadPre *.sass,*.scss
+  autocmd FileType scss
+    \ setlocal softtabstop=2 shiftwidth=2 expandtab
+  autocmd FileType sass
     \ setlocal softtabstop=2 shiftwidth=2 expandtab
   autocmd BufNewFile,BufReadPre *.sc,*.sbt
     \ setlocal filetype=scala
-  autocmd BufNewFile,BufReadPre,BufReadPost *.ts,
+  " this is probably bad but \[:v]/
+  autocmd BufNewFile,BufReadPre,BufReadPost *.ts,*.tsx
     \ setlocal filetype=typescriptreact
 augroup END
 
