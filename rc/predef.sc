@@ -1,12 +1,12 @@
-import $ivy.`org.typelevel::cats-core:latest.release`,
+import $ivy.`org.typelevel::cats-core:2.2.0`,
   cats._,
   cats.data._,
-  cats.implicits._
-import $ivy.`org.typelevel::cats-effect:latest.release`,
+  cats.syntax.all._
+import $ivy.`org.typelevel::cats-effect:2.2.0`,
   cats.effect._
 
-import $ivy.`co.fs2::fs2-core:2.3.0`, fs2.Stream
-import $ivy.`co.fs2::fs2-io:2.3.0`
+import $ivy.`co.fs2::fs2-core:2.4.4`, fs2.Stream
+import $ivy.`co.fs2::fs2-io:2.4.4`
 
 // library treasure trove
 import $ivy.`com.chuusai::shapeless:latest.release`

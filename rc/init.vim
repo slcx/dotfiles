@@ -1,9 +1,10 @@
 " vim: ts=8:sts=2:sw=2:fdm=marker
 " slice's neovim config (>^_^>)
 
+echo "(>^_^>) <3 <3 <3 !"
+
 set colorcolumn=80,120
 set completeopt=menu,noselect
-set cursorline
 set hidden
 set ignorecase
 set inccommand=nosplit
@@ -14,10 +15,10 @@ set mouse=a
 set noswapfile
 set nowrap
 set nowritebackup
-set number
+" set number
+set splitright
 set scrolloff=5
 set shortmess+=I
-set signcolumn=yes
 set smartcase
 set statusline=%f\ %r\ %m%=%l/%L,%c\ (%P)
 set undodir=$HOME/.local/share/nvim/undo
@@ -27,6 +28,7 @@ if exists('&pumblend')
   set pumblend=10
 endif
 
+" indentation
 set expandtab
 set tabstop=8
 set softtabstop=2
@@ -36,7 +38,12 @@ if exists('neovim_dot_app') " rogual/neovim-dot-app
   call MacSetFont('PragmataPro Mono', 14)
 endif
 
-set guifont=PragmataPro\ Mono:h14
+" https://github.com/Kethku/neovide
+let g:neovide_cursor_animation_length=0.1
+let g:neovide_cursor_vfx_mode='torpedo'
+let g:neovide_cursor_trail_length=0.4
+
+set guifont=PragmataPro\ Mono:h16
 set linespace=2
 
 " source local config
@@ -48,6 +55,8 @@ endif
 
 let g:seoul256_background = 236
 let g:scala_scaladoc_indent = 1
+let g:zenburn_old_Visual = 1
+let g:zenburn_alternate_Visual = 1
 
 let g:neoformat_enabled_python = ['black']
 let g:neoformat_python_black =
@@ -86,18 +95,21 @@ Plug 'tpope/vim-unimpaired'                     " pairs of handy bracket mapping
 Plug 'tpope/vim-surround'                       " easily edit surrounding characters
 Plug 'tpope/vim-fugitive'                       " delightful git wrapper
 Plug 'tpope/vim-repeat'                         " . works on more stuff
+Plug 'tpope/vim-abolish'                        " better abbrevs, searching, etc.
 Plug 'sbdchd/neoformat'                         " asynchronous formatting
 Plug 'zirrostig/vim-schlepp'                    " nudge lines around
 Plug 'junegunn/vim-peekaboo'                    " peekaboo the registers
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' } " better :bd
-
+Plug 'Konfekt/vim-CtrlXA'                       " increased support for <C-X> & <C-A>
+Plug 'AndrewRadev/splitjoin.vim'                " splitting and joining stuff
 " Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
 Plug 'junegunn/fzf.vim'                             " fuzzy finder vim integration
 
-Plug 'w0rp/ale'              " asynchronous linter
+" Plug 'w0rp/ale'              " asynchronous linter
 Plug 'neovim/nvim-lspconfig' " neovim lsp integration
+Plug 'scalameta/nvim-metals' " metals lsp
 
 " colorschemes
 Plug 'junegunn/seoul256.vim'
@@ -106,6 +118,8 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'jnurmine/Zenburn'
 Plug 'wadackel/vim-dogrun'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'arzg/vim-substrata'
 
 " language support
 Plug 'Vimjas/vim-python-pep8-indent' " better python indentation rules
@@ -115,9 +129,9 @@ Plug 'rhysd/vim-crystal'
 Plug 'wavded/vim-stylus'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go'
-Plug 'pangloss/vim-javascript'
-Plug 'HerringtonDarkholme/yats.vim'  " typescript
-Plug 'MaxMEllon/vim-jsx-pretty'      " jsx
+Plug 'pangloss/vim-javascript'       " javascript
+Plug 'leafgarland/typescript-vim'    " typescript
+Plug 'MaxMEllon/vim-jsx-pretty'      " jsx/tsx
 Plug 'neovimhaskell/haskell-vim'
 Plug 'keith/swift.vim'
 
@@ -135,7 +149,7 @@ endif
 set background=dark
 
 try
-  colorscheme zenburn
+  colorscheme slice
 catch E185
   colorscheme desert
 endtry
@@ -150,41 +164,44 @@ endif
 
 let g:mapleader = ' '
 
+" make a word uppercase within insert mode; i_CTRL-U is already thing but eh
+inoremap <c-u> <esc>gUiwea
+
 " use shift+tab to go back; complements tab
 nnoremap <S-Tab> <C-O>
 
 " fzf
-nmap <silent> <leader>o <cmd>Files<CR>
-nmap <silent> <leader>b <cmd>Buffers<CR>
+nnoremap <silent> <leader>o <cmd>Files<CR>
+nnoremap <silent> <leader>b <cmd>Buffers<CR>
 
-" vimrc
-nmap <silent> <leader>ev <cmd>edit $MYVIMRC<CR>
-nmap <silent> <leader>sv <cmd>source $MYVIMRC<CR>
+" vimrc; https://learnvimscriptthehardway.stevelosh.com/chapters/07.html
+nnoremap <silent> <leader>ev <cmd>vsplit $MYVIMRC<CR>
+nnoremap <silent> <leader>sv <cmd>source $MYVIMRC<CR>
 
 " plug
-nmap <silent> <leader>pi <cmd>PlugInstall<CR>
-nmap <silent> <leader>pu <cmd>PlugUpdate<CR>
-nmap <silent> <leader>pg <cmd>PlugUpgrade<CR>
+nnoremap <silent> <leader>pi <cmd>PlugInstall<CR>
+nnoremap <silent> <leader>pu <cmd>PlugUpdate<CR>
+nnoremap <silent> <leader>pg <cmd>PlugUpgrade<CR>
 
 " plugins
-nmap <silent> <leader>nf <cmd>Neoformat<CR>
-xmap <silent> ga         <Plug>(EasyAlign)
-nmap <silent> ga         <Plug>(EasyAlign)
-vmap <silent> <up>       <Plug>SchleppIndentUp
-vmap <silent> <down>     <Plug>SchleppIndentDown
-vmap <silent> <left>     <Plug>SchleppLeft
-vmap <silent> <right>    <Plug>SchleppRight
+nnoremap <silent> <leader>nf <cmd>Neoformat<CR>
+xnoremap <silent> ga         <Plug>(EasyAlign)
+nnoremap <silent> ga         <Plug>(EasyAlign)
+vnoremap <silent> <up>       <Plug>SchleppIndentUp
+vnoremap <silent> <down>     <Plug>SchleppIndentDown
+vnoremap <silent> <left>     <Plug>SchleppLeft
+vnoremap <silent> <right>    <Plug>SchleppRight
 
 " buffers, etc.
-nmap <silent> <C-L> <cmd>nohlsearch<CR>
-nmap <silent> <A-[> <cmd>bprevious<CR>
-nmap <silent> <A-]> <cmd>bnext<CR>
+nnoremap <silent> <C-L> <cmd>nohlsearch<CR>
+nnoremap <silent> <A-[> <cmd>bprevious<CR>
+nnoremap <silent> <A-]> <cmd>bnext<CR>
 
 " the option key on the default keyboard layout of macos acts as a compose key
 " for certain symbols, so let's add these as mappings in case the terminal
 " can't resolve them correctly
-nmap <silent> ‘ <cmd>bnext<CR>
-nmap <silent> “ <cmd>bprevious<CR>
+nnoremap <silent> ‘ <cmd>bnext<CR>
+nnoremap <silent> “ <cmd>bprevious<CR>
 
 " Q enters ex mode by default, so let's bind it to gq so it's more useful
 noremap Q gq
@@ -210,6 +227,9 @@ vnoremap fg :'<,'>diffget<CR>
 
 " autocmd {{{
 
+" highlight yanked regions
+autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+
 augroup language_settings
   autocmd!
   autocmd BufNewFile,BufReadPre *.go
@@ -218,6 +238,8 @@ augroup language_settings
     \ setlocal softtabstop=2 shiftwidth=2 expandtab
   autocmd BufNewFile,BufReadPre *.sc,*.sbt
     \ setlocal filetype=scala
+  autocmd BufNewFile,BufReadPre,BufReadPost *.ts,
+    \ setlocal filetype=typescriptreact
 augroup END
 
 augroup terminal_numbers
@@ -250,10 +272,10 @@ let g:ale_linters = {
 
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 " map <silent> K  <cmd>call LanguageClient#textDocument_hover()<CR>
 " map <silent> gd <cmd>call LanguageClient#textDocument_definition()<CR>
 " map <silent> gr <cmd>call LanguageClient#textDocument_rename()<CR>
@@ -265,19 +287,37 @@ augroup lsp
   " autocmd BufWritePre *.py,*.rs,*.scala lua vim.lsp.buf.formatting()
   " autocmd BufWritePre *.py,*.rs call LanguageClient#textDocument_formatting_sync()
   autocmd BufWritePre *.py,*.rs Neoformat
-  autocmd Filetype typescript,typescriptreact ALEDisableBuffer
+  " autocmd Filetype typescript,typescriptreact ALEDisableBuffer
 augroup END
 
-let g:metals_server_version = '0.8.4+140-a39ac728-SNAPSHOT'
+let g:metals_server_version = '0.9.7+18-744ffa6f-SNAPSHOT'
 
+" configure lsp servers
 lua << EOF
 local lsp = require'lspconfig'
 
+local function custom_lsp_attach()
+  local keymaps = {
+    ['K'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
+    ['<c-]>'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
+  }
+
+  for lhs, rhs in pairs(keymaps) do
+    vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, {noremap = true})
+  end
+
+  vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+-- metals can be installed here with `cs install metals`.
 lsp.metals.setup{
-  cmd = {'/Users/slice/.coursier-bin/metals'}
+  cmd = {'/Users/slice/Library/Application Support/Coursier/bin/metals'},
+  on_attach = custom_lsp_attach,
 }
--- lsp.tsserver.setup{}
+
+lsp.tsserver.setup{on_attach = custom_lsp_attach}
 -- lsp.rust_analyzer.setup{}
+
 lsp.pyls.setup{
   root_dir = lsp.util.root_pattern('setup.py', 'requirements.txt'),
   settings = {
@@ -285,10 +325,21 @@ lsp.pyls.setup{
       pydocstyle = { enabled = false },
       pycodestyle = { enabled = false },
       pyflakes = { enabled = false },
-      pyls_mypy = { enabled = false, live_mode = false }
+      pyls_mypy = { enabled = false, live_mode = false },
     } }
-  }
+  },
+  on_attach = custom_lsp_attach,
 }
 EOF
+
+" }}}
+
+" utilities {{{
+
+function SynStack()
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+nnoremap <leader>g <cmd>call SynStack()<CR>
 
 " }}}

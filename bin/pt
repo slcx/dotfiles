@@ -21,7 +21,7 @@ def humanize(time):
 
 def read_library():
     library_plist = os.path.expanduser(
-        '~/Music/iTunes/iTunes Music Library.xml'
+        '~/Downloads/Library.xml'
     )
 
     with open(library_plist, 'rb') as fp:

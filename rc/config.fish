@@ -77,7 +77,7 @@ if status is-interactive
   abbr -a -g ga 'git add'
   abbr -a -g grb 'git rebase'
   abbr -a -g gca 'git commit --amend'
-  abbr -a -g gc 'git commit -v'
+  abbr -a -g gc 'git commit'
   abbr -a -g gco 'git checkout'
   abbr -a -g gr 'git remote'
   abbr -a -g gd 'git diff'
