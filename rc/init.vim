@@ -161,6 +161,7 @@ catch E185
   colorscheme desert
 endtry
 
+" personal tweaks
 if g:colors_name ==? "zenburn"
   highlight! link Whitespace NonText
 endif
@@ -176,6 +177,11 @@ inoremap <c-u> <esc>gUiwea
 
 " use shift+tab to go back; complements tab
 nnoremap <S-Tab> <C-O>
+
+" quickly open :terminals
+nnoremap <silent> <leader>te <cmd>tabnew +terminal<CR>
+nnoremap <silent> <leader>ts <cmd>below split +terminal<CR>
+nnoremap <silent> <leader>tv <cmd>vsplit +terminal<CR>
 
 " fzf
 nnoremap <silent> <leader>o <cmd>Files<CR>
@@ -199,8 +205,9 @@ vnoremap <silent> <down>     <Plug>SchleppIndentDown
 vnoremap <silent> <left>     <Plug>SchleppLeft
 vnoremap <silent> <right>    <Plug>SchleppRight
 
-" buffers, etc.
 nnoremap <silent> <C-L> <cmd>nohlsearch<CR>
+
+" should really be using ]b and [b from unimpaired
 nnoremap <silent> <A-[> <cmd>bprevious<CR>
 nnoremap <silent> <A-]> <cmd>bnext<CR>
 
@@ -216,10 +223,10 @@ noremap Q gq
 " use sayonara
 cnoremap bd Sayonara!
 
-" a neat trick to write files with sudo
+" a neat trick to write files with sudo; alternatively, eunuch's :SudoWrite
 cnoremap w!! write !sudo tee % >/dev/null
 
-" sometimes i hold shift down for too long
+" sometimes i hold shift down for too long, so let's fix that
 cabbrev W w
 cabbrev Wq wq
 cabbrev Q q
@@ -346,7 +353,9 @@ EOF
 " }}}
 
 " lua {{{
+
 lua require'colorizer'.setup()
+
 " }}}
 
 " utilities {{{
