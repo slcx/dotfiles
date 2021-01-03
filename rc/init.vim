@@ -1,7 +1,12 @@
-" vim: ts=8:sts=2:sw=2:fdm=marker
-" slice's neovim config (>^_^>)
+" vi: set tabstop=8 softtabstop=2 shiftwidth=2 expandtab foldmethod=marker:
 
-echo "(>^_^>) <3 <3 <3 !"
+" slice's neovim config :]
+
+function! Greet()
+  echo "(>^_^>) <3 <3 <3 !"
+endfunction
+
+call Greet()
 
 set colorcolumn=80,120
 set completeopt=menu,noselect
@@ -9,7 +14,7 @@ set hidden
 set ignorecase
 set inccommand=nosplit
 set list
-set listchars=tab:→\ ,trail:·,nbsp:+
+set listchars=tab:>\ ,trail:·,nbsp:+
 set modeline
 set mouse=a
 set noswapfile
@@ -103,6 +108,7 @@ Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' } " better :bd
 Plug 'Konfekt/vim-CtrlXA'                       " increased support for <C-X> & <C-A>
 Plug 'AndrewRadev/splitjoin.vim'                " splitting and joining stuff
 " Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
+Plug 'norcalli/nvim-colorizer.lua'              " superduperfast colorizer
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
 Plug 'junegunn/fzf.vim'                             " fuzzy finder vim integration
@@ -216,6 +222,7 @@ cnoremap w!! write !sudo tee % >/dev/null
 " sometimes i hold shift down for too long
 cabbrev W w
 cabbrev Wq wq
+cabbrev Q q
 cabbrev Qa qa
 cabbrev Bd bd
 
@@ -336,6 +343,10 @@ lsp.pyls.setup{
 }
 EOF
 
+" }}}
+
+" lua {{{
+lua require'colorizer'.setup()
 " }}}
 
 " utilities {{{
