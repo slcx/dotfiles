@@ -20,12 +20,27 @@ if status is-interactive
   switch $platform
     case Darwin
       alias ls 'ls -GFh'
+
+      # homebrew
+      abbr -a -g br 'brew'
+      abbr -a -g bri 'brew install'
+      abbr -a -g bru 'brew uninstall'
+      abbr -a -g brup 'brew up && brew upgrade'
+      abbr -a -g brcl 'brew cleanup'
     case Linux
       alias ls 'ls -Fh --color=auto'
 
       # systemd
       abbr -a -g sc 'sudo systemctl'
-      abbr -a -g sj 'sudo journalctl'
+      abbr -a -g scs 'sudo systemctl status'
+      abbr -a -g sce 'sudo systemctl enable'
+      abbr -a -g scen 'sudo systemctl enable --now'
+      abbr -a -g scd 'sudo systemctl disable'
+      abbr -a -g scdn 'sudo systemctl disable --now' # oh no
+      abbr -a -g scu 'systemctl --user'
+      # systemd-journal
+      abbr -a -g jc 'sudo journalctl'
+      abbr -a -g jcu 'sudo journalctl -u'
 
       # apt
       abbr -a -g ai 'sudo apt install'
@@ -35,6 +50,10 @@ if status is-interactive
       abbr -a -g ase 'sudo apt search'
       abbr -a -g ash 'sudo apt show'
       abbr -a -g apu 'sudo apt purge'
+
+      # pacman
+      abbr -a -g pc 'sudo pacman'
+      abbr -a -g pcu 'sudo pacman -Syu'
   end
 
   # ls
@@ -55,12 +74,6 @@ if status is-interactive
   abbr -a -g md 'mkdir'
   abbr -a -g ydl 'youtube-dl'
 
-  abbr -a -g br 'brew'
-  abbr -a -g bri 'brew install'
-  abbr -a -g bru 'brew uninstall'
-  abbr -a -g brup 'brew up && brew upgrade'
-  abbr -a -g brcl 'brew cleanup'
-
   # shorthands for long commands
   alias ydle 'youtube-dl -f bestaudio --audio-format mp3 --extract-audio'
   # alias usage 'du -h -d 1 .'
@@ -71,6 +84,7 @@ if status is-interactive
     alias git 'hub'
   end
 
+  # git(1)
   abbr -a -g g 'git'
   abbr -a -g gi 'git init'
   abbr -a -g gap 'git add -p'
