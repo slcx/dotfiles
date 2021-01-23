@@ -19,10 +19,9 @@ set modeline
 set mouse=a
 set noswapfile
 set nowrap
-set nowritebackup
 " set number
 set splitright
-set scrolloff=5
+" set scrolloff=5
 set shortmess+=I
 set smartcase
 set statusline=%f\ %r\ %m%=%l/%L,%c\ (%P)
@@ -156,7 +155,7 @@ endif
 set background=dark
 
 try
-  colorscheme slice
+  colorscheme zenburn
 catch E185
   colorscheme desert
 endtry
@@ -164,6 +163,7 @@ endtry
 " personal tweaks
 if g:colors_name ==? "zenburn"
   highlight! link Whitespace NonText
+  highlight! Search guibg=#4e2727
 endif
 
 " }}}
@@ -172,7 +172,7 @@ endif
 
 let g:mapleader = ' '
 
-" make a word uppercase within insert mode; i_CTRL-U is already thing but eh
+" make a word uppercase within insert mode; i_CTRL-U is already thing but eh.
 inoremap <c-u> <esc>gUiwea
 
 " use shift+tab to go back; complements tab
