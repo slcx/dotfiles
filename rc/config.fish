@@ -93,8 +93,11 @@ if status is-interactive
 
   # shorthands for long commands
   alias ydle 'youtube-dl -f bestaudio --audio-format mp3 --extract-audio'
-  # alias usage 'du -h -d 1 .'
-  alias usage 'sn sort -d 1'
+  if type -q sn
+    alias usage 'sn sort -d 1'
+  else
+    alias usage 'du -h -d 1 .'
+  end
   abbr -a -g lfs 'python3 -m lifesaver.cli'
 
   if type -q hub
