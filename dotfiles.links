@@ -13,6 +13,6 @@ rc:
   eslintrc.js: ~/.eslintrc.js
   hammerspoon_init.lua: ~/.hammerspoon/init.lua
   config.fish: ~/.config/fish/config.fish
-  init.vim: ~/.config/nvim/init.vim
+  init.lua: ~/.config/nvim/init.lua
   zshrc: ~/.zshrc
   kakrc: ~/.config/kak/kakrc
