@@ -13,6 +13,23 @@ end
 if status is-interactive
   set -l platform (uname)
 
+  if test -n "$maintain_ssh_agent"
+    set -l retainer_file ~/.ssh-agent
+    if pgrep ssh-agent >/dev/null
+      # agent already running, attempt to source file
+      if test -f $retainer_file
+        head -n 2 $retainer_file | source
+      else
+        echo "error: ssh-agent running, but $retainer_file doesn't exist! D:"
+      end
+    else
+      # agent not running; spawn it
+      echo "agent not running yet, spawning! o/"
+      ssh-agent -c > ~/.ssh-agent
+      source ~/.ssh-agent
+    end
+  end
+
   # editor
   alias e "$EDITOR"
   alias se "sudo $EDITOR"
