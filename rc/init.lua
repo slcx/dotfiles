@@ -161,7 +161,7 @@ require('packer').startup(function()
   use 'HerringtonDarkholme/yats.vim'  -- typescript
   use 'MaxMEllon/vim-jsx-pretty'      -- jsx/tsx
   use 'neovimhaskell/haskell-vim'
-  use 'keith/swift.vim'
+  -- use 'keith/swift.vim'
 
   -- lua
   use 'nvim-lua/popup.nvim'
@@ -171,7 +171,8 @@ end)
 
 -- }}}
 
-cmd('colorscheme moonfly')
+cmd('colorscheme landscape')
+cmd('syntax off') -- >:[
 
 -- maps {{{
 
@@ -278,17 +279,24 @@ end
 -- highlight when yanking (built-in)
 aug('yank', 'TextYankPost * silent! lua vim.highlight.on_yank()')
 
-local language_indentation_widths = {
-  go = 4,
-  scss = 2,
-  sass = 2,
+local lang_indent_settings = {
+  go = {width = 4, tabs = true},
+  scss = {width = 2, tabs = false},
+  sass = {width = 2, tabs = false},
 }
 
 local language_settings_autocmds = {}
-for extension, n_spaces in pairs(language_indentation_widths) do
+for extension, settings in pairs(lang_indent_settings) do
+  local width = settings['width']
+
+  local expandtab = 'expandtab'
+  if settings['tabs'] then
+    expandtab = 'noexpandtab'
+  end
+
   local autocmd = string.format(
-    'FileType %s setlocal tabstop=%d softtabstop=%d shiftwidth=%d noexpandtab',
-    extension, n_spaces, n_spaces, n_spaces
+    'FileType %s setlocal tabstop=%d softtabstop=%d shiftwidth=%d %s',
+    extension, width, width, width, expandtab
   )
   table.insert(language_settings_autocmds, autocmd)
 end
