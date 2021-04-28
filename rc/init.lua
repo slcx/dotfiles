@@ -50,10 +50,11 @@ local function opt(key, value, scopes)
 end
 
 opt('colorcolumn', '80,120', 'window')
-opt('completeopt', 'menu')
+opt('completeopt', 'menu,noselect')
 opt('hidden', true)
 opt('ignorecase', true)
 opt('inccommand', 'nosplit')
+opt('joinspaces', false)
 opt('list', true, 'window')
 opt('listchars', [[tab:> ,trail:·,nbsp:+]], 'window')
 opt('modeline', true, 'buffer')
@@ -71,6 +72,7 @@ opt('undodir', fn.stdpath('data') .. '/undo')
 opt('undofile', true, 'buffer')
 local blend = 10
 opt('pumblend', blend) -- extremely important
+opt('winblend', blend, 'window') -- ditto
 
 opt('expandtab', true, 'buffer')
 opt('tabstop', 8, 'buffer')
@@ -114,41 +116,77 @@ require('packer').startup(function()
   use 'tpope/vim-repeat'          -- . works on more stuff
   use 'tpope/vim-abolish'         -- better abbrevs, searching, etc.
   use 'sbdchd/neoformat'          -- asynchronous formatting
-  use 'zirrostig/vim-schlepp'     -- nudge lines around
   use 'junegunn/vim-peekaboo'     -- peekaboo the registers
   use 'mhinz/vim-sayonara'        -- better :bd
   use 'Konfekt/vim-CtrlXA'        -- increased support for <C-X> & <C-A>
   use 'AndrewRadev/splitjoin.vim' -- splitting and joining stuff
   use 'airblade/vim-rooter'       -- cding to project roots
-  use { -- superduperfast colorizer
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup()
-    end,
-  }
   use 'equalsraf/neovim-gui-shim' -- interact w/ neovim-qt
-
   -- use 'https://gitlab.com/code-stats/code-stats-vim.git'
 
-  -- use 'w0rp/ale'              -- asynchronous linter
-  use 'neovim/nvim-lspconfig' -- neovim lsp integration
-  use 'scalameta/nvim-metals' -- metals lsp
+  use { -- neovim lsp integration
+    'neovim/nvim-lspconfig',
+    requires = {{'nvim-lua/lsp_extensions.nvim'}},
+    config = function()
+      local nvim_lsp = require 'lspconfig'
+
+      local function map_buf(mode, key, result)
+        vim.api.nvim_buf_set_keymap(0, mode, key, result, {noremap = true, silent = true})
+      end
+
+      local function on_attach(client)
+        vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        map_buf('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+        map_buf('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+        map_buf('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+        map_buf('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+        if vim.api.nvim_buf_get_option(0, 'filetype') == 'rust' then
+          vim.cmd([[autocmd BufEnter,BufWritePost <buffer> ]] ..
+            [[:lua require('lsp_extensions.inlay_hints').request ]] ..
+            [[{ prefix = ' :: ', enabled = {'ChainingHint', 'TypeHint', 'ParameterHint'}}]])
+        end
+      end
+
+      nvim_lsp.rust_analyzer.setup {
+        on_attach = on_attach,
+        settings = {
+          ['rust-analyzer'] = {
+            assist = {
+              importMergeBehavior = 'last',
+              importPrefix = 'by_self'
+            },
+            cargo = {
+              loadOutDirsFromCheck = true
+            },
+            procMacro = {
+              enable = true
+            }
+          }
+        }
+      }
+    end,
+  }
 
   -- colorschemes
-  use 'junegunn/seoul256.vim'
-  use 'romainl/Apprentice'
-  use 'nanotech/jellybeans.vim'
-  use 'jnurmine/Zenburn'
-  use 'wadackel/vim-dogrun'
-  use 'bluz71/vim-moonfly-colors'
-  use 'bluz71/vim-nightfly-guicolors'
-  use 'arzg/vim-substrata'
-  use 'vim-scripts/burnttoast256'
-  use 'sheerun/vim-wombat-scheme'
-  use 'itchyny/landscape.vim'
+  local colorschemes = {
+    'junegunn/seoul256.vim',
+    'romainl/Apprentice',
+    'nanotech/jellybeans.vim',
+    'jnurmine/Zenburn',
+    'wadackel/vim-dogrun',
+    'bluz71/vim-moonfly-colors',
+    'bluz71/vim-nightfly-guicolors',
+    'arzg/vim-substrata',
+    'vim-scripts/burnttoast256',
+    'itchyny/landscape.vim',
+    'baskerville/bubblegum'
+  }
+  for _, colorscheme in ipairs(colorschemes) do
+    use {colorscheme, opt = true}
+  end
 
   -- language support
-  -- TODO: just use tree-sitter instead!
+  -- TODO: tree-sitter
   use 'Vimjas/vim-python-pep8-indent' -- better python indentation rules
   use 'ziglang/zig.vim'
   use 'derekwyatt/vim-scala'
@@ -164,15 +202,57 @@ require('packer').startup(function()
   -- use 'keith/swift.vim'
 
   -- lua
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-telescope/telescope.nvim'
+  use { -- superduperfast colorizer
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
+    end,
+  }
+  use { -- fuzzy finding of pretty much anything
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    config = function()
+      vim.cmd [[highlight! link TelescopeMatching MatchParen]]
+
+      local actions = require('telescope.actions')
+      require('telescope').setup {
+        defaults = {
+          prompt_prefix = '? ',
+          winblend = blend,
+          mappings = {
+            i = {
+              -- don't go into normal mode
+              ["<esc>"] = actions.close
+            }
+          }
+        }
+      }
+    end
+  }
+  use { -- quick terminals
+    'norcalli/nvim-popterm.lua',
+    config = function()
+      local pt = require('popterm')
+      pt.config.window_height = 0.8
+      vim.cmd [[highlight! link PopTermLabel WildMenu]]
+    end
+  }
+  use {
+    'norcalli/snippets.nvim',
+    config = function()
+      require('snippets').snippets = {
+        _global = {
+          todo = 'TODO(slice): ',
+          ts = os.date,
+        }
+      }
+    end
+  }
 end)
 
 -- }}}
 
-cmd('colorscheme landscape')
-cmd('syntax off') -- >:[
+cmd('colorscheme bubblegum2')
 
 -- maps {{{
 
@@ -195,8 +275,18 @@ end
 -- have i_CTRL-U make the previous word uppercase instead
 map('i', '<c-u>', '<esc>gUiwea')
 
--- use shift+tab to go back; complements tab
-map('n', '<s-tab>', '<c-o>')
+function POPTERM_TOGGLE()
+  if IS_POPTERM() then
+    -- if we're currently inside a popterm, just hide it
+    POPTERM_HIDE()
+  else
+    POPTERM_NEXT()
+  end
+end
+
+-- nvim-popterm.lua
+map('n', '<a-tab>', '<cmd>lua POPTERM_TOGGLE()<CR>')
+map('t', '<a-tab>', '<cmd>lua POPTERM_TOGGLE()<CR>')
 
 -- quickly open :terminals
 map('n', '<leader>te', '<cmd>tabnew +terminal<CR>')
@@ -207,6 +297,11 @@ map('n', '<leader>tv', '<cmd>vsplit +terminal<CR>')
 map('n', '<leader>o', '<cmd>Telescope find_files<CR>')
 map('n', '<leader>i', '<cmd>Telescope oldfiles<CR>')
 map('n', '<leader>b', '<cmd>Telescope buffers<CR>')
+map('n', '<leader>qp', '<cmd>Telescope builtin<CR>')
+map('n', '<leader>qg', '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>qf', '<cmd>Telescope file_browser hidden=true<CR>')
+map('n', '<leader>qc', '<cmd>Telescope colorscheme<CR>')
+map('n', '<leader>qs', '<cmd>Telescope filetypes<CR>')
 
 -- vimrc; https://learnvimscriptthehardway.stevelosh.com/chapters/07.html
 map('n', '<leader>ev', "bufname('%') == '' ? '<cmd>edit $MYVIMRC<CR>' : '<cmd>vsplit $MYVIMRC<CR>'", {expr = true})
@@ -216,19 +311,16 @@ map('n', '<leader>sv', '<cmd>luafile $MYVIMRC<CR>')
 -- XXX: not showing windows sometimes, bug?
 map('n', '<leader>pi', '<cmd>PackerInstall<CR>')
 map('n', '<leader>pu', '<cmd>PackerUpdate<CR>')
+map('n', '<leader>ps', '<cmd>PackerSync<CR>')
+map('n', '<leader>pc', '<cmd>PackerCompile<CR>')
 
 -- neoformat
 map('n', '<leader>nf', '<cmd>Neoformat<CR>')
 
 -- align stuff easily
+-- NOTE: need noremap=false because of <Plug>
 map('x', 'ga', '<Plug>(EasyAlign)', {noremap = false})
 map('n', 'ga', '<Plug>(EasyAlign)', {noremap = false})
-
--- nudge lines around
-map('v', '<up>', '<Plug>SchleppIndentUp')
-map('v', '<down>', '<Plug>SchleppIndentDown')
-map('v', '<left>', '<Plug>SchleppLeft')
-map('v', '<right>', '<Plug>SchleppRight')
 
 -- use <c-l> to hide highlights from searching
 -- TODO: find a good plugin to do this automatically?
@@ -240,6 +332,10 @@ map('n', 'Q', 'gq', {noremap = false})
 
 -- replace :bdelete with sayonara
 map('c', 'bd', 'Sayonara!')
+
+-- snippets.nvim
+map('i', '<c-l>', "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
+map('i', '<c-h>', "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
 
 -- sometimes i hold down shift for too long >_>
 local abbrevs = {
@@ -275,6 +371,13 @@ local function aug(group, cmds)
   end
   cmd('augroup END')
 end
+
+-- personal colorscheme tweaks
+aug('colorschemes', {
+  'ColorScheme bubblegum-256-dark highlight Todo gui=bold'
+    .. ' | highlight Folded gui=reverse'
+    .. ' | highlight! link MatchParen LineNr'
+})
 
 -- highlight when yanking (built-in)
 aug('yank', 'TextYankPost * silent! lua vim.highlight.on_yank()')
@@ -321,6 +424,14 @@ autoformat_extensions = table.concat(
 aug(
   'autoformatting',
   'BufWritePre ' .. autoformat_extensions .. ' silent! undojoin | Neoformat'
+)
+
+aug(
+  'packer',
+  'User PackerCompileDone '
+    .. 'echohl DiffAdd | '
+    .. 'echomsg "... packer.nvim loader file compiled!" | '
+    .. 'echohl None'
 )
 
 -- }}}
