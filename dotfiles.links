@@ -8,6 +8,7 @@ config:
   fishfile: ~/.config/fish/fishfile
   tmux.conf: ~/.tmux.conf
   fonts.conf: ~/.config/fontconfig/fonts.conf
+  alacritty.yml: ~/.config/alacritty.yml
 rc:
   predef.sc: ~/.ammonite/predef.sc
   stylelintrc: ~/.stylelintrc

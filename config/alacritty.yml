@@ -1,0 +1,76 @@
+scrolling:
+  history: 10000
+window:
+  padding:
+    x: 0
+    y: 0
+font:
+  normal:
+    # family: PragmataPro Mono
+    family: Iosevka S
+    # family: Iosevka S Extended
+    # family: IBM Plex Mono
+    # family: MxPlus IBM VGA 8x16
+    # family: MxPlus IBM VGA 8x14
+    # family: MxPlus IBM BIOS
+    # family: Mx437 Sharp PC3K
+    # family: MxPlus ToshibaSat 8x8
+    # family: ProggyTinyTTSZ
+    # family: ProggyCleanTTSZ
+    # family: ProFont
+    # family: lucy tewi
+    # family: Tamzen
+    # family: Gintronic
+    # family: Iosevka Fixed
+    # family: Fira Mono
+  # size: 10
+  size: 11.5
+  # size: 14
+  bold:
+    style: Bold
+  italic:
+    style: Italic
+  bold_italic:
+    style: Bold Italic
+  glyph_offset:
+    x: 0
+    y: 0
+  offset:
+    x: 0
+    y: -2 # () {}
+# ir_black
+colors:
+  primary:
+    background: "#000000"
+    foreground: "#ffffff"
+  cursor:
+    text: "#ffffff"
+    cursor: "#ffffff"
+  normal:
+    black: "#4e4e4e"
+    red: "#ff6c60"
+    green: "#a8ff60"
+    yellow: "#ffffb6"
+    blue: "#96cbfe"
+    magenta: "#ff73fd"
+    cyan: "#c6c5fe"
+    white: "#eeeeee"
+  bright:
+    black: "#7c7c7c"
+    red: "#ffb6b0"
+    green: "#ceffab"
+    yellow: "#ffffcb"
+    blue: "#b5dcfe"
+    magenta: "#ff9cfe"
+    cyan: "#dfdffe"
+    white: "#ffffff"
+background_opacity: 1.0
+cursor:
+  style:
+    shape: Block
+    blinking: Always
+  blink_interval: 750
+  unfocused_hollow: true
+live_config_reload: true
+mouse:
+  hide_when_typing: true
