@@ -50,7 +50,7 @@ local function opt(key, value, scopes)
 end
 
 opt('colorcolumn', '80,120', 'window')
-opt('completeopt', 'menu,noselect')
+opt('completeopt', 'menuone,noselect')
 opt('hidden', true)
 opt('ignorecase', true)
 opt('inccommand', 'nosplit')
@@ -60,9 +60,13 @@ opt('listchars', [[tab:> ,trail:·,nbsp:+]], 'window')
 opt('modeline', true, 'buffer')
 opt('mouse', 'a')
 opt('swapfile', false, 'buffer')
+-- i don't wanna wait too long for CursorHold, and since we aren't using
+-- swapfiles we won't be hammering disk, either
+opt('updatetime', 1000)
 opt('wrap', false, 'window')
 opt('number', true, 'window')
 opt('relativenumber', true, 'window')
+-- opt('scrolloff', 10)
 opt('splitright', true)
 opt('shortmess', o.shortmess .. 'I')
 opt('smartcase', true)
@@ -70,7 +74,7 @@ opt('statusline', [[%f %r%m%=%l/%L,%c (%P)]], 'window')
 opt('termguicolors', true)
 opt('undodir', fn.stdpath('data') .. '/undo')
 opt('undofile', true, 'buffer')
-local blend = 10
+local blend = 5
 opt('pumblend', blend) -- extremely important
 opt('winblend', blend, 'window') -- ditto
 
@@ -113,6 +117,7 @@ require('packer').startup(function()
   use 'tpope/vim-unimpaired'      -- pairs of handy bracket mappings
   use 'tpope/vim-surround'        -- easily edit surrounding characters
   use 'tpope/vim-fugitive'        -- delightful git wrapper
+  use 'tpope/vim-rhubarb'         -- github support for fugitive
   use 'tpope/vim-repeat'          -- . works on more stuff
   use 'tpope/vim-abolish'         -- better abbrevs, searching, etc.
   use 'sbdchd/neoformat'          -- asynchronous formatting
@@ -130,6 +135,16 @@ require('packer').startup(function()
     config = function()
       local nvim_lsp = require 'lspconfig'
 
+      vim.cmd [[highlight! link LspDiagnosticsDefaultError ErrorMsg]]
+      vim.cmd [[highlight! link LspDiagnosticsDefaultWarning Number]]
+
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+          -- make warnings and errors appear over hints
+          severity_sort = true
+        }
+      )
+
       local function map_buf(mode, key, result)
         vim.api.nvim_buf_set_keymap(0, mode, key, result, {noremap = true, silent = true})
       end
@@ -140,6 +155,7 @@ require('packer').startup(function()
         map_buf('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
         map_buf('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
         map_buf('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+        vim.cmd([[autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()]])
         if vim.api.nvim_buf_get_option(0, 'filetype') == 'rust' then
           vim.cmd([[autocmd BufEnter,BufWritePost <buffer> ]] ..
             [[:lua require('lsp_extensions.inlay_hints').request ]] ..
@@ -218,7 +234,8 @@ require('packer').startup(function()
       require('telescope').setup {
         defaults = {
           prompt_prefix = '? ',
-          winblend = blend,
+          -- NOTE(slice): non-zero value makes the cursor invisible?
+          winblend = 0,
           mappings = {
             i = {
               -- don't go into normal mode
@@ -230,7 +247,7 @@ require('packer').startup(function()
     end
   }
   use { -- quick terminals
-    'norcalli/nvim-popterm.lua',
+    '~/src/prj/nvim-popterm.lua',
     config = function()
       local pt = require('popterm')
       pt.config.window_height = 0.8
@@ -243,7 +260,25 @@ require('packer').startup(function()
       require('snippets').snippets = {
         _global = {
           todo = 'TODO(slice): ',
-          ts = os.date,
+          note = 'NOTE(slice): ',
+          fixme = 'FIXME(slice): ',
+          copy = '(c) slice ${=os.date("%Y")}',
+          date = function() return os.date() end
+        }
+      }
+    end
+  }
+  use {
+    'hrsh7th/nvim-compe',
+    config = function()
+      require('compe').setup {
+        preselect = 'enable',
+        source = {
+          path = true,
+          -- buffer = true,
+          nvim_lsp = true,
+          nvim_lua = true,
+          snippets_nvim = true
         }
       }
     end
@@ -287,6 +322,9 @@ end
 -- nvim-popterm.lua
 map('n', '<a-tab>', '<cmd>lua POPTERM_TOGGLE()<CR>')
 map('t', '<a-tab>', '<cmd>lua POPTERM_TOGGLE()<CR>')
+
+-- cd to vcs root
+map('n', '<leader>r', '<cmd>Rooter<CR>')
 
 -- quickly open :terminals
 map('n', '<leader>te', '<cmd>tabnew +terminal<CR>')
