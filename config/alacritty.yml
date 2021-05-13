@@ -1,5 +1,6 @@
 scrolling:
   history: 10000
+  multiplier: 3
 window:
   padding:
     x: 0
@@ -37,7 +38,7 @@ font:
     y: 0
   offset:
     x: 0
-    y: -2 # () {}
+    y: -1 # () {}
 # ir_black
 colors:
   primary:
@@ -71,6 +72,7 @@ cursor:
     blinking: Always
   blink_interval: 750
   unfocused_hollow: true
+  thickness: 0.2
 live_config_reload: true
 mouse:
   hide_when_typing: true

@@ -71,10 +71,11 @@ opt('splitright', true)
 opt('shortmess', o.shortmess .. 'I')
 opt('smartcase', true)
 opt('statusline', [[%f %r%m%=%l/%L,%c (%P)]], 'window')
+opt('shada', [['1000]]) -- remember 1000 oldfiles
 opt('termguicolors', true)
 opt('undodir', fn.stdpath('data') .. '/undo')
 opt('undofile', true, 'buffer')
-local blend = 5
+local blend = 8
 opt('pumblend', blend) -- extremely important
 opt('winblend', blend, 'window') -- ditto
 
@@ -319,6 +320,12 @@ function POPTERM_TOGGLE()
   end
 end
 
+-- jump around windows easier. this is probably breaking something?
+map('n', '<C-H>', '<C-W><C-H>')
+map('n', '<C-J>', '<C-W><C-J>')
+map('n', '<C-K>', '<C-W><C-K>')
+map('n', '<C-L>', '<C-W><C-L>')
+
 -- nvim-popterm.lua
 map('n', '<a-tab>', '<cmd>lua POPTERM_TOGGLE()<CR>')
 map('t', '<a-tab>', '<cmd>lua POPTERM_TOGGLE()<CR>')
@@ -360,13 +367,14 @@ map('n', '<leader>nf', '<cmd>Neoformat<CR>')
 map('x', 'ga', '<Plug>(EasyAlign)', {noremap = false})
 map('n', 'ga', '<Plug>(EasyAlign)', {noremap = false})
 
--- use <c-l> to hide highlights from searching
+-- use <leader>l to hide highlights from searching
 -- TODO: find a good plugin to do this automatically?
-map('n', '<C-L>', '<cmd>nohlsearch<CR>')
+map('n', '<leader>m', '<cmd>nohlsearch<CR>')
 
 -- Q enters ex mode by default, so let's bind it to gq instead
 -- (as suggested by :h gq)
 map('n', 'Q', 'gq', {noremap = false})
+map('v', 'Q', 'gq', {noremap = false})
 
 -- replace :bdelete with sayonara
 map('c', 'bd', 'Sayonara!')
@@ -375,17 +383,18 @@ map('c', 'bd', 'Sayonara!')
 map('i', '<c-l>', "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
 map('i', '<c-h>', "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
 
--- sometimes i hold down shift for too long >_>
-local abbrevs = {
+-- sometimes i hold down shift for too long ^_^;
+local command_aliases = {
   W = 'w',
   Wq = 'wq',
+  Wqa = 'wqa',
   Q = 'q',
   Qa = 'qa',
   Bd = 'bd',
 }
 
-for lhs, rhs in pairs(abbrevs) do
-  cmd(string.format('cabbrev %s %s', lhs, rhs))
+for lhs, rhs in pairs(command_aliases) do
+  cmd(string.format('command! -bang %s %s<bang>', lhs, rhs))
 end
 
 -- maps so we can use :diffput and :diffget in visual mode
