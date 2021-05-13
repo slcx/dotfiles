@@ -1,0 +1,10 @@
+#!/bin/sh
+
+while true; do
+  DATE=$(date +'%a %b %d %Y %l:%M:%S %p')
+  BAT="/sys/class/power_supply/BAT0"
+  BATTERY_PERCENTAGE=$(tr -d '\n' < $BAT/capacity)
+  BATTERY_STATUS=$(tr -d '\n' < $BAT/status)
+  printf "%s  (Bat: %s%%, %s) \n" "$DATE" "$BATTERY_PERCENTAGE" "$BATTERY_STATUS"
+  sleep 1
+done
