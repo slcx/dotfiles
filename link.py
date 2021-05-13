@@ -4,127 +4,68 @@ import collections
 import sys
 from pathlib import Path
 
-# the indentation character(s) used in .links files
-INDENT = '  '
+IGNORED_NAMES = frozenset(["readme.md", "link.py", "go.sh", "defaults.sh", ".git"])
 
 
-def parse_pathsfile(source: str) -> dict:
-    def die():
-        print('ERROR\t invalid Paths file syntax', file=sys.stderr)
+def link(*, symlink: Path, points_to: Path) -> None:
+    if symlink.resolve() == points_to.resolve():
+        # if the symlink path already resolves to the file, then we have nothing to do
+        return
+
+    if (
+        symlink.parent.exists() or symlink.parent.is_symlink()
+    ) and not symlink.parent.is_dir():
+        # if the symlink exists as a node on disk and isn't a directory, then die
+        print(f"error: {symlink.parent} already exists and isn't a directory")
         sys.exit(1)
 
-    stack = collections.deque([{}])
-    indents = 0
+    symlink.parent.mkdir(parents=True, exist_ok=True)
 
-    for line in source.splitlines():
-        if line == '':
-            continue
-
-        if ':' not in line:
-            die()
-
-        key, value = line.split(':')
-
-        first_character_index = len(key) - len(key.lstrip())
-        current_indents = key.count(INDENT, 0, first_character_index)
-
-        key = key.strip()
-        value = value.strip()
-
-        # when dedenting, go back some levels
-        if current_indents < indents:
-            for _ in range(indents - current_indents):
-                stack.pop()
-        indents = current_indents
-
-        head = stack[-1]
-
-        if value == '':
-            head[key] = {}
-            stack.append(head[key])
+    if symlink.is_symlink():
+        existing_target = symlink.resolve()
+        if symlink.exists():
+            print(
+                f"warn: {symlink} is already a link to {existing_target}, overwriting",
+                file=sys.stderr,
+            )
         else:
-            head[key] = value
-
-    return stack[0]
-
-
-def link(source: Path, target: Path) -> None:
-    if source.resolve() == target.resolve():
+            print(
+                f"warn: {symlink} is a broken link to {existing_target}, overwriting",
+                file=sys.stderr,
+            )
+        symlink.unlink()
+    elif symlink.exists():
+        print(
+            f"warn: {symlink} exists and it's not a symlink, ignoring", file=sys.stderr
+        )
         return
 
-    target.parent.mkdir(exist_ok=True)
-
-    if target.is_symlink():
-        points_to = target.resolve()
-        if target.exists():
-            print(f"WARNING\t {target} already points to {points_to}, "
-                  f"overriding", file=sys.stderr)
-        else:
-            print(f"WARNING\t {target} is a broken link to {points_to}, "
-                  "overriding", file=sys.stderr)
-        target.unlink()
-    elif target.exists():
-        print(f"WARNING\t {target} exists and it's not a symlink. ignoring",
-              file=sys.stderr)
-        return
-
-    print(f"LINK\t {target} \N{rightwards arrow} {source}")
-    target.symlink_to(source.resolve())
-
-
-def resolve_target(source: dict, target: dict) -> str:
-    if isinstance(target, dict):
-        try:
-            return target[sys.platform]
-        except KeyError:
-            print(f"ERROR\t Cannot resolve destination for {source} for "
-                  f"platform '{sys.platform}'.", file=sys.stderr)
-            sys.exit(1)
+    print(f"ln -s {points_to} {symlink}")
+    symlink.symlink_to(points_to.resolve())
 
 
 def is_valid_target(value) -> bool:
-    valid_platforms = {'linux', 'win32', 'cygwin', 'darwin'}
-    valid_platform_mapping = (
-        isinstance(value, dict)
-        and all(key in valid_platforms for key in value.keys())
+    valid_platforms = {"linux", "win32", "cygwin", "darwin"}
+    valid_platform_mapping = isinstance(value, dict) and all(
+        key in valid_platforms for key in value.keys()
     )
 
     return isinstance(value, str) or valid_platform_mapping
 
 
-def traverse_tree(path: Path, tree: dict) -> None:
-    for key, value in tree.items():
-        if is_valid_target(value):
-            # if the value is a valid target and not another subtree to go
-            # deeper into the filesystem, link
-            source = Path(path / key).expanduser()
-            if isinstance(value, dict):
-                target = Path(resolve_target(key, value)).expanduser()
-            else:
-                target = Path(value).expanduser()
+def link_everything(root: Path, *, relative_to: Path) -> None:
+    for child in root.iterdir():
+        if child.name in IGNORED_NAMES:
+            continue
 
-            link(source, target)
-        else:
-            # continue deeper into the subtree, following the filesystem as we
-            # go along
-            if not path.is_dir():
-                print(f"ERROR\t Failed to locate '{path.resolve()}'.", file=sys.stderr)
-                sys.exit(1)
+        relative_path = relative_to / child.name
 
-            traverse_tree(path / key, value)
+        if child.is_dir():
+            link_everything(child, relative_to=relative_path)
+            continue
+
+        link(symlink=relative_path, points_to=child)
 
 
-if __name__ == '__main__':
-    file = 'dotfiles.links'
-
-    if len(sys.argv) >= 2:
-        file = sys.argv[1]
-
-    dotfiles = Path(__file__).parent
-    paths_file = Path(dotfiles / file)
-    paths_text = paths_file.read_text()
-
-    tree = parse_pathsfile(paths_text)
-    # __import__('pprint').pprint(parse_pathsfile(paths_text), compact=False)
-
-    traverse_tree(dotfiles, tree)
+if __name__ == "__main__":
+    link_everything(Path.cwd(), relative_to=Path.home())
