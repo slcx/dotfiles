@@ -19,6 +19,7 @@ def link(*, symlink: Path, points_to: Path) -> None:
         print(f"error: {symlink.parent} already exists and isn't a directory")
         sys.exit(1)
 
+    print(f"mkdir -p {symlink.parent}")
     symlink.parent.mkdir(parents=True, exist_ok=True)
 
     if symlink.is_symlink():
