@@ -4,10 +4,8 @@
 # us from using it as a universal variable.
 set -eg fish_user_paths
 
-if not functions -q fisher
-  set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-  curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-  fish -c fisher
+if status is-interactive && ! functions -q fisher
+  curl -sL https://git.io/fisher | source && fisher update
 end
 
 if status is-interactive
