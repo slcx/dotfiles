@@ -4,7 +4,9 @@ import collections
 import sys
 from pathlib import Path
 
-IGNORED_NAMES = frozenset(["readme.md", "link.py", "go.sh", "defaults.sh", ".git"])
+IGNORED_NAMES = frozenset(
+    ["readme.md", "link.py", "go.sh", "defaults.sh", ".git", ".gitignore"]
+)
 
 
 def link(*, symlink: Path, points_to: Path) -> None:
