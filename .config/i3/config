@@ -2,7 +2,7 @@
 
 # slice's i3 config
 #
-# >o_/ >o_/ quack quack
+# >o_/ >o_/ quack quack \_o< \_o<
 # slice 2021
 
 set $lockbg /home/slice/library/walls/dp2w.png
@@ -31,7 +31,7 @@ set $down j
 set $up k
 set $right l
 
-set $term alacritty
+set $term "kitty -1"
 set $menu "rofi -modi drun,run -show drun"
 
 # for_window {{{

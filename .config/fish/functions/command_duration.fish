@@ -25,6 +25,6 @@ function command_duration
   set time_str {$time_str}{$num_secs}s
 
   if test "$time_str" != "0s"
-    set_color brblack; echo -n "$time_str "; set_color normal
+    set_color brblack; printf "%s" $time_str; set_color normal
   end
 end

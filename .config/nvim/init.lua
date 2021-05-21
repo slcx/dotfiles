@@ -98,7 +98,7 @@ g.zenburn_alternate_Visual = true
 
 g.rooter_patterns = {'.git'}
 g.rooter_manual_only = true
-g.rooter_cd_cmd = 'lcd'
+g.rooter_cd_cmd = 'tcd'
 
 g.moonflyItalics = false
 
@@ -463,15 +463,15 @@ aug('terminal_numbers', 'TermOpen * setlocal nonumber norelativenumber')
 
 -- automatically neoformat
 -- TODO: use prettierd
-local autoformat_extensions = {'js', 'css', 'html', 'yml', 'yaml'}
-autoformat_extensions = table.concat(
-  vim.tbl_map(function(ext) return '*.' .. ext end, autoformat_extensions),
-  ','
-)
-aug(
-  'autoformatting',
-  'BufWritePre ' .. autoformat_extensions .. ' silent! undojoin | Neoformat'
-)
+-- local autoformat_extensions = {'js', 'css', 'html', 'yml', 'yaml'}
+-- autoformat_extensions = table.concat(
+--   vim.tbl_map(function(ext) return '*.' .. ext end, autoformat_extensions),
+--   ','
+-- )
+-- aug(
+--   'autoformatting',
+--   'BufWritePre ' .. autoformat_extensions .. ' silent! undojoin | Neoformat'
+-- )
 
 aug(
   'packer',

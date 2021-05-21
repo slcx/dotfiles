@@ -7,8 +7,8 @@ window:
     y: 0
 font:
   normal:
-    # family: PragmataPro Mono
-    family: Iosevka S
+    family: PragmataPro Mono
+    # family: Iosevka S
     # family: Iosevka S Extended
     # family: IBM Plex Mono
     # family: MxPlus IBM VGA 8x16
@@ -24,9 +24,11 @@ font:
     # family: Gintronic
     # family: Iosevka Fixed
     # family: Fira Mono
-  # size: 10
-  size: 11.5
+  size: 10
+  # size: 12.5
+  # size: 13
   # size: 14
+  # size: 17
   bold:
     style: Bold
   italic:
@@ -38,33 +40,33 @@ font:
     y: 0
   offset:
     x: 0
-    y: -1 # () {}
-# ir_black
+    y: 0 # () {}
+# ir_black (modified)
 colors:
   primary:
-    background: "#000000"
-    foreground: "#ffffff"
+    background: '#000000'
+    foreground: '#d9d9d9'
   cursor:
-    text: "#ffffff"
-    cursor: "#ffffff"
+    text: '#000000'
+    cursor: '#d9d9d9'
   normal:
-    black: "#4e4e4e"
-    red: "#ff6c60"
-    green: "#a8ff60"
-    yellow: "#ffffb6"
-    blue: "#96cbfe"
-    magenta: "#ff73fd"
-    cyan: "#c6c5fe"
-    white: "#eeeeee"
+    black: '#4e4e4e'
+    red: '#ff6c60'
+    green: '#a8ff60'
+    yellow: '#ffffb6'
+    blue: '#96cbfe'
+    magenta: '#ff73fd'
+    cyan: '#c6c5fe'
+    white: '#eeeeee'
   bright:
-    black: "#7c7c7c"
-    red: "#ffb6b0"
-    green: "#ceffab"
-    yellow: "#ffffcb"
-    blue: "#b5dcfe"
-    magenta: "#ff9cfe"
-    cyan: "#dfdffe"
-    white: "#ffffff"
+    black: '#7c7c7c'
+    red: '#ffb6b0'
+    green: '#ceffab'
+    yellow: '#ffffcb'
+    blue: '#b5dcfe'
+    magenta: '#ff9cfe'
+    cyan: '#dfdffe'
+    white: '#ffffff'
 background_opacity: 1.0
 cursor:
   style:

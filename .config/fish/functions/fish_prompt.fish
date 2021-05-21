@@ -9,16 +9,24 @@ function fish_prompt
       (set_color normal)
   end
 
-  set prompt_character '%'
-  set prompt_color '-o'
+  set -l prompt_character ' % '
+  set -l prompt_color '-r'
 
   if test "$USER" = "root"
     set prompt_character '#'
-    set prompt_color red -o
+    set prompt_color 'red' '-o'
   end
 
-  printf '%s%s%s%s ' \
-    (prompt_pwd) \
+  if test (pwd) = $HOME
+    set prompt_pwd '~'
+  else if test (pwd) = '/'
+    set prompt_pwd '/'
+  else
+    set prompt_pwd (string split -r -m1 -f2 '/' (pwd))
+  end
+
+  printf '%s %s%s%s ' \
+    $prompt_pwd \
     (set_color $prompt_color) \
     $prompt_character \
     (set_color normal)
