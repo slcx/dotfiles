@@ -1,0 +1,27 @@
+#!/bin/sh
+
+SCREENSHOTS_PATH="$HOME/Pictures/screenshots"
+SUBDIR_DATE_FORMAT="%Y-%m"
+SHOT_DATE_FORMAT="%Y_%m_%d-%H-%M-%S"
+
+# -----------------------------------------------------------------------------
+
+SUBDIR_NAME=$(date +$SUBDIR_DATE_FORMAT)
+SUBDIR_PATH="$SCREENSHOTS_PATH/$SUBDIR_NAME"
+SHOT_NAME=$(date +$SHOT_DATE_FORMAT)
+SHOT_PATH="$SUBDIR_PATH/$SHOT_NAME.png"
+
+echo "screenshotting to $SHOT_PATH ..."
+
+mkdir -p "$SUBDIR_PATH"
+
+screencapture -i "$SHOT_PATH"
+
+if [ -f "$SHOT_PATH" ]; then
+  osascript -e 'on run args' \
+    -e 'set the clipboard to the POSIX file (first item of args)' \
+    -e 'end' \
+    "$SHOT_PATH"
+else
+  exit 1
+fi
