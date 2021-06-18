@@ -1,7 +1,7 @@
 # slice's config.fish
 
-# for some inane reason, fish creates fish_user_paths as a global variable, preventing
-# us from using it as a universal variable.
+# under unknown circumstances, fish creates `fish_user_paths` as a global
+# variable, so fix that
 set -eg fish_user_paths
 
 if status is-interactive && ! functions -q fisher
@@ -152,6 +152,10 @@ if status is-interactive
   set fish_pager_color_description blue
   set fish_pager_color_progress normal --background=brblack
   # fish_pager_color_secondary
+
+  if test -f ~/.iterm2_shell_integration.fish
+    source ~/.iterm2_shell_integration.fish
+  end
 end
 
 # fnm

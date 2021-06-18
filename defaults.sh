@@ -24,7 +24,7 @@ w com.apple.dock tilesize -int 50
 w com.apple.dock size-immutable -bool yes
 w com.apple.dock show-recents -bool no
 w com.apple.dock magnification -float 0
-w com.apple.dock mineffect -string "scale"
+w com.apple.dock mineffect -string "genie"
 
 # finder
 # I don't want to test this to see if it still works.

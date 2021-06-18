@@ -288,7 +288,7 @@ end)
 
 -- }}}
 
-cmd('colorscheme bubblegum2')
+cmd('colorscheme bubblegum-256-dark')
 
 -- maps {{{
 
