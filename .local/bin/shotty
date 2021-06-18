@@ -19,7 +19,7 @@ screencapture -i "$SHOT_PATH"
 
 if [ -f "$SHOT_PATH" ]; then
   osascript -e 'on run args' \
-    -e 'set the clipboard to the POSIX file (first item of args)' \
+    -e 'set the clipboard to (read (first item of args) as TIFF picture)' \
     -e 'end' \
     "$SHOT_PATH"
 else
