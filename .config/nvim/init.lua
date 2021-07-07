@@ -269,21 +269,21 @@ require('packer').startup(function()
       }
     end
   }
-  use {
-    'hrsh7th/nvim-compe',
-    config = function()
-      require('compe').setup {
-        preselect = 'enable',
-        source = {
-          path = true,
-          -- buffer = true,
-          nvim_lsp = true,
-          nvim_lua = true,
-          snippets_nvim = true
-        }
-      }
-    end
-  }
+  -- use {
+  --   'hrsh7th/nvim-compe',
+  --   config = function()
+  --     require('compe').setup {
+  --       preselect = 'enable',
+  --       source = {
+  --         path = true,
+  --         buffer = true,
+  --         nvim_lsp = true,
+  --         nvim_lua = true,
+  --         snippets_nvim = true
+  --       }
+  --     }
+  --   end
+  -- }
 end)
 
 -- }}}
