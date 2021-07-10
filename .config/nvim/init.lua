@@ -8,11 +8,9 @@
 
 local cmd = vim.cmd
 local fn = vim.fn
+local opt = vim.opt
 
 local g = vim.g
-local o = vim.o
-local wo = vim.wo
-local bo = vim.bo
 
 -- }}}
 
@@ -25,69 +23,43 @@ greet()
 
 -- options {{{
 
-local scope_mapping = {global = o, buffer = bo, window = wo}
-
--- TODO: figure out if lua passes by value or not: it would be much cleaner if
---       we could just pass in the editor option tables directly
-local function opt(key, value, scopes)
-  if scopes == nil then
-    scopes = {'global'}
-  end
-
-  if type(scopes) == 'string' then
-    scopes = {scopes}
-  end
-
-  if not vim.tbl_contains(scopes, 'global') then
-    -- XXX: if we haven't specified to affect global options, make sure
-    --      to do so. until we get `vim.opt`, we have to do this.
-    table.insert(scopes, 'global')
-  end
-
-  for _, scope_name in ipairs(scopes) do
-    scope_mapping[scope_name][key] = value
-  end
-end
-
-opt('colorcolumn', '80,120', 'window')
-opt('completeopt', 'menuone,noselect')
-opt('hidden', true)
-opt('ignorecase', true)
-opt('inccommand', 'nosplit')
-opt('joinspaces', false)
-opt('list', true, 'window')
-opt('listchars', [[tab:> ,trail:·,nbsp:+]], 'window')
-opt('modeline', true, 'buffer')
-opt('mouse', 'a')
-opt('swapfile', false, 'buffer')
+opt.colorcolumn = {80,120}
+opt.completeopt = {'menuone'}
+opt.hidden = true
+opt.ignorecase = true
+opt.inccommand = 'nosplit'
+opt.joinspaces = false
+opt.list = true
+opt.listchars = {tab='> ', trail='·', nbsp='+'}
+opt.modeline = true
+opt.mouse = 'a'
+opt.swapfile = false
 -- i don't wanna wait too long for CursorHold, and since we aren't using
 -- swapfiles we won't be hammering disk, either
-opt('updatetime', 1000)
-opt('wrap', false, 'window')
-opt('number', true, 'window')
-opt('relativenumber', true, 'window')
--- opt('scrolloff', 10)
-opt('splitright', true)
-opt('shortmess', o.shortmess .. 'I')
-opt('smartcase', true)
-opt('statusline', [[%f %r%m%=%l/%L,%c (%P)]], 'window')
-opt('shada', [['1000]]) -- remember 1000 oldfiles
-opt('termguicolors', true)
-opt('undodir', fn.stdpath('data') .. '/undo')
-opt('undofile', true, 'buffer')
+opt.updatetime = 1000
+opt.wrap = false
+opt.number = true
+opt.relativenumber = true
+opt.splitright = true
+opt.shortmess:append('I')
+opt.smartcase = true
+opt.statusline = [[%f %r%m%=%l/%L,%c (%P)]]
+opt.shada = [['1000]] -- remember 1000 oldfiles
+opt.termguicolors = true
+opt.undodir = fn.stdpath('data') .. '/undo'
+opt.undofile = true
 local blend = 8
-opt('pumblend', blend) -- extremely important
-opt('winblend', blend, 'window') -- ditto
+opt.pumblend = blend -- extremely important
+opt.winblend = blend
 
-opt('expandtab', true, 'buffer')
-opt('tabstop', 8, 'buffer')
-opt('softtabstop', 2, 'buffer')
-opt('shiftwidth', 2, 'buffer')
+opt.expandtab = true
+opt.tabstop = 8
+opt.softtabstop = 2
+opt.shiftwidth = 2
 
 -- }}}
 
--- TODO: here we assume that packer is installed, maybe gracefully fail if it
---       isn't?
+-- TODO: don't assume packer is installed
 cmd('packadd packer.nvim')
 
 -- plugin options {{{
@@ -212,7 +184,7 @@ require('packer').startup(function()
   use 'rust-lang/rust.vim'
   use 'fatih/vim-go'
   use 'pangloss/vim-javascript'       -- javascript
-  -- use 'leafgarland/typescript-vim'  -- typescript (this one behaves weirdly)
+  -- use 'leafgarland/typescript-vim'    -- typescript (this one behaves weirdly)
   use 'HerringtonDarkholme/yats.vim'  -- typescript
   use 'MaxMEllon/vim-jsx-pretty'      -- jsx/tsx
   use 'neovimhaskell/haskell-vim'
@@ -269,21 +241,6 @@ require('packer').startup(function()
       }
     end
   }
-  -- use {
-  --   'hrsh7th/nvim-compe',
-  --   config = function()
-  --     require('compe').setup {
-  --       preselect = 'enable',
-  --       source = {
-  --         path = true,
-  --         buffer = true,
-  --         nvim_lsp = true,
-  --         nvim_lua = true,
-  --         snippets_nvim = true
-  --       }
-  --     }
-  --   end
-  -- }
 end)
 
 -- }}}
