@@ -1,8 +1,9 @@
 -- vim: set ts=8 sts=2 sw=2 et fdm=marker fdl=1:
 
--- slice's neovim config (2021 lua rewrite) :] <o_/ <o_/
--- "dang, i've been using vim for 7 years" edition?
--- (requires neovim™ 0.5 or later)
+-- .-------------------------------.
+-- | slice's neovim 0.5+ config (: |
+-- | <o_/ *quack* *quack*          |
+-- '-------------------------------'
 
 -- be lazy {{{
 
@@ -23,8 +24,10 @@ greet()
 
 -- options {{{
 
+opt.cursorline = true
 opt.colorcolumn = {80,120}
 opt.completeopt = {'menuone'}
+opt.guicursor:append {'a:blinkwait1000', 'a:blinkon1000', 'a:blinkoff1000'}
 opt.hidden = true
 opt.ignorecase = true
 opt.inccommand = 'nosplit'
@@ -33,9 +36,10 @@ opt.list = true
 opt.listchars = {tab='> ', trail='·', nbsp='+'}
 opt.modeline = true
 opt.mouse = 'a'
+opt.pumheight = 10
 opt.swapfile = false
--- i don't wanna wait too long for CursorHold, and since we aren't using
--- swapfiles we won't be hammering disk, either
+-- lower the duration to trigger CursorHold for faster hovers. we won't be
+-- updating swapfiles this often because they're turned off.
 opt.updatetime = 1000
 opt.wrap = false
 opt.number = true
@@ -48,7 +52,7 @@ opt.shada = [['1000]] -- remember 1000 oldfiles
 opt.termguicolors = true
 opt.undodir = fn.stdpath('data') .. '/undo'
 opt.undofile = true
-local blend = 8
+local blend = 10
 opt.pumblend = blend -- extremely important
 opt.winblend = blend
 
@@ -64,6 +68,8 @@ cmd('packadd packer.nvim')
 
 -- plugin options {{{
 
+g['sneak#label'] = true
+g['float_preview#docked'] = false
 g.seoul256_background = 236
 g.zenburn_old_Visual = true
 g.zenburn_alternate_Visual = true
@@ -72,6 +78,9 @@ g.rooter_patterns = {'.git'}
 g.rooter_manual_only = true
 g.rooter_cd_cmd = 'tcd'
 
+g.nightflyCursorColor = true
+g.nightflyUndercurls = false
+g.nightflyItalics = false
 g.moonflyItalics = false
 
 -- }}}
@@ -83,7 +92,9 @@ require('packer').startup(function()
 
   use 'justinmk/vim-dirvish'      -- improved builtin file browser
   use 'justinmk/vim-gtfo'         -- gof opens gui file manager
+  use 'justinmk/vim-sneak'        -- sneak around
   use 'junegunn/vim-easy-align'   -- text alignment
+  use 'tpope/vim-rsi'             -- readline keybindings
   use 'tpope/vim-scriptease'      -- utilities for vim scripts
   use 'tpope/vim-eunuch'          -- vim sugar for unix shell commands
   use 'tpope/vim-commentary'      -- good comment editing
@@ -93,6 +104,7 @@ require('packer').startup(function()
   use 'tpope/vim-rhubarb'         -- github support for fugitive
   use 'tpope/vim-repeat'          -- . works on more stuff
   use 'tpope/vim-abolish'         -- better abbrevs, searching, etc.
+  use 'tpope/vim-afterimage'      -- edit images, pdfs, and plists
   use 'sbdchd/neoformat'          -- asynchronous formatting
   use 'junegunn/vim-peekaboo'     -- peekaboo the registers
   use 'mhinz/vim-sayonara'        -- better :bd
@@ -100,9 +112,11 @@ require('packer').startup(function()
   use 'AndrewRadev/splitjoin.vim' -- splitting and joining stuff
   use 'airblade/vim-rooter'       -- cding to project roots
   use 'equalsraf/neovim-gui-shim' -- interact w/ neovim-qt
+  use 'ncm2/float-preview.nvim'   -- floating preview completion window
   -- use 'https://gitlab.com/code-stats/code-stats-vim.git'
 
-  use { -- neovim lsp integration
+  -- nvim-lspconfig {{{
+  use {
     'neovim/nvim-lspconfig',
     requires = {{'nvim-lua/lsp_extensions.nvim'}},
     config = function()
@@ -128,6 +142,7 @@ require('packer').startup(function()
         map_buf('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
         map_buf('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
         map_buf('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+        map_buf('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting_sync(nil, 2000)<CR>')
         vim.cmd([[autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()]])
         if vim.api.nvim_buf_get_option(0, 'filetype') == 'rust' then
           vim.cmd([[autocmd BufEnter,BufWritePost <buffer> ]] ..
@@ -154,7 +169,7 @@ require('packer').startup(function()
         }
       }
     end,
-  }
+  } -- }}}
 
   -- colorschemes
   local colorschemes = {
@@ -166,7 +181,6 @@ require('packer').startup(function()
     'bluz71/vim-moonfly-colors',
     'bluz71/vim-nightfly-guicolors',
     'arzg/vim-substrata',
-    'vim-scripts/burnttoast256',
     'itchyny/landscape.vim',
     'baskerville/bubblegum'
   }
@@ -174,7 +188,7 @@ require('packer').startup(function()
     use {colorscheme, opt = true}
   end
 
-  -- language support
+  -- language support {{{
   -- TODO: tree-sitter
   use 'Vimjas/vim-python-pep8-indent' -- better python indentation rules
   use 'ziglang/zig.vim'
@@ -189,45 +203,46 @@ require('packer').startup(function()
   use 'MaxMEllon/vim-jsx-pretty'      -- jsx/tsx
   use 'neovimhaskell/haskell-vim'
   -- use 'keith/swift.vim'
+  -- }}}
 
-  -- lua
+  -- lua-centric plugins {{{
   use { -- superduperfast colorizer
     'norcalli/nvim-colorizer.lua',
     config = function()
       require('colorizer').setup()
     end,
   }
+  use '~/src/prj/telescope-trampoline.nvim'
   use { -- fuzzy finding of pretty much anything
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function()
-      vim.cmd [[highlight! link TelescopeMatching MatchParen]]
+      -- vim.cmd [[highlight! link TelescopeMatching MatchParen]]
 
       local actions = require('telescope.actions')
-      require('telescope').setup {
+      local T = require('telescope')
+
+      T.setup {
         defaults = {
           prompt_prefix = '? ',
-          -- NOTE(slice): non-zero value makes the cursor invisible?
-          winblend = 0,
-          mappings = {
-            i = {
-              -- don't go into normal mode
-              ["<esc>"] = actions.close
-            }
-          }
+          winblend = 10,
+          -- don't go into normal mode, just close
+          mappings = { i = { ["<esc>"] = actions.close } }
         }
       }
+
+      T.load_extension('trampoline') -- >:D
     end
   }
-  use { -- quick terminals
-    '~/src/prj/nvim-popterm.lua',
+  use { -- fork of norcalli's popterm -- quick floating terminals
+    'slice/nvim-popterm.lua',
     config = function()
       local pt = require('popterm')
       pt.config.window_height = 0.8
       vim.cmd [[highlight! link PopTermLabel WildMenu]]
     end
   }
-  use {
+  use { -- snippets
     'norcalli/snippets.nvim',
     config = function()
       require('snippets').snippets = {
@@ -241,11 +256,39 @@ require('packer').startup(function()
       }
     end
   }
+  -- use { -- completion engine
+  --   'hrsh7th/nvim-compe',
+  --   config = function()
+  --     require('compe').setup {
+  --       enabled = true,
+  --       autocomplete = true,
+  --       min_length = 3,
+  --       preselect = 'enable',
+  --       -- throttle_time = 80,
+  --       -- source_timeout = 200,
+  --       -- resolve_timeout = 800,
+
+  --       source = {
+  --         path = true,
+  --         buffer = true,
+  --         nvim_lsp = true,
+  --         nvim_lua = true
+  --       }
+  --     }
+  --   end
+  -- }
+
+  -- use {
+  --   'nvim-lua/completion-nvim'
+  -- }
+
+  -- }}}
+
 end)
 
 -- }}}
 
-cmd('colorscheme bubblegum-256-dark')
+cmd('colorscheme seoul256')
 
 -- maps {{{
 
@@ -299,22 +342,38 @@ map('n', '<leader>tv', '<cmd>vsplit +terminal<CR>')
 map('n', '<leader>o', '<cmd>Telescope find_files<CR>')
 map('n', '<leader>i', '<cmd>Telescope oldfiles<CR>')
 map('n', '<leader>b', '<cmd>Telescope buffers<CR>')
-map('n', '<leader>qp', '<cmd>Telescope builtin<CR>')
-map('n', '<leader>qg', '<cmd>Telescope live_grep<CR>')
-map('n', '<leader>qf', '<cmd>Telescope file_browser hidden=true<CR>')
-map('n', '<leader>qc', '<cmd>Telescope colorscheme<CR>')
-map('n', '<leader>qs', '<cmd>Telescope filetypes<CR>')
 
--- vimrc; https://learnvimscriptthehardway.stevelosh.com/chapters/07.html
-map('n', '<leader>ev', "bufname('%') == '' ? '<cmd>edit $MYVIMRC<CR>' : '<cmd>vsplit $MYVIMRC<CR>'", {expr = true})
-map('n', '<leader>sv', '<cmd>luafile $MYVIMRC<CR>')
+map('n', '<leader>lp', "<cmd>lua require'telescope'.extensions.trampoline.trampoline.project{}<CR>")
+map('n', '<leader>lt', '<cmd>Telescope builtin<CR>')
+map('n', '<leader>lg', '<cmd>Telescope live_grep<CR>')
+map('n', '<leader>lb', '<cmd>Telescope file_browser hidden=true<CR>')
+map('n', '<leader>lc', '<cmd>Telescope colorscheme<CR>')
+map('n', '<leader>lls', '<cmd>Telescope lsp_workspace_symbols<CR>')
+map('n', '<leader>llr', '<cmd>Telescope lsp_references<CR>')
+map('n', '<leader>lla', '<cmd>Telescope lsp_code_actions<CR>')
+
+-- vimrc; https://learnvimscriptthehardway.stevelosh.com/chapters/08.html
+map('n', '<leader>ve', "bufname('%') == '' ? '<cmd>edit $MYVIMRC<CR>' : '<cmd>vsplit $MYVIMRC<CR>'", {expr = true})
+map('n', '<leader>vs', '<cmd>luafile $MYVIMRC<CR>')
 
 -- packer; formerly plug
--- XXX: not showing windows sometimes, bug?
 map('n', '<leader>pi', '<cmd>PackerInstall<CR>')
 map('n', '<leader>pu', '<cmd>PackerUpdate<CR>')
 map('n', '<leader>ps', '<cmd>PackerSync<CR>')
 map('n', '<leader>pc', '<cmd>PackerCompile<CR>')
+
+-- compe
+-- function _G.compe()
+--   if vim.fn.pumvisible() == 1 then
+--     -- if the popup menu is already visible, pass the key through
+--     return vim.api.nvim_replace_termcodes("<c-n>", true, true, true)
+--   else
+--     -- invoke compe
+--     return vim.fn['compe#complete']()
+--   end
+-- end
+
+-- map('i', '<c-n>', 'v:lua.compe()', {expr=true})
 
 -- neoformat
 map('n', '<leader>nf', '<cmd>Neoformat<CR>')
@@ -336,12 +395,15 @@ map('v', 'Q', 'gq', {noremap = false})
 -- replace :bdelete with sayonara
 map('c', 'bd', 'Sayonara!')
 
+-- quick access to telescope
+map('c', 'Ts', 'Telescope')
+
 -- snippets.nvim
 map('i', '<c-l>', "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
 map('i', '<c-h>', "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
 
--- sometimes i hold down shift for too long ^_^;
 local command_aliases = {
+  -- sometimes i hold down shift for too long o_o
   W = 'w',
   Wq = 'wq',
   Wqa = 'wqa',
@@ -380,7 +442,20 @@ end
 aug('colorschemes', {
   'ColorScheme bubblegum-256-dark highlight Todo gui=bold'
     .. ' | highlight Folded gui=reverse'
-    .. ' | highlight! link MatchParen LineNr'
+    .. ' | highlight! link MatchParen LineNr',
+  -- style floating windows legible for popterms; make comments italic
+  'ColorScheme landscape highlight NormalFloat guifg=#dddddd guibg=#222222'
+    .. ' | highlight Comment guifg=#999999 gui=italic'
+})
+
+aug('completion', {
+  -- "BufEnter * lua require'completion'.on_attach()"
+  -- 'CompleteDone * if pumvisible() == 0 | pclose | endif'
+})
+
+aug('filetypes', {
+  -- enable spellchecking in git commits, reformat paragraphs as you type
+  'FileType gitcommit setlocal spell formatoptions=tan | normal ] '
 })
 
 -- highlight when yanking (built-in)
@@ -442,23 +517,17 @@ aug(
 
 -- gui {{{
 
--- configure gui, neovim-qt is assumed to be used
+g.neovide_cursor_animation_length = 0.0125
+g.neovide_cursor_trail_length = 3
+g.neovide_cursor_vfx_mode = "pixiedust"
+g.neovide_cursor_vfx_particle_density = 10
+opt.guifont = "PragmataPro Mono:h16"
 
-function apply_gui_settings()
-  -- TODO: make this compatible on other platforms
-  -- XXX: this depends on neovim-gui-shim, see plugins section
-  cmd [[Guifont! Fira Mono:h10.5]]
-  cmd [[GuiScrollBar 1]]
-  cmd [[GuiPopupmenu 0]]
-end
+-- }}}
 
--- make this a command for easy reinvocation :)
-cmd('command! ApplyGUISettings :lua apply_gui_settings()<CR>')
+-- highlights {{{
 
--- XXX: it seems like Guifont only exists if we're in a GUI that supports it.
-if vim.fn.exists('Guifont') then
-  -- cmd [[echom "omg!"]]
-  -- apply_gui_settings()
-end
+-- cmd [[highlight! link Sneak IncSearch]]
+-- cmd [[highlight! link SneakLabel IncSearch]]
 
 -- }}}
